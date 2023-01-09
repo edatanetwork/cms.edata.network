@@ -51,7 +51,7 @@ const Filterbar = () => {
   }
 
   return (
-    <Styled.Filterbar>
+    <Styled.Filterbar columns='repeat(6, 1fr)'>
       <Styled.Dropdown
         unstyled
         isLoading={isLoadingCategories}

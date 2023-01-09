@@ -7,7 +7,7 @@ export const Filterbar = styled.div`
   display: flex;
   border-bottom: ${({ theme }) => theme.borderGray};
   display: grid;
-  grid-template-columns: repeat(6, 1fr);
+  grid-template-columns: ${props => props.columns && props.columns};
 
   & > div:has(input[type='date']) {
     display: flex;

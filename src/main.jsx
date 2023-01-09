@@ -17,7 +17,11 @@ const theme = {
   clrGray: '#EBEEF1',
   clrBlack50: 'rgba(0,0,0,0.5)',
   borderGray: '1px solid #EBEEF1',
-  clrLightGray: '#f7f7f7'
+  clrLightGray: '#f7f7f7',
+  topbarHeight: '4.5rem',
+  filterbarHeight: '4rem',
+  tableRowHeight: '50px',
+  paginationHeight: '3rem'
 }
 
 ReactDOM.createRoot(document.getElementById('root')).render(

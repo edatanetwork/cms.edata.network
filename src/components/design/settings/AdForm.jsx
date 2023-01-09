@@ -1,16 +1,15 @@
-// import { useEffect } from 'react'
+import { useEffect } from 'react'
 
-// import { useDispatch } from 'react-redux'
-// import { useSelector } from 'react-redux'
+import { useDispatch, useSelector } from 'react-redux'
 
 import { useForm, Controller } from 'react-hook-form'
 import * as yup from 'yup'
 import { yupResolver } from '@hookform/resolvers/yup'
 
-// import { throwToast } from 'utils/throwToast'
+import { throwToast } from 'utils/throwToast'
 
-// import { clearCurrent } from 'features/currentSlice'
-// import { useCreateAdMutation, useUpdateAdMutation } from 'app/services/ads'
+import { clearCurrent } from 'features/currentSlice'
+import { useCreateAdMutation, useUpdateAdMutation } from 'app/services/ads'
 
 import Field from 'components/common/Field'
 import { Form } from 'components/styled/common/Form.styled'
@@ -19,24 +18,36 @@ import { Textarea } from 'components/styled/common/Field.styled'
 import { Dropdown } from 'components/styled/common/Dropdown.styled'
 
 const schema = yup.object({
-  zone: yup.string().required('Zone is required!'),
-  browser: yup.string().required('Type is required!'),
-  type: yup.string().required('Type is required!'),
-  status: yup.string().required('Status is required!'),
+  zone: yup
+    .string()
+    .typeError('Zone is required!')
+    .required('Zone is required!'),
+  browsers: yup
+    .string()
+    .typeError('Type is required!')
+    .required('Type is required!'),
+  type: yup
+    .string()
+    .typeError('Type is required!')
+    .required('Type is required!'),
+  status: yup
+    .boolean()
+    .typeError('Status is required!')
+    .required('Status is required!'),
   title: yup.string().required('Title is required!'),
   code: yup.string().required('Code is required!')
 })
 
 const AdForm = () => {
-  // const dispatch = useDispatch()
-  // const domain_id = useSelector(state => state.domain.domain_id)
-  // const current = useSelector(state => state.current.current)
+  const dispatch = useDispatch()
+  const domain_id = useSelector(state => state.domain.domain_id)
+  const current = useSelector(state => state.current.current)
 
-  // const [createAd] = useCreateAdMutation()
-  // const [updateAd] = useUpdateAdMutation()
+  const [createAd] = useCreateAdMutation()
+  const [updateAd] = useUpdateAdMutation()
 
   const {
-    // reset,
+    reset,
     control,
     register,
     handleSubmit,
@@ -46,8 +57,38 @@ const AdForm = () => {
   })
 
   const onSubmit = data => {
-    return data
+    if (current) {
+      const promise = updateAd({ id: current.id, body: data }).unwrap()
+      throwToast(promise, 'Updating Ad!', 'Ad updated!')
+      dispatch(clearCurrent())
+    } else {
+      const promise = createAd({ ...data, domain_id }).unwrap()
+      throwToast(promise, 'Creating Ad!', 'Ad created!')
+      reset()
+    }
   }
+
+  useEffect(() => {
+    if (current) {
+      reset({
+        zone: current.zone,
+        browsers: current.browsers,
+        type: current.type,
+        status: current.status,
+        title: current.title,
+        code: current.code
+      })
+    } else {
+      reset({
+        zone: null,
+        browsers: null,
+        type: null,
+        status: null,
+        title: '',
+        code: ''
+      })
+    }
+  }, [current])
 
   return (
     <Form id='ad' onSubmit={handleSubmit(onSubmit)}>
@@ -55,7 +96,7 @@ const AdForm = () => {
         <Controller
           name='zone'
           control={control}
-          render={({ field: { onChange } }) => (
+          render={({ field: { value, onChange } }) => (
             <Dropdown
               unstyled
               isClearable
@@ -64,17 +105,22 @@ const AdForm = () => {
               classNamePrefix='select'
               placeholder='Select a zone'
               options={zones}
+              value={
+                zones.find(opt => opt.value === value)
+                  ? zones.find(opt => opt.value === value)
+                  : null
+              }
               onChange={option => onChange(option ? option.value : undefined)}
             />
           )}
         />
       </Field>
 
-      <Field label='Browser*' htmlFor='browser' error={errors.browser}>
+      <Field label='Browser*' htmlFor='browser' error={errors.browsers}>
         <Controller
-          name='browser'
+          name='browsers'
           control={control}
-          render={({ field: { onChange } }) => (
+          render={({ field: { value, onChange } }) => (
             <Dropdown
               unstyled
               isClearable
@@ -83,6 +129,11 @@ const AdForm = () => {
               classNamePrefix='select'
               placeholder='Select a browser'
               options={browsers}
+              value={
+                browsers.find(opt => opt.value === value)
+                  ? browsers.find(opt => opt.value === value)
+                  : null
+              }
               onChange={option => onChange(option ? option.value : undefined)}
             />
           )}
@@ -93,7 +144,7 @@ const AdForm = () => {
         <Controller
           name='type'
           control={control}
-          render={({ field: { onChange } }) => (
+          render={({ field: { value, onChange } }) => (
             <Dropdown
               unstyled
               isClearable
@@ -102,6 +153,11 @@ const AdForm = () => {
               classNamePrefix='select'
               placeholder='Select a type'
               options={types}
+              value={
+                types.find(opt => opt.value === value)
+                  ? types.find(opt => opt.value === value)
+                  : null
+              }
               onChange={option => onChange(option ? option.value : undefined)}
             />
           )}
@@ -112,7 +168,7 @@ const AdForm = () => {
         <Controller
           name='status'
           control={control}
-          render={({ field: { onChange } }) => (
+          render={({ field: { value, onChange } }) => (
             <Dropdown
               unstyled
               isClearable
@@ -121,6 +177,11 @@ const AdForm = () => {
               classNamePrefix='select'
               placeholder='Select status'
               options={status}
+              value={
+                status.find(opt => opt.value === value)
+                  ? status.find(opt => opt.value === value)
+                  : null
+              }
               onChange={option => onChange(option ? option.value : undefined)}
             />
           )}
@@ -153,8 +214,8 @@ const zones = [
 ]
 
 const status = [
-  { label: 'Active', value: 1 },
-  { label: 'Inactive', value: 0 }
+  { label: 'Active', value: true },
+  { label: 'Inactive', value: false }
 ]
 
 const browsers = [

@@ -8,7 +8,7 @@ export const AdTable = styled(Table)`
   }
 
   tr {
-    grid-template-columns: 2fr 2fr 0.6fr 0.5fr;
+    grid-template-columns: 1fr 1fr 1fr 0.6fr 0.5fr;
   }
 `
 
@@ -23,7 +23,7 @@ export const DomainTable = styled(Table)`
     grid-template-columns: 2fr 1fr;
   }
 
-  td:last-of-type {
+  td:last-of-type:not(:has(svg)) {
     justify-content: center;
   }
 `

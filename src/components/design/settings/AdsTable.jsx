@@ -70,7 +70,11 @@ const Ad = () => {
             </Row>
           ) : (
             domains.map(domain => (
-              <Row key={domain.id}>
+              <Row
+                key={domain.id}
+                active={domain_id === domain.id}
+                onClick={() => dispatch(setDomainId(domain.id))}
+              >
                 <Cell>{domain.name}</Cell>
                 <Cell>{domain.ads_no}</Cell>
               </Row>
@@ -84,6 +88,7 @@ const Ad = () => {
           <Row>
             <Cell>Zone</Cell>
             <Cell>Type</Cell>
+            <Cell>Title</Cell>
             <Cell>Status</Cell>
           </Row>
         </Head>
@@ -105,6 +110,7 @@ const Ad = () => {
                     ).replace('_', ' ')}
                   </Cell>
                   <Cell>{ad.type}</Cell>
+                  <Cell>{ad.title}</Cell>
                   <Cell>{ad.status === true ? 'Active' : 'Inactive'}</Cell>
                   <Cell>
                     <EditDeleteButtons

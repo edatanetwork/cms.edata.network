@@ -99,4 +99,22 @@ export const Textarea = styled.textarea`
   outline: none;
   padding-top: 0.65rem;
   padding-inline: 24px;
+  flex-grow: 1;
+
+  ::-webkit-scrollbar {
+    width: 7px;
+  }
+
+  ::-webkit-scrollbar-track {
+    background: #ededed;
+  }
+
+  ::-webkit-scrollbar-thumb {
+    background: #ceced8;
+    border-radius: 10px;
+  }
+
+  ::-webkit-scrollbar-thumb:hover {
+    background: #555;
+  }
 `

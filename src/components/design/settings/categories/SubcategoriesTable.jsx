@@ -24,6 +24,7 @@ const SubcategoriesTable = () => {
   const dispatch = useDispatch()
   const { data, isLoading, isFetching } = useGetCategoriesQuery()
   const parent_id = useSelector(state => state.category.parent_id)
+  const current = useSelector(state => state.current.current)
 
   const [deleteCategory] = useDeleteCategoryMutation()
 
@@ -51,8 +52,8 @@ const SubcategoriesTable = () => {
           ) : (
             data
               .find(el => el.id === parent_id)
-              ?.subcategories.map(el => (
-                <Row key={el.id}>
+              ?.subcategories?.map(el => (
+                <Row key={el.id} active={current && current.id === el.id}>
                   <Cell>{el.title}</Cell>
                   <Cell>{el.posts_number}</Cell>
                   <Cell>

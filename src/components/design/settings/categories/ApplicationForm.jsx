@@ -1,5 +1,6 @@
-import { useEffect, useState } from 'react'
-import { useForm } from 'react-hook-form'
+import { useEffect } from 'react'
+
+import { useForm, Controller } from 'react-hook-form'
 import { yupResolver } from '@hookform/resolvers/yup'
 import * as yup from 'yup'
 
@@ -19,7 +20,14 @@ import { Form } from 'components/styled/common/Form.styled'
 import { Input } from 'components/styled/common/Field.styled'
 
 const applicationSchema = yup.object({
-  name: yup.string().required('Title is required!')
+  name: yup.string().required('Name is required!'),
+  color: yup
+    .string()
+    .required('Color is required!')
+    .matches(
+      /^#(?:[0-9a-fA-F]{3}){1,2}$/,
+      'Color must be in HEX format: #000000'
+    )
 })
 
 const ApplicationForm = () => {
@@ -28,10 +36,10 @@ const ApplicationForm = () => {
   const [createApplication] = useCreateApplicationMutation()
   const [updateApplication] = useUpdateApplicationMutation()
 
-  const [thumbnails, setThumbnails] = useState([])
-
   const {
     reset,
+    watch,
+    control,
     register,
     handleSubmit,
     formState: { errors }
@@ -41,66 +49,68 @@ const ApplicationForm = () => {
 
   const onSubmit = data => {
     if (current) {
-      const body = createFormData(data, thumbnails)
+      const body = createFormData(data)
       const promise = updateApplication({ id: current.id, body })
       throwToast(promise, 'Updating application!', 'Application updated!')
       dispatch(clearCurrent())
     } else {
-      const body = createFormData(data, thumbnails)
+      const body = createFormData(data)
       const promise = createApplication(body).unwrap()
       throwToast(promise, 'Creating application!', 'Application created!')
       reset()
-      setThumbnails([])
     }
   }
 
   useEffect(() => {
     if (current) {
       reset({
-        name: current.name
+        name: current.name,
+        color: current.color,
+        icons: current.thumbnails
       })
-      current.thumbnails
-        ? setThumbnails([...current.thumbnails])
-        : setThumbnails([])
     } else {
       reset({
-        name: ''
+        name: '',
+        color: '',
+        icons: []
       })
-      setThumbnails([])
     }
     // eslint-disable-next-line
   }, [current])
 
   return (
     <Form id='application' onSubmit={handleSubmit(onSubmit)}>
-      <Field label='Title' htmlFor='title' error={errors.name}>
-        <Input id='title' placeholder='Enter app title' {...register('name')} />
+      <Field label='Name' htmlFor='name' error={errors.name}>
+        <Input id='name' placeholder='Enter app title' {...register('name')} />
       </Field>
-      <IconField files={thumbnails} setFiles={setThumbnails} />
+      <Field label='Color (Hex)*' htmlFor='color' error={errors.color}>
+        <Input id='color' type='text' placeholder='#' {...register('color')} />
+      </Field>
+      <Controller
+        name='icons'
+        control={control}
+        render={({ field: { value, onChange } }) => (
+          <IconField value={value} onChange={onChange} watch={watch} />
+        )}
+      />
     </Form>
   )
 }
 
 export default ApplicationForm
 
-const createFormData = (data, logo) => {
+const createFormData = data => {
   const formData = new FormData()
 
-  for (const key in data) {
-    if (!Array.isArray(data[key]) && data[key] !== false) {
-      formData.append(key, data[key])
+  formData.append('name', data.name)
+  formData.append('color', data.color)
+  data.icons.forEach((icon, i) => {
+    if (icon.id) {
+      formData.append(`thumbnails[${i}]`, icon.id)
+    } else {
+      formData.append(`thumbnails[${i}]`, icon)
     }
-  }
-
-  if (logo.length) {
-    for (const i in logo) {
-      if (logo[i].id) {
-        formData.append(`thumbnails[${i}]`, logo[i].id)
-      } else {
-        formData.append(`thumbnails[${i}]`, logo[i])
-      }
-    }
-  }
+  })
 
   return formData
 }

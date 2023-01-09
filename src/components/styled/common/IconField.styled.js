@@ -43,6 +43,7 @@ export const Item = styled.li`
   height: 50px;
   border: 1px solid #cfd6de;
   border-radius: 4px;
+  font-size: 12px;
 
   div {
     margin-left: auto;

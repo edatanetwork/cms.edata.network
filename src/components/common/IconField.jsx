@@ -6,19 +6,27 @@ import { generateImageUrl } from 'utils/generateImageUrl'
 import Icon, { IconTypes } from 'components/common/Icon'
 import * as Styled from 'components/styled/common/IconField.styled'
 
-const IconField = ({ files, setFiles }) => {
+const IconField = ({ value, onChange, watch }) => {
   const onDrop = useCallback(acceptedFiles => {
+    const existingFiles = watch('icons')
     const newFiles = acceptedFiles.map(file =>
       Object.assign(file, {
         preview: URL.createObjectURL(file)
       })
     )
-    setFiles(prev => [...prev, ...newFiles])
+
+    if (existingFiles) {
+      onChange([...existingFiles, ...newFiles])
+    } else {
+      onChange(newFiles)
+    }
+
     // eslint-disable-next-line
   }, [])
 
-  const handleDelete = idx => {
-    setFiles([...files.filter((_img, i) => i !== idx)])
+  const handleDelete = file => {
+    const remainingFiles = value.filter(el => el.preview !== file.preview)
+    onChange(remainingFiles)
   }
 
   const { getRootProps, getInputProps } = useDropzone({
@@ -31,11 +39,11 @@ const IconField = ({ files, setFiles }) => {
   return (
     <div>
       <Styled.Label>Icons</Styled.Label>
-      {files.length > 0 && (
+      {value && (
         <Styled.Preview>
-          {files.map((file, i) => (
+          {value.map((file, i) => (
             <Styled.Item key={i}>
-              <button type='button' onClick={() => handleDelete(i)}>
+              <button type='button' onClick={() => handleDelete(file)}>
                 <Icon type={IconTypes.cross} />
               </button>
               Style {i + 1}

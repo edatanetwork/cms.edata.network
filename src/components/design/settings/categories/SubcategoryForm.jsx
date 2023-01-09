@@ -1,8 +1,8 @@
-import { useEffect, useState } from 'react'
+import { useEffect } from 'react'
 import { useDispatch } from 'react-redux'
 import { useSelector } from 'react-redux'
 
-import { useForm } from 'react-hook-form'
+import { useForm, Controller } from 'react-hook-form'
 import { yupResolver } from '@hookform/resolvers/yup'
 import * as yup from 'yup'
 
@@ -15,12 +15,19 @@ import {
 import { clearCurrent } from 'features/currentSlice'
 
 import Field from 'components/common/Field'
-import IconField from 'components/common/IconField'
+import SingleIconField from 'components/common/SingleIconField'
 import { Form } from 'components/styled/common/Form.styled'
 import { Input } from 'components/styled/common/Field.styled'
 
 const subCategorySchema = yup.object({
-  title: yup.string().required('Title is required!')
+  title: yup.string().required('Title is required!'),
+  color: yup
+    .string()
+    .required('Color is required!')
+    .matches(
+      /^#(?:[0-9a-fA-F]{3}){1,2}$/,
+      'Color must be in HEX format: #000000'
+    )
 })
 
 const SubcategoryForm = () => {
@@ -30,10 +37,9 @@ const SubcategoryForm = () => {
   const [createCategory] = useCreateCategoryMutation()
   const [updateCategory] = useUpdateCategoryMutation()
 
-  const [icons, setIcons] = useState([])
-
   const {
     reset,
+    control,
     register,
     handleSubmit,
     formState: { errors }
@@ -43,50 +49,26 @@ const SubcategoryForm = () => {
 
   const onSubmit = data => {
     if (current) {
-      if (icons.preview.includes('blob')) {
-        const formData = new FormData()
-        for (const key in data) {
-          formData.append(key, data[key])
-        }
-        if (icons) {
-          formData.append('icons', icons)
-        }
-        const promise = updateCategory({
-          id: current.id,
-          body: formData
-        }).unwrap()
-        throwToast(promise, 'Updating subcategory!', 'Subcategory created!')
-        reset()
-        setIcons(null)
-      } else {
-        const promise = updateCategory({ id: current.id, body: data }).unwrap()
-        throwToast(promise, 'Updating subcategory!', 'Subcategory updated!')
-        reset()
-        dispatch(clearCurrent())
-      }
+      const body = createFormData(data, parent_id)
+      const promise = updateCategory({
+        id: current.id,
+        body
+      }).unwrap()
+      throwToast(promise, 'Updating subcategory!', 'Subcategory created!')
+      dispatch(clearCurrent())
     } else {
-      const formData = new FormData()
-      for (const key in data) {
-        formData.append(key, data[key])
-      }
-      if (icons) {
-        formData.append('icons', icons)
-      }
-      formData.append('parent_id', parent_id)
-      const promise = createCategory(formData).unwrap()
+      const body = createFormData(data, parent_id)
+      const promise = createCategory(body).unwrap()
       throwToast(promise, 'Creating subcategory!', 'Subcategory created!')
       reset()
-      setIcons([])
     }
   }
 
   useEffect(() => {
     if (current) {
-      reset({ title: current.title })
-      setIcons(current.icon === null ? null : { preview: current.icon })
+      reset({ title: current.title, color: current.color, icon: current.icon })
     } else {
-      reset({ title: '' })
-      setIcons([])
+      reset({ title: '', color: '', icon: null })
     }
   }, [current])
 
@@ -100,9 +82,30 @@ const SubcategoryForm = () => {
           {...register('title')}
         />
       </Field>
-      <IconField files={icons} setFiles={setIcons} />
+      <Field label='Color (Hex)*' htmlFor='color' error={errors.color}>
+        <Input id='color' type='text' placeholder='#' {...register('color')} />
+      </Field>
+      <Controller
+        name='icon'
+        control={control}
+        render={({ field: { value, onChange } }) => (
+          <SingleIconField value={value} onChange={onChange} />
+        )}
+      />
     </Form>
   )
 }
 
 export default SubcategoryForm
+
+const createFormData = (data, parent_id) => {
+  const formData = new FormData()
+  formData.append('parent_id', parent_id)
+  formData.append('title', data.title)
+  formData.append('color', data.color)
+
+  if (data.icon !== undefined && data.icon !== null && data.icon.preview)
+    formData.append('icon', data.icon)
+
+  return formData
+}

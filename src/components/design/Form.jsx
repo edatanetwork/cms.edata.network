@@ -62,16 +62,13 @@ const PostForm = () => {
       .required('Download url is required')
       .url('Please enter a valid URL!'),
     iframe_valid: yup.boolean(),
-    redirect_id: yup
-      .number()
-      .typeError('Redirect is required!')
-      .when('iframe_valid', {
-        is: true,
-        then: yup
-          .number()
-          .typeError('Redirect is required!')
-          .required('Redirect is required!')
-      })
+    redirect_id: yup.mixed().when('iframe_valid', {
+      is: true,
+      then: yup
+        .number()
+        .typeError('Redirect is required!')
+        .required('Redirect is required!')
+    })
   })
 
   const {
@@ -202,13 +199,7 @@ const PostForm = () => {
     if (!watch('iframe_valid') && !loadingRedirects) {
       unregister('redirect_id')
     }
-  }, [watch('iframe_valid')])
-
-  useEffect(() => {
-    if (!current) {
-      setValue('iframe_valid', false)
-    }
-  }, [])
+  }, [watch('iframe_valid'), loadingRedirects])
 
   const categoriesWithSubcategories = categories?.filter(
     category => category.subcategories
@@ -261,17 +252,7 @@ const PostForm = () => {
           {...register('post_download_link')}
         />
         {downloadLinkError && <span>Duplicate</span>}
-        <Controller
-          name='iframe_valid'
-          control={control}
-          render={({ field: { value, onChange } }) => (
-            <input
-              type='checkbox'
-              defaultChecked={value}
-              onChange={e => onChange(e.target.checked)}
-            />
-          )}
-        />
+        <input type='checkbox' {...register('iframe_valid')} />
       </Field>
       {(watch('post_download_link') !== '' ||
         watch('post_download_link') === undefined) && (
@@ -408,7 +389,9 @@ const createFormData = ({ data, images, file }) => {
 
   for (const key in data) {
     if (data[key] !== null) {
-      formData.append(key, data[key])
+      if (data[key] !== '') {
+        formData.append(key, data[key])
+      }
     }
   }
 

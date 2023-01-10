@@ -22,6 +22,7 @@ const Navbar = ({ path }) => {
               className={({ isActive }) => (isActive ? 'active' : undefined)}
               to={el.path}
             >
+              <Icon type={el.icon} />
               {el.label}
             </NavLink>
           </Styled.PrimaryNavItem>
@@ -55,19 +56,23 @@ export default Navbar
 const primaryNav = [
   {
     label: 'Sports',
-    path: '/sports'
+    path: '/sports',
+    icon: IconTypes.ball
   },
   {
     label: 'TV',
-    path: '/tv'
+    path: '/tv',
+    icon: IconTypes.tv
   },
   {
     label: 'Movies',
-    path: '/movies'
+    path: '/movies',
+    icon: IconTypes.videoCamera
   },
   {
     label: 'Design',
-    path: '/design'
+    path: '/design',
+    icon: IconTypes.layers
   }
 ]
 

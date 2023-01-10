@@ -36,6 +36,9 @@ export const PrimaryNavItem = styled.li`
 
   a {
     text-transform: uppercase;
+    display: flex;
+    align-items: center;
+    gap: 0.75rem;
   }
 `
 
@@ -50,7 +53,7 @@ export const SecondaryNavItem = styled.li`
   a {
     display: flex;
     align-items: center;
-    gap: 1rem;
+    gap: 0.75rem;
     transition: color 150ms linear;
 
     svg {

@@ -15,6 +15,7 @@ module.exports = {
     'react/react-in-jsx-scope': 'off',
     'react/no-unescaped-entities': 0,
     'react/prop-types': 'off',
+    'react/display-name': 'off',
     'no-constant-condition': 'warn',
     'no-unused-vars': 'warn',
     'no-console': 'warn'

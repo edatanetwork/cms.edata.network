@@ -5,6 +5,7 @@ import Login from 'pages/Login'
 import NotFound from 'pages/NotFound'
 import Design from 'pages/Design'
 import Sports from 'pages/Sports'
+import TV from 'pages/TV'
 
 const App = () => {
   return (
@@ -14,6 +15,7 @@ const App = () => {
         <Route element={<ProtectedRoute />}>
           <Route path='/design/*' element={<Design />} />
           <Route path='/sports/*' element={<Sports />} />
+          <Route path='/tv/*' element={<TV />} />
         </Route>
         <Route path='*' element={<NotFound />} />
       </Routes>

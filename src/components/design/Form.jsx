@@ -80,7 +80,6 @@ const PostForm = () => {
     control,
     register,
     setValue,
-    getValues,
     unregister,
     handleSubmit,
     formState: { errors }
@@ -200,13 +199,15 @@ const PostForm = () => {
   }, [current, watch('post_download_link')])
 
   useEffect(() => {
-    if (!getValues('iframe_valid') && !loadingRedirects) {
+    if (!watch('iframe_valid') && !loadingRedirects) {
       unregister('redirect_id')
     }
-  }, [getValues('iframe_valid')])
+  }, [watch('iframe_valid')])
 
   useEffect(() => {
-    setValue('iframe_valid', false)
+    if (!current) {
+      setValue('iframe_valid', false)
+    }
   }, [])
 
   const categoriesWithSubcategories = categories?.filter(

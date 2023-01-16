@@ -9,14 +9,15 @@ import {
 } from 'components/styled/pages/tv/CategoryTable.styled'
 import { Head, Body, Row, Cell } from 'components/styled/common/Table.styled'
 
-const LanguagesTable = () => {
+const GenreTable = () => {
   const navigate = useNavigate()
+
   return (
     <TableWrapper>
       <CategoryTable>
         <Head>
           <Row>
-            <Cell>Languages</Cell>
+            <Cell>Genre</Cell>
           </Row>
         </Head>
         <Body>
@@ -26,7 +27,7 @@ const LanguagesTable = () => {
             </Cell>
           </Row>
           <Row>
-            <Cell>Abkhaz</Cell>
+            <Cell>Newsaa</Cell>
             <Cell>
               <EditDeleteButtons />
             </Cell>
@@ -34,9 +35,7 @@ const LanguagesTable = () => {
         </Body>
       </CategoryTable>
       <div>
-        <RoundButton
-          onClick={() => navigate('/tv/settings/categories/languages')}
-        >
+        <RoundButton onClick={() => navigate('/tv/settings/categories')}>
           <Icon type={IconTypes.plusCircle} />
           Add new
         </RoundButton>
@@ -45,4 +44,4 @@ const LanguagesTable = () => {
   )
 }
 
-export default LanguagesTable
+export default GenreTable

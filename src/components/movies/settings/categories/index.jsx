@@ -1,5 +1,5 @@
 import { Grid } from 'components/styled/common/Grid.styled'
-import GenreTable from 'components/tv/settings/categories/GenreTable'
+import GenreTable from 'components/movies/settings/categories/GenreTable'
 import CountriesTable from 'components/common/categories/CountriesTable'
 import LanguagesTable from 'components/common/categories/LanguagesTable'
 

@@ -26,7 +26,7 @@ export const Sort = styled.button`
   background-color: transparent;
   border: 0;
   transition: background-color 150ms ease-in-out;
-  margin-left: -0.2rem;
+  margin-left: -0.5rem;
   color: ${({ theme }) => theme.clrBlack50};
   cursor: pointer;
 
@@ -179,10 +179,12 @@ export const SportEventsTable = styled.div`
   }
 `
 
+const tvTableCoulmns = '4fr 2fr 1fr 1fr 1.5fr 1fr'
+
 export const TvEventsTable = styled.div`
   ${Head} {
     ${Row} {
-      grid-template-columns: 4fr 4fr 1.5fr 1fr 1fr 1fr;
+      grid-template-columns: ${tvTableCoulmns};
 
       ${Cell} {
         :nth-of-type(3) {
@@ -194,7 +196,7 @@ export const TvEventsTable = styled.div`
 
   ${Body} {
     ${Row} {
-      grid-template-columns: 2rem 4fr 4fr 1.5fr 1fr 1fr 1fr;
+      grid-template-columns: 2rem ${tvTableCoulmns};
 
       ${Cell} {
         :nth-of-type(4) {
@@ -210,7 +212,7 @@ export const TvEventsTable = styled.div`
     }
 
     ${AccordionRow} {
-      grid-template-columns: 2rem 4fr 4fr 1.5fr 1fr 1fr 1fr;
+      grid-template-columns: 2rem 4fr 3fr 1.5fr 1fr 1.2fr 1fr;
 
       ${Cell} {
         :nth-of-type(4) {
@@ -230,13 +232,13 @@ export const TvEventsTable = styled.div`
 export const MovieEventsTable = styled.div`
   ${Head} {
     ${Row} {
-      grid-template-columns: 3.5fr 2fr 1.5fr 1fr 1fr 1.5fr 1fr;
+      grid-template-columns: 3.5fr 2fr 1.5fr 1fr 1fr 1.2fr 1fr;
     }
   }
 
   ${Body} {
     ${Row} {
-      grid-template-columns: 2rem 3.5fr 2fr 1.5fr 1fr 1fr 1.5fr 1fr;
+      grid-template-columns: 2rem 3.5fr 2fr 1.5fr 1fr 1fr 1.2fr 1fr;
 
       ${Cell} {
         img {

@@ -20,7 +20,6 @@ const TvEventForm1 = ({ methods }) => {
 
   return (
     <>
-      <Stepper activeStep={activeStep} setActiveStep={setActiveStep} />
       <Form id='tv-event' onSubmit={onSubmit}>
         <InputWithImage
           label='Channel Name'
@@ -31,6 +30,7 @@ const TvEventForm1 = ({ methods }) => {
         {activeStep === 1 && <Step1 />}
         {activeStep === 2 && <Step2 />}
       </Form>
+      <Stepper activeStep={activeStep} setActiveStep={setActiveStep} />
     </>
   )
 }

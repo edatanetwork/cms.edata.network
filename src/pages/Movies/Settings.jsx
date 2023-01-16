@@ -3,7 +3,7 @@ import { Routes, Route } from 'react-router-dom'
 import Settings from 'components/common/Settings'
 import Topbar from 'layout/Topbar'
 import Sidebar from 'layout/Sidebar'
-import Categories from 'components/tv/settings/categories'
+import Categories from 'components/movies/settings/categories'
 
 import { Grid } from 'components/styled/common/Grid.styled'
 
@@ -12,7 +12,7 @@ const SettingsPage = () => {
     <Grid columns='1fr auto'>
       <Grid rows='auto 1fr'>
         <Topbar />
-        <Settings path='/tv'>
+        <Settings path='/movies'>
           <Route path='/categories/*' element={<Categories />} />
           <Route path='/domains' element='[domains]' />
           <Route path='/tags' element='[tags]' />

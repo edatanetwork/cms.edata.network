@@ -1,7 +1,8 @@
 import { useState } from 'react'
-import * as S from 'components/styled/common/AccordionTable.styled'
 
+import FavEditDel from 'components/common/FavEditDel'
 import Votes from 'components/common/VoteCount'
+import * as S from 'components/styled/common/AccordionTable.styled'
 
 const MovieEventRow = () => {
   const [isActive, setIsActive] = useState(false)
@@ -24,7 +25,9 @@ const MovieEventRow = () => {
         <S.Cell>1392</S.Cell>
         <S.Cell>Gerinzo</S.Cell>
         <S.Cell>12.11.2021 20:45</S.Cell>
-        <S.Cell>Actions</S.Cell>
+        <S.Cell>
+          <FavEditDel />
+        </S.Cell>
       </S.Row>
       {isActive && (
         <S.AccordionRow>
@@ -37,7 +40,9 @@ const MovieEventRow = () => {
           <S.Cell>Alb</S.Cell>
           <S.Cell>English</S.Cell>
           <S.Cell>Mobile</S.Cell>
-          <S.Cell>Actions</S.Cell>
+          <S.Cell>
+            <FavEditDel />
+          </S.Cell>
         </S.AccordionRow>
       )}
     </>

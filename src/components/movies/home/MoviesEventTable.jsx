@@ -1,24 +1,40 @@
 import MovieEventRow from './MovieEventRow'
 
-import * as Styled from 'components/styled/common/AccordionTable.styled'
+import Icon, { IconTypes } from 'components/common/Icon'
+import * as S from 'components/styled/common/AccordionTable.styled'
 
 const MovieEventsTable = () => {
   return (
-    <Styled.MovieEventsTable>
-      <Styled.Head>
-        <Styled.Row>
-          <Styled.Cell>Title</Styled.Cell>
-          <Styled.Cell>Genre</Styled.Cell>
-          <Styled.Cell>Duration</Styled.Cell>
-          <Styled.Cell>Views</Styled.Cell>
-          <Styled.Cell>Author</Styled.Cell>
-          <Styled.Cell>Date</Styled.Cell>
-        </Styled.Row>
-      </Styled.Head>
-      <Styled.Body>
+    <S.MovieEventsTable>
+      <S.Head>
+        <S.Row>
+          <S.Cell>Title</S.Cell>
+          <S.Cell>Genre</S.Cell>
+          <S.Cell>Duration</S.Cell>
+          <S.Cell>
+            <S.Sort>
+              Views
+              <Icon type={IconTypes.arrows} />
+            </S.Sort>
+          </S.Cell>
+          <S.Cell>
+            <S.Sort>
+              Author
+              <Icon type={IconTypes.arrows} />
+            </S.Sort>
+          </S.Cell>
+          <S.Cell>
+            <S.Sort>
+              Date
+              <Icon type={IconTypes.arrows} />
+            </S.Sort>
+          </S.Cell>
+        </S.Row>
+      </S.Head>
+      <S.Body>
         <MovieEventRow />
-      </Styled.Body>
-    </Styled.MovieEventsTable>
+      </S.Body>
+    </S.MovieEventsTable>
   )
 }
 

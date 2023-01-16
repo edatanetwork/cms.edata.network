@@ -7,7 +7,7 @@ import NotFound from 'pages/NotFound'
 
 const TV = () => {
   return (
-    <Layout path='/tv'>
+    <Layout path='/movies'>
       <Routes>
         <Route index element={<Home />} />
         <Route path='/settings/*' element={<Settings />} />

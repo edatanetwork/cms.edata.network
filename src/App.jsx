@@ -6,6 +6,7 @@ import NotFound from 'pages/NotFound'
 import Design from 'pages/Design'
 import Sports from 'pages/Sports'
 import TV from 'pages/TV'
+import Movies from 'pages/Movies'
 
 const App = () => {
   return (
@@ -16,6 +17,7 @@ const App = () => {
           <Route path='/design/*' element={<Design />} />
           <Route path='/sports/*' element={<Sports />} />
           <Route path='/tv/*' element={<TV />} />
+          <Route path='/movies/*' element={<Movies />} />
         </Route>
         <Route path='*' element={<NotFound />} />
       </Routes>

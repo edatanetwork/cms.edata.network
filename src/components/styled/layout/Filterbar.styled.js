@@ -12,15 +12,17 @@ export const Filterbar = styled.div`
   & > div:has(input[type='date']) {
     display: flex;
     padding: 0 1rem;
-    border-right: ${({ theme }) => theme.borderGray};
 
     input {
       flex-grow: 1;
     }
   }
+
+  > :not(:last-child) {
+    border-right: ${({ theme }) => theme.borderGray};
+  }
 `
 export const Dropdown = styled(Select)`
-  border-right: 1px solid #ebeef1;
   display: flex;
   align-items: center;
   width: 100%;

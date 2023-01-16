@@ -9,7 +9,7 @@ const Sports = () => {
   return (
     <Layout path='/sports'>
       <Routes>
-        <Route index element={<Home />} />
+        <Route path='/*' element={<Home />} />
         <Route path='/settings/*' element={<Settings />} />
         <Route path='*' element={<NotFound />} />
       </Routes>

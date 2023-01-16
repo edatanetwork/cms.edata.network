@@ -1,62 +1,32 @@
-import { useForm, Controller } from 'react-hook-form'
-import { yupResolver } from '@hookform/resolvers/yup'
 import * as yup from 'yup'
+import * as C from 'constants/sports'
 
-import Field from 'components/common/Field'
-import IconField from 'components/common/IconField'
-import { Form } from 'components/styled/common/Form.styled'
-import { Input } from 'components/styled/common/Field.styled'
+import withFormProvider from 'HOCs/withFormProvider'
+import { createFormData } from 'utils/createFormData'
 
-const schema = yup.object({
-  title: yup.string().required('Title is required!')
-})
+import Form from 'components/common/form/Form'
+import Input from 'components/common/form/Input'
+import IconField from 'components/common/form/IconField'
 
-const SportForm = () => {
-  const {
-    watch,
-    control,
-    register,
-    handleSubmit,
-    formState: { errors }
-  } = useForm({
-    resolver: yupResolver(schema)
-  })
+const SportForm = ({ methods }) => {
+  const { reset } = methods
 
   const onSubmit = data => {
     const body = createFormData(data)
     console.log(Object.fromEntries(body))
+    reset()
   }
 
   return (
-    <Form id='categories-sport' onSubmit={handleSubmit(onSubmit)}>
-      <Field label='Title*' htmlFor='title' error={errors.title}>
-        <Input id='title' type='text' {...register('title')} />
-      </Field>
-      <Controller
-        name='icons'
-        control={control}
-        render={({ field: { value, onChange } }) => (
-          <IconField value={value} onChange={onChange} watch={watch} />
-        )}
-      />
+    <Form id='categories-sport' onSubmit={onSubmit}>
+      <Input type='text' label='Title' name={C.CATEGORY_SPORT_TITLE} />
+      <IconField label='Icons' name={C.CATEGORY_SPORT_ICON} />
     </Form>
   )
 }
 
-export default SportForm
+const schema = yup.object({
+  [C.CATEGORY_SPORT_TITLE]: yup.string().required('Title is required!')
+})
 
-const createFormData = data => {
-  const formData = new FormData()
-
-  formData.append('title', data.title)
-
-  data.icons.forEach((icon, i) => {
-    if (icon.id) {
-      formData.append(`icons[${i}]`, icon.id)
-    } else {
-      formData.append(`icons[${i}]`, icon)
-    }
-  })
-
-  return formData
-}
+export default withFormProvider(SportForm, schema)

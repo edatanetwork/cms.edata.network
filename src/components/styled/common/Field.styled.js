@@ -15,10 +15,10 @@ export const Header = styled.div`
   display: flex;
   justify-content: space-between;
   align-items: center;
+  margin-bottom: 4px;
 `
 
 export const Label = styled.label`
-  margin-bottom: 4px;
   font-size: 13px;
 `
 
@@ -81,6 +81,7 @@ export const Body = styled.div`
 
 export const Input = styled.input`
   flex-grow: 1;
+  width: 100%;
   height: 45px;
   padding-inline: 24px;
 
@@ -97,7 +98,7 @@ export const Textarea = styled.textarea`
   resize: none;
   border: none;
   outline: none;
-  padding-top: 0.65rem;
+  padding-block: 0.65rem;
   padding-inline: 24px;
   flex-grow: 1;
 

@@ -2,7 +2,7 @@ import styled from 'styled-components'
 
 export const Sidebar = styled.div`
   border-left: 4px solid ${({ theme }) => theme.clrGray};
-  width: 400px;
+  width: 450px;
 `
 
 export const Header = styled.div`
@@ -23,6 +23,9 @@ export const Body = styled.div`
   padding: 2rem;
   height: calc(100vh - 4.5rem);
   overflow: auto;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
 
   ::-webkit-scrollbar {
     width: 7px;

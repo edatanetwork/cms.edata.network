@@ -23,7 +23,7 @@ export const AddNewButton = styled.button`
   font-size: 13px;
 
   svg {
-    width: 16px;
+    width: 12px;
     height: auto;
   }
 `

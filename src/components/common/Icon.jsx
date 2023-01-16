@@ -51,10 +51,25 @@ export const IconTypes = {
   ball: 'ball',
   tv: 'tv',
   videoCamera: 'videoCamera',
-  layers: 'layers'
+  layers: 'layers',
+  bigPlus: 'bigPlus'
 }
 
 const icons = {
+  [IconTypes.bigPlus]: (
+    <svg
+      stroke='currentColor'
+      fill='currentColor'
+      viewBox='0 0 1024 1024'
+      version='1.1'
+      height='1em'
+      width='1em'
+      xmlns='http://www.w3.org/2000/svg'
+    >
+      <path d='M474 152m8 0l60 0q8 0 8 8l0 704q0 8-8 8l-60 0q-8 0-8-8l0-704q0-8 8-8Z'></path>
+      <path d='M168 474m8 0l672 0q8 0 8 8l0 60q0 8-8 8l-672 0q-8 0-8-8l0-60q0-8 8-8Z'></path>
+    </svg>
+  ),
   [IconTypes.layers]: (
     <svg
       xmlns='http://www.w3.org/2000/svg'
@@ -410,13 +425,13 @@ const icons = {
       width='100'
       height='54.348'
       viewBox='0 0 100 54.348'
+      fill='currentColor'
     >
       <g id='download-12' transform='translate(101 55.348) rotate(180)'>
         <path
           id='Expand_More'
           d='M91.395,55.556,50,96.409,8.615,55.551a5.092,5.092,0,0,0-7.139,0,4.946,4.946,0,0,0,0,7.049l44.957,44.378h0a5.086,5.086,0,0,0,7.134,0L98.524,62.6a4.952,4.952,0,0,0,0-7.054A5.089,5.089,0,0,0,91.395,55.556Z'
           transform='translate(1 -53.091)'
-          fill='#061822'
         />
       </g>
     </svg>
@@ -438,15 +453,18 @@ const icons = {
     </svg>
   ),
   [IconTypes.plus]: (
-    <svg version='1.1' id='Layer_1' x='0px' y='0px' viewBox='0 0 512 512'>
-      <g>
-        <g>
-          <polygon
-            points='289.391,222.609 289.391,0 222.609,0 222.609,222.609 0,222.609 0,289.391 222.609,289.391 222.609,512 
-     289.391,512 289.391,289.391 512,289.391 512,222.609 		'
-          />
-        </g>
-      </g>
+    <svg
+      version='1.1'
+      id='Layer_1'
+      x='0px'
+      y='0px'
+      viewBox='0 0 512 512'
+      fill='currentColor'
+    >
+      <polygon
+        points='289.391,222.609 289.391,0 222.609,0 222.609,222.609 0,222.609 0,289.391 222.609,289.391 222.609,512 
+     289.391,512 289.391,289.391 512,289.391 512,222.609'
+      />
     </svg>
   ),
   [IconTypes.refresh]: (

@@ -16,6 +16,7 @@ const theme = {
   clrOrange: '#FF7F00',
   clrGray: '#EBEEF1',
   clrBlack50: 'rgba(0,0,0,0.5)',
+  clrBlack30: 'rgba(0,0,0,0.3)',
   borderGray: '1px solid #EBEEF1',
   clrLightGray: '#f7f7f7',
   topbarHeight: '4.5rem',

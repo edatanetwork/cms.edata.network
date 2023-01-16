@@ -5,6 +5,7 @@ export const Grid = styled.div`
   grid-template-columns: ${props => (props.columns ? props.columns : null)};
   grid-template-rows: ${props => (props.rows ? props.rows : null)};
   gap: ${props => (props.gap ? props.gap : null)};
+  flex-grow: ${props => (props.grow ? props.grow : null)};
 
   & > p {
     font-size: 13px;

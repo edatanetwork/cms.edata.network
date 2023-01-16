@@ -1,31 +1,32 @@
 import * as yup from 'yup'
+import * as C from 'constants/sports'
 
-import withFormMethods from 'HOCs/withFormMethods'
+import withFormProvider from 'HOCs/withFormProvider'
+import { createFormData } from 'utils/createFormData'
 
-import Field from 'components/common/Field'
-import { Form } from 'components/styled/common/Form.styled'
-import { Input } from 'components/styled/common/Field.styled'
+import Form from 'components/common/form/Form'
+import Input from 'components/common/form/Input'
+import SingleLogoField from 'components/common/form/SingleLogoField'
 
 const LeagueForm = ({ methods }) => {
-  const {
-    register,
-    handleSubmit,
-    formState: { errors }
-  } = methods
+  const { reset } = methods
 
-  const onSubmit = data => console.log(data)
+  const onSubmit = data => {
+    const body = createFormData(data)
+    console.log(Object.fromEntries(body))
+    reset()
+  }
 
   return (
-    <Form id='categories-league' onSubmit={handleSubmit(onSubmit)}>
-      <Field label='Name' htmlFor='name' error={errors.name}>
-        <Input id='name' type='text' {...register('name')} />
-      </Field>
+    <Form id='categories-league' onSubmit={onSubmit}>
+      <Input type='text' label='Title' name={C.CATEGORY_LEAGUE_TITLE} />
+      <SingleLogoField label='Logo' name={C.CATEGORY_LEAGUE_ICON} />
     </Form>
   )
 }
 
 const schema = yup.object({
-  name: yup.string().required('Name is required!')
+  [C.CATEGORY_LEAGUE_TITLE]: yup.string().required('Name is required!')
 })
 
-export default withFormMethods(LeagueForm, schema)
+export default withFormProvider(LeagueForm, schema)

@@ -6,8 +6,8 @@ import Sidebar from 'layout/Sidebar'
 import Categories from 'components/sports/settings/categories'
 
 import SportForm from 'components/sports/settings/categories/SportForm'
-import CountryForm from 'components/sports/settings/categories/CountryForm'
-import LanguageForm from 'components/sports/settings/categories/LanguageForm'
+import CountryForm from 'components/common/categories/CountryForm'
+import LanguageForm from 'components/common/categories/LanguageForm'
 import LeagueForm from 'components/sports/settings/categories/LeagueForm'
 import TeamForm from 'components/sports/settings/categories/TeamForm'
 

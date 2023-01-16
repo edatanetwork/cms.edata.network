@@ -31,6 +31,14 @@ export const Dropdown = styled(Select)`
     }
   }
 
+  .select__placeholder {
+    color: ${({ theme }) => theme.clrBlack50};
+  }
+
+  .select__indicator {
+    color: ${({ theme }) => theme.clrBlack30};
+  }
+
   .select__menu {
     border: 1px solid #ebeef1;
     font-size: 13px;

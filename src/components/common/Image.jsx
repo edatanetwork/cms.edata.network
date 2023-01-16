@@ -11,7 +11,9 @@ const Image = ({ src, alt, width, height, quality, format }) => {
       effect='opacity'
       src={
         src
-          ? generateImageUrl({ src, width, height, quality, format })
+          ? src.preview
+            ? src.preview
+            : generateImageUrl({ src, width, height, quality, format })
           : placeholder
       }
       alt={alt}

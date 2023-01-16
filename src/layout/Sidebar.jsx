@@ -4,11 +4,12 @@ import { useSelector, useDispatch } from 'react-redux'
 
 import { clearCurrent } from 'features/currentSlice'
 
-import { Button } from 'components/styled/common/Button.styled'
 import Icon, { IconTypes } from 'components/common/Icon'
+import { Grid } from 'components/styled/common/Grid.styled'
+import { Button } from 'components/styled/common/Button.styled'
 import * as Styled from 'components/styled/layout/Sidebar.styled'
 
-const Sidebar = ({ title, form, children }) => {
+const Sidebar = ({ title, form, children, btnTitle = 'SAVE' }) => {
   const dispatch = useDispatch()
   const location = useLocation()
   const current = useSelector(state => state.current.current)
@@ -27,10 +28,12 @@ const Sidebar = ({ title, form, children }) => {
           {current ? 'EDIT ' : 'CREATE '}
           {title}
         </Styled.Title>
-        <Button form={form}>
-          SAVE
-          <Icon type={IconTypes.circleCheck} />
-        </Button>
+        <Grid columns='auto auto'>
+          <Button type='submit' form={form}>
+            {btnTitle}
+            <Icon type={IconTypes.circleCheck} />
+          </Button>
+        </Grid>
       </Styled.Header>
       <Styled.Body>{children}</Styled.Body>
     </Styled.Sidebar>

@@ -1,4 +1,9 @@
 import { useNavigate } from 'react-router-dom'
+import { useDispatch } from 'react-redux'
+
+import { setCurrent } from 'features/currentSlice'
+import { useGetTeamsQuery, useDeleteTeamMutation } from 'app/sport/teams'
+import { throwToast, removeConfirmation } from 'utils/throwToast'
 
 import Icon, { IconTypes } from 'components/common/Icon'
 import EditDeleteButtons from 'components/common/EditDeleteButtons'
@@ -11,6 +16,15 @@ import { Head, Body, Row, Cell } from 'components/styled/common/Table.styled'
 
 const TeamsTable = () => {
   const navigate = useNavigate()
+  const dispatch = useDispatch()
+
+  const { data, isLoading } = useGetTeamsQuery()
+  const [deleteTeam] = useDeleteTeamMutation()
+
+  const handleDelete = id => {
+    const promise = deleteTeam(id).unwrap()
+    throwToast(promise, 'Deleting team!', 'Team deleted!')
+  }
 
   return (
     <TableWrapper>
@@ -21,17 +35,27 @@ const TeamsTable = () => {
           </Row>
         </Head>
         <Body>
-          <Row>
-            <Cell>
-              <Icon type={IconTypes.loading} />
-            </Cell>
-          </Row>
-          <Row>
-            <Cell>KF Tirana</Cell>
-            <Cell>
-              <EditDeleteButtons />
-            </Cell>
-          </Row>
+          {isLoading ? (
+            <Row>
+              <Cell>
+                <Icon type={IconTypes.loading} />
+              </Cell>
+            </Row>
+          ) : (
+            data.teams.map(team => (
+              <Row key={team.id}>
+                <Cell>KF Tirana</Cell>
+                <Cell>
+                  <EditDeleteButtons
+                    edit={() => dispatch(setCurrent(team))}
+                    remove={() =>
+                      removeConfirmation(() => handleDelete(team.id))
+                    }
+                  />
+                </Cell>
+              </Row>
+            ))
+          )}
         </Body>
       </CategoryTable>
       <div>

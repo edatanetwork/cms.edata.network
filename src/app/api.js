@@ -25,7 +25,12 @@ export const api = createApi({
     'Reports',
     'Votes',
     'Submitted',
-    'Redirects'
+    'Redirects',
+    'Sports',
+    'Countries',
+    'Languages',
+    'Leagues',
+    'Teams'
   ],
   endpoints: () => ({})
 })

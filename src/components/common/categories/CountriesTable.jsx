@@ -1,4 +1,12 @@
+import { useDispatch } from 'react-redux'
 import { useNavigate } from 'react-router-dom'
+
+import {
+  useGetCountriesQuery,
+  useDeleteCountryMutation
+} from 'app/common/countries'
+import { throwToast, removeConfirmation } from 'utils/throwToast'
+import { setCurrent } from 'features/currentSlice'
 
 import Icon, { IconTypes } from 'components/common/Icon'
 import EditDeleteButtons from 'components/common/EditDeleteButtons'
@@ -10,7 +18,16 @@ import {
 import { Head, Body, Row, Cell } from 'components/styled/common/Table.styled'
 
 const CountriesTable = () => {
+  const dispatch = useDispatch()
   const navigate = useNavigate()
+
+  const { data, isLoading } = useGetCountriesQuery()
+  const [deleteCountry] = useDeleteCountryMutation()
+
+  const handleDelete = id => {
+    const promise = deleteCountry(id).unwrap()
+    throwToast(promise, 'Deleting country!', 'Country deleted!')
+  }
 
   return (
     <TableWrapper>
@@ -21,17 +38,27 @@ const CountriesTable = () => {
           </Row>
         </Head>
         <Body>
-          <Row>
-            <Cell>
-              <Icon type={IconTypes.loading} />
-            </Cell>
-          </Row>
-          <Row>
-            <Cell>Afghanistan</Cell>
-            <Cell>
-              <EditDeleteButtons />
-            </Cell>
-          </Row>
+          {isLoading ? (
+            <Row>
+              <Cell>
+                <Icon type={IconTypes.loading} />
+              </Cell>
+            </Row>
+          ) : (
+            data.countries.map(country => (
+              <Row key={country.id}>
+                <Cell>{country.name}</Cell>
+                <Cell>
+                  <EditDeleteButtons
+                    edit={() => dispatch(setCurrent(country))}
+                    remove={() =>
+                      removeConfirmation(() => handleDelete(country.id))
+                    }
+                  />
+                </Cell>
+              </Row>
+            ))
+          )}
         </Body>
       </CategoryTable>
       <div>

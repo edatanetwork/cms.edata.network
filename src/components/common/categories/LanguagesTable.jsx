@@ -1,4 +1,11 @@
 import { useNavigate } from 'react-router-dom'
+import { useDispatch } from 'react-redux'
+
+import {
+  useGetLanguagesQuery,
+  useDeleteLanguageMutation
+} from 'app/common/languages'
+import { throwToast, removeConfirmation } from 'utils/throwToast'
 
 import Icon, { IconTypes } from 'components/common/Icon'
 import EditDeleteButtons from 'components/common/EditDeleteButtons'
@@ -8,9 +15,20 @@ import {
   CategoryTable
 } from 'components/styled/pages/sports/CategoryTable.styled'
 import { Head, Body, Row, Cell } from 'components/styled/common/Table.styled'
+import { setCurrent } from 'features/currentSlice'
 
 const LanguagesTable = () => {
   const navigate = useNavigate()
+  const dispatch = useDispatch()
+
+  const { data, isLoading } = useGetLanguagesQuery()
+  const [deleteLanguage] = useDeleteLanguageMutation()
+
+  const handleDelete = id => {
+    const promise = deleteLanguage(id).unwrap()
+    throwToast(promise, 'Deleting language!', 'Language deleted!')
+  }
+
   return (
     <TableWrapper>
       <CategoryTable>
@@ -20,17 +38,27 @@ const LanguagesTable = () => {
           </Row>
         </Head>
         <Body>
-          <Row>
-            <Cell>
-              <Icon type={IconTypes.loading} />
-            </Cell>
-          </Row>
-          <Row>
-            <Cell>Abkhaz</Cell>
-            <Cell>
-              <EditDeleteButtons />
-            </Cell>
-          </Row>
+          {isLoading ? (
+            <Row>
+              <Cell>
+                <Icon type={IconTypes.loading} />
+              </Cell>
+            </Row>
+          ) : (
+            data.languages.map(language => (
+              <Row key={language.id}>
+                <Cell>{language.name}</Cell>
+                <Cell>
+                  <EditDeleteButtons
+                    edit={() => dispatch(setCurrent(language))}
+                    remove={() =>
+                      removeConfirmation(() => handleDelete(language.id))
+                    }
+                  />
+                </Cell>
+              </Row>
+            ))
+          )}
         </Body>
       </CategoryTable>
       <div>

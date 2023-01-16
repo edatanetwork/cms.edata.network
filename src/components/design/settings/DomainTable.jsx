@@ -83,8 +83,8 @@ const Domains = () => {
             data.map(domain => (
               <Row key={domain.id}>
                 <Cell>{domain.name}</Cell>
-                <Cell>{domain.downloads}</Cell>
                 <Cell>{domain.posts_number}</Cell>
+                <Cell>{domain.downloads}</Cell>
                 <Cell>{domain.url}</Cell>
                 <Cell>{formatDate(domain.created_at)}</Cell>
                 <Cell>

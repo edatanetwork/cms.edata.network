@@ -3,7 +3,7 @@ import { Controller, useFormContext } from 'react-hook-form'
 import * as F from 'components/styled/common/Field.styled'
 import * as D from 'components/styled/common/Dropdown.styled'
 
-const Dropdown = ({ label, name, placeholder, options }) => {
+const Dropdown = ({ label, name, placeholder, isLoading, options }) => {
   const {
     control,
     formState: { errors }
@@ -26,6 +26,7 @@ const Dropdown = ({ label, name, placeholder, options }) => {
           control={control}
           render={({ field: { value, onChange } }) => (
             <D.Dropdown
+              isLoading={isLoading}
               id={name}
               unstyled
               isClearable

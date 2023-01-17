@@ -1,7 +1,7 @@
 import styled from 'styled-components'
 
 export const Label = styled.p`
-  font-size: 12px;
+  font-size: 13px;
   margin-bottom: 0.25rem;
   color: ${({ theme }) => theme.clrBlack50};
 `

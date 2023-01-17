@@ -44,7 +44,7 @@ const TeamsTable = () => {
           ) : (
             data.teams.map(team => (
               <Row key={team.id}>
-                <Cell>KF Tirana</Cell>
+                <Cell>{team.name}</Cell>
                 <Cell>
                   <EditDeleteButtons
                     edit={async () => {

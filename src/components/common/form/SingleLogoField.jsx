@@ -2,8 +2,7 @@ import { useCallback } from 'react'
 import { useDropzone } from 'react-dropzone'
 import { useFormContext, Controller } from 'react-hook-form'
 
-import { generateImageUrl } from 'utils/generateImageUrl'
-
+import Image from 'components/common/Image'
 import Icon, { IconTypes } from 'components/common/Icon'
 import { CircleButton } from 'components/styled/common/Button.styled'
 import * as S from 'components/styled/common/SingleIconField.styled'
@@ -44,12 +43,7 @@ const Field = ({ value, onChange, label }) => {
       <S.Label>{label}</S.Label>
       {value ? (
         <S.Preview>
-          <img
-            src={
-              value.preview ? value.preview : generateImageUrl({ src: value })
-            }
-            alt=''
-          />
+          <Image src={value} />
           <CircleButton
             type='button'
             onClick={() => onChange(null)}

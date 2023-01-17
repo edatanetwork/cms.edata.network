@@ -16,7 +16,11 @@ export const CATEGORY_COUNTRY_ICON = 'flags'
 export const CATEGORY_LANGUAGE_TITLE = 'name'
 
 export const CATEGORY_LEAGUE_TITLE = 'name'
+export const CATEGORY_LEAGUE_SPORT = 'sport_id'
+export const CATEGORY_LEAGUE_COUNTRY = 'country_id'
 export const CATEGORY_LEAGUE_ICON = 'logo'
 
 export const CATEGORY_TEAM_TITLE = 'name'
+export const CATEGORY_TEAM_SPORT = 'sport_id'
+export const CATEGORY_TEAM_COUNTRY = 'country_id'
 export const CATEGORY_TEAM_ICON = 'logo'

@@ -50,7 +50,10 @@ const LanguagesTable = () => {
                 <Cell>{language.name}</Cell>
                 <Cell>
                   <EditDeleteButtons
-                    edit={() => dispatch(setCurrent(language))}
+                    edit={async () => {
+                      await navigate('/sports/settings/categories/languages')
+                      dispatch(setCurrent(language))
+                    }}
                     remove={() =>
                       removeConfirmation(() => handleDelete(language.id))
                     }

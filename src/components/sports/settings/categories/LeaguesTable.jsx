@@ -47,7 +47,10 @@ const LeaguesTable = () => {
                 <Cell>{league.name}</Cell>
                 <Cell>
                   <EditDeleteButtons
-                    edit={() => dispatch(setCurrent(league))}
+                    edit={async () => {
+                      await navigate('/sports/settings/categories/leagues')
+                      dispatch(setCurrent(league))
+                    }}
                     remove={() =>
                       removeConfirmation(() => handleDelete(league.id))
                     }

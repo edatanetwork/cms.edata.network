@@ -47,7 +47,10 @@ const TeamsTable = () => {
                 <Cell>KF Tirana</Cell>
                 <Cell>
                   <EditDeleteButtons
-                    edit={() => dispatch(setCurrent(team))}
+                    edit={async () => {
+                      await navigate('/sports/settings/categories/teams')
+                      dispatch(setCurrent(team))
+                    }}
                     remove={() =>
                       removeConfirmation(() => handleDelete(team.id))
                     }

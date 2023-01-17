@@ -50,7 +50,10 @@ const CountriesTable = () => {
                 <Cell>{country.name}</Cell>
                 <Cell>
                   <EditDeleteButtons
-                    edit={() => dispatch(setCurrent(country))}
+                    edit={async () => {
+                      await navigate('/sports/settings/categories/countries')
+                      dispatch(setCurrent(country))
+                    }}
                     remove={() =>
                       removeConfirmation(() => handleDelete(country.id))
                     }

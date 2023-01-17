@@ -7,7 +7,7 @@ import Icon, { IconTypes } from 'components/common/Icon'
 import { RoundButton } from 'components/styled/common/Button.styled'
 import * as L from 'components/styled/common/AddLinks.styled'
 
-const AddSportEventLinks = ({ name }) => {
+const AddMoviesEventLinks = ({ name }) => {
   const { control } = useFormContext()
   const { fields, append, remove } = useFieldArray({ control, name })
 
@@ -23,7 +23,7 @@ const AddSportEventLinks = ({ name }) => {
   )
 }
 
-export default AddSportEventLinks
+export default AddMoviesEventLinks
 
 const Link = ({ name, index }) => {
   const [isOpen, setIsOpen] = useState(false)

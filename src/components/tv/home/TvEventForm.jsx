@@ -8,7 +8,7 @@ import Form from 'components/common/form/Form'
 import Dropdown from 'components/common/form/Dropdown'
 import InputWithImage from 'components/common/form/InputWithImage'
 import Stepper from 'components/common/form/Stepper'
-import Links from 'components/common/form/Links'
+import AddTvEventLinks from 'components/common/form/AddTvEventLinks'
 
 const TvEventForm1 = ({ methods }) => {
   const [activeStep, setActiveStep] = useState(1)
@@ -27,42 +27,34 @@ const TvEventForm1 = ({ methods }) => {
           inputName={C.CHANNEL_NAME}
           dropzoneName={C.CHANNEL_LOGO}
         />
-        {activeStep === 1 && <Step1 />}
-        {activeStep === 2 && <Step2 />}
+        {activeStep === 1 && (
+          <>
+            <Dropdown
+              label='Category'
+              placeholder='Select category'
+              name={C.CATEGORY_ID}
+              options={sports}
+            />
+            <Dropdown
+              label='Country'
+              placeholder='Select country'
+              name={C.COUNTRY_ID}
+              options={countries}
+            />
+            <Dropdown
+              label='Language'
+              placeholder='Select language'
+              name={C.LANGUAGE_ID}
+              options={leagues}
+            />
+          </>
+        )}
+        {activeStep === 2 && <AddTvEventLinks name='links' />}
       </Form>
       <Stepper activeStep={activeStep} setActiveStep={setActiveStep} />
     </>
   )
 }
-
-const Step1 = () => (
-  <>
-    <Dropdown
-      label='Category'
-      placeholder='Select category'
-      name={C.CATEGORY_ID}
-      options={sports}
-    />
-    <Dropdown
-      label='Country'
-      placeholder='Select country'
-      name={C.COUNTRY_ID}
-      options={countries}
-    />
-    <Dropdown
-      label='Language'
-      placeholder='Select language'
-      name={C.LANGUAGE_ID}
-      options={leagues}
-    />
-  </>
-)
-
-const Step2 = () => (
-  <>
-    <Links />
-  </>
-)
 
 const schema = yup.object({
   [C.CHANNEL_NAME]: yup.string().required('Channel name is required!'),

@@ -3,8 +3,9 @@ import { api } from 'app/api'
 const leagues = api.injectEndpoints({
   endpoints: builder => ({
     getLeagues: builder.query({
-      query: () => ({
-        url: `/leagues`
+      query: params => ({
+        url: `/leagues`,
+        params
       }),
       providesTags: ['Leagues'],
       transformResponse: res => ({
@@ -40,6 +41,7 @@ const leagues = api.injectEndpoints({
 
 export const {
   useGetLeaguesQuery,
+  useLazyGetLeaguesQuery,
   useCreateLeagueMutation,
   useDeleteLeagueMutation,
   useUpdateLeagueMutation

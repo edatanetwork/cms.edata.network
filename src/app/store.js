@@ -7,7 +7,6 @@ import domainReducer from 'features/domainSlice'
 import searchReducer from 'features/searchSlice'
 import filterReducer from 'features/filterSlice'
 import currentReducer from 'features/currentSlice'
-import formReducer from 'features/formSlice'
 
 export const store = configureStore({
   reducer: {
@@ -17,8 +16,7 @@ export const store = configureStore({
     domain: domainReducer,
     current: currentReducer,
     search: searchReducer,
-    filter: filterReducer,
-    form: formReducer
+    filter: filterReducer
   },
   middleware: getDefaultMiddleware =>
     getDefaultMiddleware().concat(api.middleware)

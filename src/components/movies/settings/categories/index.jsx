@@ -1,6 +1,6 @@
 import { Grid } from 'components/styled/common/Grid.styled'
 import GenreTable from 'components/movies/settings/categories/GenreTable'
-import CountriesTable from 'components/common/categories/CountriesTable'
+import CountriesTable from 'components/sports/settings/categories/CountriesTable'
 import LanguagesTable from 'components/common/categories/LanguagesTable'
 
 const Categories = () => {

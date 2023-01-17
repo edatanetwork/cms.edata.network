@@ -95,6 +95,8 @@ export const Body = styled.tbody`
   }
 
   tr {
+    cursor: pointer;
+
     &:hover {
       background-color: ${({ theme }) => theme.clrLightGray};
     }

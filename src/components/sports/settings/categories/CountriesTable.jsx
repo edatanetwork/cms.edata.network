@@ -1,5 +1,6 @@
-import { useDispatch } from 'react-redux'
+import { useEffect } from 'react'
 import { useNavigate } from 'react-router-dom'
+import { useDispatch, useSelector } from 'react-redux'
 
 import {
   useGetCountriesQuery,
@@ -7,6 +8,7 @@ import {
 } from 'app/common/countries'
 import { throwToast, removeConfirmation } from 'utils/throwToast'
 import { setCurrent } from 'features/currentSlice'
+import { setCountryId } from 'features/filterSlice'
 
 import Icon, { IconTypes } from 'components/common/Icon'
 import EditDeleteButtons from 'components/common/EditDeleteButtons'
@@ -20,7 +22,8 @@ import { Head, Body, Row, Cell } from 'components/styled/common/Table.styled'
 const CountriesTable = () => {
   const dispatch = useDispatch()
   const navigate = useNavigate()
-
+  const countryId = useSelector(state => state.filter.countryId)
+  const current = useSelector(state => state.current.current)
   const { data, isLoading } = useGetCountriesQuery()
   const [deleteCountry] = useDeleteCountryMutation()
 
@@ -28,6 +31,12 @@ const CountriesTable = () => {
     const promise = deleteCountry(id).unwrap()
     throwToast(promise, 'Deleting country!', 'Country deleted!')
   }
+
+  useEffect(() => {
+    if (!isLoading) {
+      dispatch(setCountryId(data.countries[0].id))
+    }
+  }, [isLoading])
 
   return (
     <TableWrapper>
@@ -46,7 +55,13 @@ const CountriesTable = () => {
             </Row>
           ) : (
             data.countries.map(country => (
-              <Row key={country.id}>
+              <Row
+                key={country.id}
+                active={
+                  current ? current.id === country.id : country.id === countryId
+                }
+                onClick={() => dispatch(setCountryId(country.id))}
+              >
                 <Cell>{country.name}</Cell>
                 <Cell>
                   <EditDeleteButtons

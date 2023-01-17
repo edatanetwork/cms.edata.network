@@ -10,6 +10,7 @@ const SportSelect = ({ name }) => {
       label='Sport'
       placeholder='Select sport'
       name={name}
+      isSearchable
       isLoading={isLoading}
       options={data?.sports}
     />

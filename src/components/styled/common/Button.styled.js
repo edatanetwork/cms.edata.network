@@ -29,6 +29,7 @@ export const CircleButton = styled(Default)`
   padding: 8px;
   border: ${({ theme }) => theme.borderGray};
   border-radius: 50%;
+  background-color: #fff;
 
   &:hover {
     background-color: #ededed;

@@ -1,5 +1,5 @@
 import { useNavigate } from 'react-router-dom'
-import { useDispatch } from 'react-redux'
+import { useDispatch, useSelector } from 'react-redux'
 
 import {
   useGetLanguagesQuery,
@@ -20,9 +20,9 @@ import { setCurrent } from 'features/currentSlice'
 const LanguagesTable = () => {
   const navigate = useNavigate()
   const dispatch = useDispatch()
-
-  const { data, isLoading } = useGetLanguagesQuery()
+  const current = useSelector(state => state.current.current)
   const [deleteLanguage] = useDeleteLanguageMutation()
+  const { data, isLoading } = useGetLanguagesQuery()
 
   const handleDelete = id => {
     const promise = deleteLanguage(id).unwrap()
@@ -46,7 +46,7 @@ const LanguagesTable = () => {
             </Row>
           ) : (
             data.languages.map(language => (
-              <Row key={language.id}>
+              <Row key={language.id} active={current?.id === language.id}>
                 <Cell>{language.name}</Cell>
                 <Cell>
                   <EditDeleteButtons

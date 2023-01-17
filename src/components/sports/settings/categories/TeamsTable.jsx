@@ -1,8 +1,9 @@
+import { useEffect } from 'react'
 import { useNavigate } from 'react-router-dom'
-import { useDispatch } from 'react-redux'
+import { useDispatch, useSelector } from 'react-redux'
 
 import { setCurrent } from 'features/currentSlice'
-import { useGetTeamsQuery, useDeleteTeamMutation } from 'app/sport/teams'
+import { useLazyGetTeamsQuery, useDeleteTeamMutation } from 'app/sport/teams'
 import { throwToast, removeConfirmation } from 'utils/throwToast'
 
 import Icon, { IconTypes } from 'components/common/Icon'
@@ -17,9 +18,17 @@ import { Head, Body, Row, Cell } from 'components/styled/common/Table.styled'
 const TeamsTable = () => {
   const navigate = useNavigate()
   const dispatch = useDispatch()
-
-  const { data, isLoading } = useGetTeamsQuery()
+  const sport_id = useSelector(state => state.filter.sportId)
+  const country_id = useSelector(state => state.filter.countryId)
+  const current = useSelector(state => state.current.current)
   const [deleteTeam] = useDeleteTeamMutation()
+  const [trigger, { data, isLoading, isFetching }] = useLazyGetTeamsQuery()
+
+  useEffect(() => {
+    if (sport_id && country_id) {
+      trigger({ sport_id, country_id })
+    }
+  }, [sport_id, country_id])
 
   const handleDelete = id => {
     const promise = deleteTeam(id).unwrap()
@@ -35,15 +44,15 @@ const TeamsTable = () => {
           </Row>
         </Head>
         <Body>
-          {isLoading ? (
+          {isLoading || isFetching ? (
             <Row>
               <Cell>
                 <Icon type={IconTypes.loading} />
               </Cell>
             </Row>
           ) : (
-            data.teams.map(team => (
-              <Row key={team.id}>
+            data?.teams.map(team => (
+              <Row key={team.id} active={current?.id === team.id}>
                 <Cell>{team.name}</Cell>
                 <Cell>
                   <EditDeleteButtons

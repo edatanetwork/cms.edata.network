@@ -3,8 +3,9 @@ import { api } from 'app/api'
 const teams = api.injectEndpoints({
   endpoints: builder => ({
     getTeams: builder.query({
-      query: () => ({
-        url: `/teams`
+      query: params => ({
+        url: `/teams`,
+        params
       }),
       providesTags: ['Teams'],
       transformResponse: res => ({
@@ -40,6 +41,7 @@ const teams = api.injectEndpoints({
 
 export const {
   useGetTeamsQuery,
+  useLazyGetTeamsQuery,
   useCreateTeamMutation,
   useDeleteTeamMutation,
   useUpdateTeamMutation

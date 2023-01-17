@@ -2,7 +2,7 @@ import { createSlice } from '@reduxjs/toolkit'
 
 const domainSlice = createSlice({
   name: 'domain',
-  initialState: { currentDomain: null, domain_id: null },
+  initialState: { domain_id: null },
   reducers: {
     setDomainId: (state, action) => {
       state.domain_id = action.payload

@@ -10,6 +10,7 @@ const CountrySelect = ({ name }) => {
       label='Country'
       placeholder='Select country'
       name={name}
+      isSearchable
       isLoading={isLoading}
       options={data?.countries}
     />

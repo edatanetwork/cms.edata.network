@@ -1,11 +1,13 @@
-import { useEffect } from 'react'
 import { useNavigate } from 'react-router-dom'
-import { useDispatch, useSelector } from 'react-redux'
+import { useDispatch } from 'react-redux'
 
-import { useGetSportsQuery, useDeleteSportMutation } from 'app/sport/sport'
+import {
+  useGetCountriesQuery,
+  useDeleteCountryMutation
+} from 'app/common/countries'
+import { throwToast, removeConfirmation } from 'utils/throwToast'
 import { setCurrent } from 'features/currentSlice'
-import { setSportId } from 'features/filterSlice'
-import { removeConfirmation, throwToast } from 'utils/throwToast'
+import { setCountryId } from 'features/filterSlice'
 
 import Icon, { IconTypes } from 'components/common/Icon'
 import EditDeleteButtons from 'components/common/EditDeleteButtons'
@@ -16,32 +18,24 @@ import {
 } from 'components/styled/pages/sports/CategoryTable.styled'
 import { Head, Body, Row, Cell } from 'components/styled/common/Table.styled'
 
-const SportsTable = () => {
+const CountriesTable = () => {
   const dispatch = useDispatch()
   const navigate = useNavigate()
-  const sportId = useSelector(state => state.filter.sportId)
-  const current = useSelector(state => state.current.current)
 
-  const { data, isLoading } = useGetSportsQuery()
-  const [deleteSport] = useDeleteSportMutation()
+  const { data, isLoading } = useGetCountriesQuery()
+  const [deleteCountry] = useDeleteCountryMutation()
 
   const handleDelete = id => {
-    const promise = deleteSport(id).unwrap()
-    throwToast(promise, 'Deleting sport!', 'Sport deleted!')
+    const promise = deleteCountry(id).unwrap()
+    throwToast(promise, 'Deleting country!', 'Country deleted!')
   }
-
-  useEffect(() => {
-    if (!isLoading) {
-      dispatch(setSportId(data.sports[0].id))
-    }
-  }, [isLoading])
 
   return (
     <TableWrapper>
       <CategoryTable>
         <Head>
           <Row>
-            <Cell>Sport</Cell>
+            <Cell>Countries</Cell>
           </Row>
         </Head>
         <Body>
@@ -52,23 +46,20 @@ const SportsTable = () => {
               </Cell>
             </Row>
           ) : (
-            data.sports.map(sport => (
+            data.countries.map(country => (
               <Row
-                key={sport.id}
-                active={
-                  current ? current.id === sport.id : sport.id === sportId
-                }
-                onClick={() => dispatch(setSportId(sport.id))}
+                key={country.id}
+                onClick={() => dispatch(setCountryId(country.id))}
               >
-                <Cell>{sport.name}</Cell>
+                <Cell>{country.name}</Cell>
                 <Cell>
                   <EditDeleteButtons
                     edit={async () => {
-                      await navigate('/sports/settings/categories')
-                      dispatch(setCurrent(sport))
+                      await navigate('/sports/settings/categories/countries')
+                      dispatch(setCurrent(country))
                     }}
                     remove={() =>
-                      removeConfirmation(() => handleDelete(sport.id))
+                      removeConfirmation(() => handleDelete(country.id))
                     }
                   />
                 </Cell>
@@ -78,7 +69,9 @@ const SportsTable = () => {
         </Body>
       </CategoryTable>
       <div>
-        <RoundButton onClick={() => navigate('/sports/settings/categories')}>
+        <RoundButton
+          onClick={() => navigate('/sports/settings/categories/countries')}
+        >
           <Icon type={IconTypes.plusCircle} />
           Add new
         </RoundButton>
@@ -87,4 +80,4 @@ const SportsTable = () => {
   )
 }
 
-export default SportsTable
+export default CountriesTable

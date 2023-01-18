@@ -106,6 +106,17 @@ const pageInfo = path => {
     case '/design/settings/categories':
     case '/design/settings/categories/subcategory':
     case '/design/settings/categories/application':
+    case '/sports/settings/categories':
+    case '/sports/settings/categories/countries':
+    case '/sports/settings/categories/languages':
+    case '/sports/settings/categories/leagues':
+    case '/sports/settings/categories/teams':
+    case '/movies/settings/categories':
+    case '/movies/settings/categories/countries':
+    case '/movies/settings/categories/languages':
+    case '/tv/settings/categories':
+    case '/tv/settings/categories/countries':
+    case '/tv/settings/categories/languages':
       return {
         title: 'Categories',
         btnTitle: 'Category',
@@ -113,6 +124,9 @@ const pageInfo = path => {
         home: false
       }
     case '/design/settings/domains':
+    case '/sports/settings/domains':
+    case '/movies/settings/domains':
+    case '/tv/settings/domains':
       return { title: 'Domains', btnTitle: 'Domain', search: true, home: false }
     case '/design/settings/tags':
       return { title: 'Tags', btnTitle: 'Tag', search: true, home: false }
@@ -124,6 +138,9 @@ const pageInfo = path => {
         home: false
       }
     case '/design/settings/ads':
+    case '/sports/settings/ads':
+    case '/movies/settings/ads':
+    case '/tv/settings/ads':
       return { title: 'Ads', btnTitle: 'Ad', search: false, home: false }
     case '/design/trash':
       return { title: 'Trash', btnTitle: 'Post', search: true, home: false }

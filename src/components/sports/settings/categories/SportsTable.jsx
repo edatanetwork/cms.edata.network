@@ -20,7 +20,6 @@ const SportsTable = () => {
   const dispatch = useDispatch()
   const navigate = useNavigate()
   const sportId = useSelector(state => state.filter.sportId)
-  const current = useSelector(state => state.current.current)
 
   const { data, isLoading } = useGetSportsQuery()
   const [deleteSport] = useDeleteSportMutation()
@@ -32,7 +31,7 @@ const SportsTable = () => {
 
   useEffect(() => {
     if (!isLoading) {
-      dispatch(setSportId(data.sports[0].id))
+      dispatch(setSportId(data.sports[0]?.id))
     }
   }, [isLoading])
 
@@ -55,9 +54,7 @@ const SportsTable = () => {
             data.sports.map(sport => (
               <Row
                 key={sport.id}
-                active={
-                  current ? current.id === sport.id : sport.id === sportId
-                }
+                active={sport.id === sportId}
                 onClick={() => dispatch(setSportId(sport.id))}
               >
                 <Cell>{sport.name}</Cell>

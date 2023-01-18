@@ -33,7 +33,7 @@ const CountriesTable = () => {
 
   useEffect(() => {
     if (!isLoading) {
-      dispatch(setCountryId(data.countries[0].id))
+      dispatch(setCountryId(data.countries[0]?.id))
     }
   }, [isLoading])
 

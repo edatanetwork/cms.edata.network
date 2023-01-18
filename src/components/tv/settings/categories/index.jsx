@@ -8,7 +8,7 @@ const Categories = () => {
     <Grid columns='repeat(3, 1fr)'>
       <GenreTable />
       <CountriesTable />
-      <LanguagesTable />
+      <LanguagesTable to='tv' />
     </Grid>
   )
 }

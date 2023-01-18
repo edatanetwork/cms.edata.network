@@ -1,11 +1,13 @@
 import { useNavigate } from 'react-router-dom'
-import { useDispatch, useSelector } from 'react-redux'
+import { useDispatch } from 'react-redux'
 
 import {
-  useGetLanguagesQuery,
-  useDeleteLanguageMutation
-} from 'app/common/languages'
+  useGetCountriesQuery,
+  useDeleteCountryMutation
+} from 'app/common/countries'
 import { throwToast, removeConfirmation } from 'utils/throwToast'
+import { setCurrent } from 'features/currentSlice'
+import { setCountryId } from 'features/filterSlice'
 
 import Icon, { IconTypes } from 'components/common/Icon'
 import EditDeleteButtons from 'components/common/EditDeleteButtons'
@@ -15,18 +17,17 @@ import {
   CategoryTable
 } from 'components/styled/pages/tv/CategoryTable.styled'
 import { Head, Body, Row, Cell } from 'components/styled/common/Table.styled'
-import { setCurrent } from 'features/currentSlice'
 
-const LanguagesTable = ({ to }) => {
-  const navigate = useNavigate()
+const CountriesTable = () => {
   const dispatch = useDispatch()
-  const current = useSelector(state => state.current.current)
-  const [deleteLanguage] = useDeleteLanguageMutation()
-  const { data, isLoading } = useGetLanguagesQuery()
+  const navigate = useNavigate()
+
+  const { data, isLoading } = useGetCountriesQuery()
+  const [deleteCountry] = useDeleteCountryMutation()
 
   const handleDelete = id => {
-    const promise = deleteLanguage(id).unwrap()
-    throwToast(promise, 'Deleting language!', 'Language deleted!')
+    const promise = deleteCountry(id).unwrap()
+    throwToast(promise, 'Deleting country!', 'Country deleted!')
   }
 
   return (
@@ -34,7 +35,7 @@ const LanguagesTable = ({ to }) => {
       <CategoryTable>
         <Head>
           <Row>
-            <Cell>Languages</Cell>
+            <Cell>Countries</Cell>
           </Row>
         </Head>
         <Body>
@@ -45,17 +46,20 @@ const LanguagesTable = ({ to }) => {
               </Cell>
             </Row>
           ) : (
-            data.languages.map(language => (
-              <Row key={language.id} active={current?.id === language.id}>
-                <Cell>{language.name}</Cell>
+            data.countries.map(country => (
+              <Row
+                key={country.id}
+                onClick={() => dispatch(setCountryId(country.id))}
+              >
+                <Cell>{country.name}</Cell>
                 <Cell>
                   <EditDeleteButtons
                     edit={async () => {
-                      await navigate(`/${to}/settings/categories/languages`)
-                      dispatch(setCurrent(language))
+                      await navigate('/tv/settings/categories/countries')
+                      dispatch(setCurrent(country))
                     }}
                     remove={() =>
-                      removeConfirmation(() => handleDelete(language.id))
+                      removeConfirmation(() => handleDelete(country.id))
                     }
                   />
                 </Cell>
@@ -66,7 +70,7 @@ const LanguagesTable = ({ to }) => {
       </CategoryTable>
       <div>
         <RoundButton
-          onClick={() => navigate(`/${to}/settings/categories/languages`)}
+          onClick={() => navigate('/movies/settings/categories/countries')}
         >
           <Icon type={IconTypes.plusCircle} />
           Add new
@@ -76,4 +80,4 @@ const LanguagesTable = ({ to }) => {
   )
 }
 
-export default LanguagesTable
+export default CountriesTable

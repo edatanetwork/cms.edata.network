@@ -10,7 +10,7 @@ const Categories = () => {
     <Grid columns='repeat(5, 1fr)'>
       <SportsTable />
       <CountriesTable />
-      <LanguagesTable />
+      <LanguagesTable to='sports' />
       <LeaguesTable />
       <TeamsTable />
     </Grid>

@@ -35,7 +35,7 @@ const GenreTable = () => {
         </Body>
       </CategoryTable>
       <div>
-        <RoundButton onClick={() => navigate('/tv/settings/categories')}>
+        <RoundButton onClick={() => navigate('/movies/settings/categories')}>
           <Icon type={IconTypes.plusCircle} />
           Add new
         </RoundButton>

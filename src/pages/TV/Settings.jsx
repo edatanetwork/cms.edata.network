@@ -4,6 +4,8 @@ import Settings from 'components/common/Settings'
 import Topbar from 'layout/Topbar'
 import Sidebar from 'layout/Sidebar'
 import Categories from 'components/tv/settings/categories'
+import CountryForm from 'components/common/categories/CountryForm'
+import LanguageForm from 'components/common/categories/LanguageForm'
 
 import { Grid } from 'components/styled/common/Grid.styled'
 
@@ -22,6 +24,22 @@ const SettingsPage = () => {
         <Route
           path='/categories'
           element={<Sidebar title='Genre' form='categories-genre'></Sidebar>}
+        />
+        <Route
+          path='/categories/countries'
+          element={
+            <Sidebar title='Country' form='categories-country'>
+              <CountryForm />
+            </Sidebar>
+          }
+        />
+        <Route
+          path='/categories/languages'
+          element={
+            <Sidebar title='Language' form='categories-language'>
+              <LanguageForm />
+            </Sidebar>
+          }
         />
       </Routes>
     </Grid>

@@ -55,7 +55,7 @@ const CountriesTable = () => {
                 <Cell>
                   <EditDeleteButtons
                     edit={async () => {
-                      await navigate('/sports/settings/categories/countries')
+                      await navigate('/tv/settings/categories/countries')
                       dispatch(setCurrent(country))
                     }}
                     remove={() =>
@@ -70,7 +70,7 @@ const CountriesTable = () => {
       </CategoryTable>
       <div>
         <RoundButton
-          onClick={() => navigate('/sports/settings/categories/countries')}
+          onClick={() => navigate('/tv/settings/categories/countries')}
         >
           <Icon type={IconTypes.plusCircle} />
           Add new

@@ -32,7 +32,7 @@ export const Dropdown = styled(Select)`
   }
 
   .select__placeholder {
-    color: ${({ theme }) => theme.clrBlack50};
+    color: ${({ theme }) => theme.clrPlaceholder};
   }
 
   .select__indicator {

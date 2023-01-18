@@ -7,6 +7,10 @@ export const Field = styled.div`
   }
 
   & > div:last-of-type {
+    :focus-within {
+      border-color: black;
+    }
+
     border-color: ${props => (props.error ? props.theme.clrError : '#ebeef1')};
   }
 `

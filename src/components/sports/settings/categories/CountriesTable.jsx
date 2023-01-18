@@ -23,7 +23,6 @@ const CountriesTable = () => {
   const dispatch = useDispatch()
   const navigate = useNavigate()
   const countryId = useSelector(state => state.filter.countryId)
-  const current = useSelector(state => state.current.current)
   const { data, isLoading } = useGetCountriesQuery()
   const [deleteCountry] = useDeleteCountryMutation()
 
@@ -57,9 +56,7 @@ const CountriesTable = () => {
             data.countries.map(country => (
               <Row
                 key={country.id}
-                active={
-                  current ? current.id === country.id : country.id === countryId
-                }
+                active={countryId === country.id}
                 onClick={() => dispatch(setCountryId(country.id))}
               >
                 <Cell>{country.name}</Cell>

@@ -12,19 +12,19 @@ import { throwToast } from 'utils/throwToast'
 import Form from 'components/common/form/Form'
 import Input from 'components/common/form/Input'
 import SingleLogoField from 'components/common/form/SingleLogoField'
-import CountrySelect from 'components/common/select/CountrySelect'
-import SportSelect from 'components/common/select/SportSelect'
 
 const TeamForm = ({ methods }) => {
   const { reset } = methods
   const dispatch = useDispatch()
   const current = useSelector(state => state.current.current)
+  const sport_id = useSelector(state => state.filter.sportId)
+  const country_id = useSelector(state => state.filter.countryId)
 
   const [createTeam] = useCreateTeamMutation()
   const [updateteam] = useUpdateTeamMutation()
 
   const onSubmit = data => {
-    const body = createFormData(data)
+    const body = createFormData({ ...data, sport_id, country_id })
 
     if (current) {
       const promise = updateteam({ id: current.id, body }).unwrap()
@@ -41,40 +41,31 @@ const TeamForm = ({ methods }) => {
     if (current) {
       reset({
         [C.CATEGORY_TEAM_TITLE]: current.name,
-        [C.CATEGORY_TEAM_ICON]: current.logo,
-        [C.CATEGORY_TEAM_SPORT]: current.sport.id,
-        [C.CATEGORY_TEAM_COUNTRY]: current.country.id
+        [C.CATEGORY_TEAM_ICON]: current.logo
       })
     } else {
       reset({
         [C.CATEGORY_TEAM_TITLE]: '',
-        [C.CATEGORY_TEAM_ICON]: null,
-        [C.CATEGORY_TEAM_SPORT]: null,
-        [C.CATEGORY_TEAM_COUNTRY]: null
+        [C.CATEGORY_TEAM_ICON]: null
       })
     }
   }, [current])
 
   return (
     <Form id='categories-team' onSubmit={onSubmit}>
-      <Input type='text' label='Title' name={C.CATEGORY_TEAM_TITLE} />
-      <SportSelect name={C.CATEGORY_TEAM_SPORT} />
-      <CountrySelect name={C.CATEGORY_TEAM_COUNTRY} />
+      <Input
+        type='text'
+        label='Title'
+        placeholder='Enter title'
+        name={C.CATEGORY_TEAM_TITLE}
+      />
       <SingleLogoField label='Icon' name={C.CATEGORY_TEAM_ICON} />
     </Form>
   )
 }
 
 const schema = yup.object({
-  [C.CATEGORY_TEAM_TITLE]: yup.string().required('Title is required!'),
-  [C.CATEGORY_TEAM_SPORT]: yup
-    .number()
-    .typeError('Sport is required!')
-    .required('Sport is required!'),
-  [C.CATEGORY_TEAM_COUNTRY]: yup
-    .number()
-    .typeError('Country is required!')
-    .required('Country is required!')
+  [C.CATEGORY_TEAM_TITLE]: yup.string().required('Title is required!')
 })
 
 export default withFormProvider(TeamForm, schema)

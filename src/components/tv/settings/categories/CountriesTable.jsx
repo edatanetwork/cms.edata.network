@@ -15,7 +15,7 @@ import { RoundButton } from 'components/styled/common/Button.styled'
 import {
   TableWrapper,
   CategoryTable
-} from 'components/styled/pages/sports/CategoryTable.styled'
+} from 'components/styled/pages/tv/CategoryTable.styled'
 import { Head, Body, Row, Cell } from 'components/styled/common/Table.styled'
 
 const CountriesTable = () => {

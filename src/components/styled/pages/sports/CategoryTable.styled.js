@@ -25,13 +25,13 @@ export const TableWrapper = styled.div`
     }
   }
 
-  :nth-of-type(3) {
+  :nth-of-type(4) {
     table {
-      border-right: 4px solid ${({ theme }) => theme.clrGray};
+      border-left: 4px solid ${({ theme }) => theme.clrGray};
     }
 
     > div {
-      border-right: 4px solid ${({ theme }) => theme.clrGray};
+      border-left: 4px solid ${({ theme }) => theme.clrGray};
     }
   }
 `

@@ -7,7 +7,7 @@ import Grid from 'components/styled/common/Grid.styled'
 const Settings = ({ children, path }) => {
   return (
     <Grid columns='auto 1fr'>
-      <SettingsNav path={path} />
+      <SettingsNav to={path} paths={children} />
       <Routes>
         {children}
         <Route path='*' element={<NotFound />} />

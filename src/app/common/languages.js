@@ -6,10 +6,7 @@ const language = api.injectEndpoints({
       query: () => ({
         url: `/languages`
       }),
-      transformResponse: res => ({
-        languages: res.data[0],
-        pagination: res.data.pagination
-      }),
+      transformResponse: res => ({ languages: res.data }),
       providesTags: ['Languages']
     }),
     createLanguage: builder.mutation({

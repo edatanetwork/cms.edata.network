@@ -6,10 +6,7 @@ const country = api.injectEndpoints({
       query: () => ({
         url: `/countries`
       }),
-      transformResponse: res => ({
-        countries: res.data[0],
-        pagination: res.data.pagination
-      }),
+      transformResponse: res => ({ countries: res.data }),
       providesTags: ['Countries']
     }),
     createCountry: builder.mutation({

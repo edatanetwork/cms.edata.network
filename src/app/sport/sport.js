@@ -7,10 +7,7 @@ const sport = api.injectEndpoints({
         url: `/sports`
       }),
       providesTags: ['Sports'],
-      transformResponse: res => ({
-        sports: res.data[0],
-        pagination: res.data.pagination
-      })
+      transformResponse: res => ({ sports: res.data })
     }),
     createSport: builder.mutation({
       query: body => ({

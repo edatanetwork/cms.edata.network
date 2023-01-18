@@ -8,10 +8,7 @@ const teams = api.injectEndpoints({
         params
       }),
       providesTags: ['Teams'],
-      transformResponse: res => ({
-        teams: res.data[0],
-        pagination: res.data.pagination
-      })
+      transformResponse: res => ({ teams: res.data })
     }),
     createTeam: builder.mutation({
       query: body => ({

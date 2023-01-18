@@ -8,10 +8,7 @@ const leagues = api.injectEndpoints({
         params
       }),
       providesTags: ['Leagues'],
-      transformResponse: res => ({
-        leagues: res.data[0],
-        pagination: res.data.pagination
-      })
+      transformResponse: res => ({ leagues: res.data })
     }),
     createLeague: builder.mutation({
       query: body => ({

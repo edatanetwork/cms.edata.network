@@ -12,8 +12,15 @@ const submitted = api.injectEndpoints({
         pagination: response.data.pagination
       }),
       providesTags: ['Submitted']
+    }),
+    designSubmittedNotification: builder.query({
+      query: () => ({
+        url: '/submitted/seen-check'
+      }),
+      transformResponse: response => response.data
     })
   })
 })
 
-export const { useGetSubmittedQuery } = submitted
+export const { useGetSubmittedQuery, useLazyDesignSubmittedNotificationQuery } =
+  submitted

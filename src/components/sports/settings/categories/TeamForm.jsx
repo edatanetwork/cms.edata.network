@@ -5,7 +5,10 @@ import * as C from 'constants/sports'
 
 import withFormProvider from 'HOCs/withFormProvider'
 import { createFormData } from 'utils/createFormData'
-import { useCreateTeamMutation, useUpdateTeamMutation } from 'app/sport/teams'
+import {
+  useCreateTeamMutation,
+  useUpdateTeamMutation
+} from 'app/services/sport/teams'
 import { clearCurrent } from 'features/currentSlice'
 import { throwToast } from 'utils/throwToast'
 

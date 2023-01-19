@@ -4,7 +4,7 @@ import { useDispatch, useSelector } from 'react-redux'
 import {
   useLazyGetLeaguesQuery,
   useDeleteLeagueMutation
-} from 'app/sport/leagues'
+} from 'app/services/sport/leagues'
 import { throwToast, removeConfirmation } from 'utils/throwToast'
 import { setCurrent } from 'features/currentSlice'
 

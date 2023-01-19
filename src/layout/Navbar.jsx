@@ -2,13 +2,30 @@ import { NavLink } from 'react-router-dom'
 import { useDispatch } from 'react-redux'
 
 import { signout } from 'features/authSlice'
+import { useLazyDesignReportNotificationQuery } from 'app/services/reports'
+import { useLazyDesignSubmittedNotificationQuery } from 'app/services/submitted'
 
 import Icon, { IconTypes } from 'components/common/Icon'
 
 import * as Styled from 'components/styled/layout/Navbar.styled'
+import { useEffect } from 'react'
 
 const Navbar = ({ path }) => {
   const dispatch = useDispatch()
+
+  const [triggerDesignReportNotification, { data: designReportNotification }] =
+    useLazyDesignReportNotificationQuery()
+  const [
+    triggerDesignSubmittedNotification,
+    { data: designSubmittedNotification }
+  ] = useLazyDesignSubmittedNotificationQuery()
+
+  useEffect(() => {
+    if (path === '/design') {
+      triggerDesignReportNotification()
+      triggerDesignSubmittedNotification()
+    }
+  }, [path])
 
   return (
     <Styled.Navbar>
@@ -30,7 +47,13 @@ const Navbar = ({ path }) => {
       </Styled.PrimaryNav>
       <Styled.SecondaryNav>
         {secondaryNav.map(el => (
-          <Styled.SecondaryNavItem key={el.path}>
+          <Styled.SecondaryNavItem
+            key={el.path}
+            notification={
+              (el.path === '/reports' && designReportNotification) ||
+              (el.path === '/submitted' && designSubmittedNotification)
+            }
+          >
             <NavLink
               to={`${path}${el.path}`}
               className={({ isActive }) => (isActive ? 'active' : undefined)}
@@ -40,6 +63,7 @@ const Navbar = ({ path }) => {
             </NavLink>
           </Styled.SecondaryNavItem>
         ))}
+        <hr />
         <Styled.SecondaryNavItem onClick={() => dispatch(signout())}>
           <NavLink to='/'>
             <Icon type={IconTypes.off} />

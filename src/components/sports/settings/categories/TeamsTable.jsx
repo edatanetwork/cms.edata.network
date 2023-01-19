@@ -3,7 +3,10 @@ import { useNavigate } from 'react-router-dom'
 import { useDispatch, useSelector } from 'react-redux'
 
 import { setCurrent } from 'features/currentSlice'
-import { useLazyGetTeamsQuery, useDeleteTeamMutation } from 'app/sport/teams'
+import {
+  useLazyGetTeamsQuery,
+  useDeleteTeamMutation
+} from 'app/services/sport/teams'
 import { throwToast, removeConfirmation } from 'utils/throwToast'
 
 import Icon, { IconTypes } from 'components/common/Icon'

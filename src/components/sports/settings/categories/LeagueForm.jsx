@@ -8,7 +8,7 @@ import { createFormData } from 'utils/createFormData'
 import {
   useCreateLeagueMutation,
   useUpdateLeagueMutation
-} from 'app/sport/leagues'
+} from 'app/services/sport/leagues'
 import { clearCurrent } from 'features/currentSlice'
 import { throwToast } from 'utils/throwToast'
 

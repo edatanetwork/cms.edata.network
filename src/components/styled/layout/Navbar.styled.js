@@ -1,4 +1,4 @@
-import styled from 'styled-components'
+import styled, { css } from 'styled-components'
 
 export const Navbar = styled.div`
   width: 180px;
@@ -47,14 +47,40 @@ export const SecondaryNav = styled.ul`
   flex-direction: column;
   gap: 1rem;
   padding: 1.5rem;
+
+  hr {
+    background-color: ${({ theme }) => theme.clrGray};
+    border: 0;
+    height: 1px;
+  }
 `
 
 export const SecondaryNavItem = styled.li`
+  display: flex;
+
+  ${props =>
+    props.notification &&
+    css`
+      a {
+        ::after {
+          content: '';
+          position: absolute;
+          width: 5px;
+          height: 5px;
+          border-radius: 50%;
+          background-color: red;
+          top: 0;
+          right: -10px;
+        }
+      }
+    `};
+
   a {
     display: flex;
     align-items: center;
     gap: 0.75rem;
     transition: color 150ms linear;
+    position: relative;
 
     svg {
       width: 20px;
@@ -67,9 +93,6 @@ export const SecondaryNavItem = styled.li`
 
   :last-of-type {
     a {
-      padding-top: 1rem;
-      border-top: ${({ theme }) => theme.borderGray};
-
       svg {
         color: ${({ theme }) => theme.clrError};
       }

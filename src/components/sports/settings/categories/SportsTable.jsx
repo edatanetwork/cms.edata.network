@@ -2,7 +2,10 @@ import { useEffect } from 'react'
 import { useNavigate } from 'react-router-dom'
 import { useDispatch, useSelector } from 'react-redux'
 
-import { useGetSportsQuery, useDeleteSportMutation } from 'app/sport/sport'
+import {
+  useGetSportsQuery,
+  useDeleteSportMutation
+} from 'app/services/sport/sport'
 import { setCurrent } from 'features/currentSlice'
 import { setSportId } from 'features/filterSlice'
 import { removeConfirmation, throwToast } from 'utils/throwToast'

@@ -1,6 +1,6 @@
 import Dropdown from 'components/common/form/Dropdown'
 
-import { useGetSportsQuery } from 'app/sport/sport'
+import { useGetSportsQuery } from 'app/services/sport/sport'
 
 const SportSelect = ({ name }) => {
   const { data, isLoading } = useGetSportsQuery()

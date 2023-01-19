@@ -25,6 +25,12 @@ const reports = api.injectEndpoints({
         method: 'POST'
       }),
       invalidatesTags: ['Reports']
+    }),
+    designReportNotification: builder.query({
+      query: () => ({
+        url: '/reports/seen-check'
+      }),
+      transformResponse: response => response.data
     })
   })
 })
@@ -32,5 +38,6 @@ const reports = api.injectEndpoints({
 export const {
   useGetReportsQuery,
   useSeenReportMutation,
-  useDeleteReportMutation
+  useDeleteReportMutation,
+  useLazyDesignReportNotificationQuery
 } = reports

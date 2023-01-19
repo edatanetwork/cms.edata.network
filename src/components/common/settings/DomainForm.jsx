@@ -3,7 +3,7 @@ import * as yup from 'yup'
 import withFormProvider from 'HOCs/withFormProvider'
 import { createFormData } from 'utils/createFormData'
 
-import { useGetSportsQuery } from 'app/sport/sport'
+import { useGetSportsQuery } from 'app/services/sport/sport'
 
 import Form from 'components/common/form/Form'
 import Input from 'components/common/form/Input'

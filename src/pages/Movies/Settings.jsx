@@ -4,9 +4,12 @@ import Settings from 'components/common/Settings'
 import Topbar from 'layout/Topbar'
 import Sidebar from 'layout/Sidebar'
 import Categories from 'components/movies/settings/categories'
+import AdsTable from 'components/common/settings/AdsTable'
+
 import CountryForm from 'components/common/settings/CountryForm'
 import LanguageForm from 'components/common/settings/LanguageForm'
 import DomainForm from 'components/common/settings/DomainForm'
+import AdForm from 'components/common/settings/AdForm'
 
 import { Grid } from 'components/styled/common/Grid.styled'
 
@@ -18,7 +21,7 @@ const SettingsPage = () => {
         <Settings path='/movies'>
           <Route path='/categories/*' element={<Categories />} />
           <Route path='/domains' element='[domains]' />
-          <Route path='/ads' element='[ads]' />
+          <Route path='/ads' element={<AdsTable />} />
         </Settings>
       </Grid>
       <Routes>
@@ -47,6 +50,14 @@ const SettingsPage = () => {
           element={
             <Sidebar title='Domain' form='domain'>
               <DomainForm />
+            </Sidebar>
+          }
+        />
+        <Route
+          path='/ads'
+          element={
+            <Sidebar title='Ad' form='ad'>
+              <AdForm />
             </Sidebar>
           }
         />

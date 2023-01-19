@@ -7,8 +7,8 @@ const Dropdown = ({
   label,
   name,
   placeholder,
-  isLoading,
   options,
+  isLoading = false,
   isSearchable = false
 }) => {
   const {

@@ -4,8 +4,9 @@ import Settings from 'components/common/Settings'
 import Topbar from 'layout/Topbar'
 import Sidebar from 'layout/Sidebar'
 import Categories from 'components/movies/settings/categories'
-import CountryForm from 'components/common/categories/CountryForm'
-import LanguageForm from 'components/common/categories/LanguageForm'
+import CountryForm from 'components/common/settings/CountryForm'
+import LanguageForm from 'components/common/settings/LanguageForm'
+import DomainForm from 'components/common/settings/DomainForm'
 
 import { Grid } from 'components/styled/common/Grid.styled'
 
@@ -38,6 +39,14 @@ const SettingsPage = () => {
           element={
             <Sidebar title='Language' form='categories-language'>
               <LanguageForm />
+            </Sidebar>
+          }
+        />
+        <Route
+          path='/domains'
+          element={
+            <Sidebar title='Domain' form='domain'>
+              <DomainForm />
             </Sidebar>
           }
         />

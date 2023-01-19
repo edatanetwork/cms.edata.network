@@ -6,7 +6,7 @@ export const Dropdown = styled(Select)`
   flex-grow: 1;
 
   .select__control {
-    height: 44px;
+    min-height: 44px;
     font-size: 13px;
     padding-inline: 24px;
 
@@ -86,6 +86,41 @@ export const Dropdown = styled(Select)`
 
     &:hover {
       background-color: #ebeef1;
+    }
+  }
+
+  .select__value-container--is-multi {
+    padding-block: 0.5rem;
+    gap: 8px;
+  }
+
+  .select__multi-value {
+    background-color: ${({ theme }) => theme.clrGray};
+    padding-inline: 8px;
+    border-radius: 2px;
+    padding-block: 4px;
+  }
+
+  .select__multi-value__label {
+    margin-right: 2px;
+  }
+
+  .select__multi-value__remove {
+    padding: 2px;
+    transition: background-color ease 150ms;
+    border-radius: 4px;
+
+    svg {
+      color: ${({ theme }) => theme.clrError};
+      transition: color ease 150ms;
+    }
+
+    :hover {
+      background-color: red;
+
+      svg {
+        color: #fff;
+      }
     }
   }
 `

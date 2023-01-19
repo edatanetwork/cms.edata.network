@@ -6,10 +6,11 @@ import Sidebar from 'layout/Sidebar'
 import Categories from 'components/sports/settings/categories'
 
 import SportForm from 'components/sports/settings/categories/SportForm'
-import CountryForm from 'components/common/categories/CountryForm'
-import LanguageForm from 'components/common/categories/LanguageForm'
+import CountryForm from 'components/common/settings/CountryForm'
+import LanguageForm from 'components/common/settings/LanguageForm'
 import LeagueForm from 'components/sports/settings/categories/LeagueForm'
 import TeamForm from 'components/sports/settings/categories/TeamForm'
+import DomainForm from 'components/common/settings/DomainForm'
 
 import { Grid } from 'components/styled/common/Grid.styled'
 
@@ -62,6 +63,14 @@ const SettingsPage = () => {
           element={
             <Sidebar title='Team' form='categories-team'>
               <TeamForm />
+            </Sidebar>
+          }
+        />
+        <Route
+          path='/domains'
+          element={
+            <Sidebar title='Domain' form='domain'>
+              <DomainForm />
             </Sidebar>
           }
         />

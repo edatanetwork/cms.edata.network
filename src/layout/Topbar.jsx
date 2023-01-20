@@ -150,6 +150,8 @@ const pageInfo = path => {
       return { title: 'Submitted', btnTitle: 'Post', search: true, home: false }
     case '/design/reports':
       return { title: 'Reports', btnTitle: 'Post', search: true, home: false }
+    case '/design/searched':
+      return { title: 'Searched', btnTitle: 'Post', search: true, home: false }
     default:
       return { title: 'All Posts', search: true, home: true }
   }

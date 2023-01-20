@@ -8,6 +8,7 @@ import VotesPage from 'pages/Design/Votes'
 import SubmittedPage from 'pages/Design/Submitted'
 import ReportsPage from 'pages/Design/Reports'
 import StatisticsPage from 'pages/Design/Statistics'
+import SearchedPage from 'pages/Design/Searched'
 import NotFound from 'pages/NotFound'
 
 const Design = () => {
@@ -21,6 +22,7 @@ const Design = () => {
         <Route path='/submitted' element={<SubmittedPage />} />
         <Route path='/reports' element={<ReportsPage />} />
         <Route path='/statistics' element={<StatisticsPage />} />
+        <Route path='/searched' element={<SearchedPage />} />
         <Route path='*' element={<NotFound />} />
       </Routes>
     </WithNavbar>

@@ -134,14 +134,8 @@ export const Row = styled.tr`
   ${props =>
     props.seen &&
     css`
-      td {
-        /* color: rgba(0, 0, 0, 0.3) !important; */
-
-        svg {
-          path {
-            fill: rgba(0, 0, 0, 0.3) !important;
-          }
-        }
+      > * {
+        opacity: 0.3;
       }
     `}
 `

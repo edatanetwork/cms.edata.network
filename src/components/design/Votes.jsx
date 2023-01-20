@@ -1,11 +1,11 @@
-// import { useDispatch } from 'react-redux'
+import { useDispatch } from 'react-redux'
 
 import {
   useGetVotesQuery,
-  useDeleteVoteMutation
-  // useSeenVoteMutation
+  useDeleteVoteMutation,
+  useSeenVoteMutation
 } from 'app/services/votes'
-// import { setCurrent } from 'features/currentSlice'
+import { setCurrent } from 'features/currentSlice'
 
 import { throwToast } from 'utils/throwToast'
 import { formatDate } from 'utils/formatDate'
@@ -19,10 +19,10 @@ import { VotesTable } from 'components/styled/pages/common/VoteTable.styled'
 import { Head, Body, Row, Cell } from 'components/styled/common/Table.styled'
 
 const Votes = () => {
-  // const dispatch = useDispatch()
+  const dispatch = useDispatch()
   const { data, isLoading, isFetching } = useGetVotesQuery()
 
-  // const [seenVote] = useSeenVoteMutation()
+  const [seenVote] = useSeenVoteMutation()
   const [deleteVote] = useDeleteVoteMutation()
 
   const handleDelete = id => {
@@ -50,7 +50,7 @@ const Votes = () => {
             </Row>
           ) : (
             data.votes.map(vote => (
-              <Row key={vote.id}>
+              <Row seen={vote.seen} key={vote.id}>
                 <Cell>
                   <Image
                     src={vote.post.post_images[0].preview}
@@ -71,12 +71,15 @@ const Votes = () => {
                         : IconTypes.squareIconDown
                     }
                   />
-                  {/* <CircleButton onClick={() => seenVote(vote.id)}>
+                  <CircleButton
+                    disabled={vote.seen}
+                    onClick={() => seenVote(vote.id)}
+                  >
                     <Icon type={IconTypes.eye} />
                   </CircleButton>
                   <CircleButton onClick={() => dispatch(setCurrent(vote.post))}>
                     <Icon type={IconTypes.edit} />
-                  </CircleButton> */}
+                  </CircleButton>
                   <CircleButton onClick={() => handleDelete(vote.id)}>
                     <Icon type={IconTypes.delete} />
                   </CircleButton>

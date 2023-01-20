@@ -13,6 +13,13 @@ const submitted = api.injectEndpoints({
       }),
       providesTags: ['Submitted']
     }),
+    seenSubmitted: builder.mutation({
+      query: id => ({
+        url: `/submitted/seen/${id}`,
+        method: 'POST'
+      }),
+      invalidatesTags: ['Submitted']
+    }),
     designSubmittedNotification: builder.query({
       query: () => ({
         url: '/submitted/seen-check'
@@ -22,5 +29,8 @@ const submitted = api.injectEndpoints({
   })
 })
 
-export const { useGetSubmittedQuery, useLazyDesignSubmittedNotificationQuery } =
-  submitted
+export const {
+  useGetSubmittedQuery,
+  useSeenSubmittedMutation,
+  useLazyDesignSubmittedNotificationQuery
+} = submitted

@@ -1,5 +1,9 @@
 import { useSelector, useDispatch } from 'react-redux'
-import { useGetSubmittedQuery } from 'app/services/submitted'
+
+import {
+  useGetSubmittedQuery,
+  useSeenSubmittedMutation
+} from 'app/services/submitted'
 
 import { setCurrent } from 'features/currentSlice'
 import { formatDate } from 'utils/formatDate'
@@ -15,6 +19,7 @@ const Submitted = () => {
   const dispatch = useDispatch()
   const { data, isLoading, isFetching } = useGetSubmittedQuery()
   const current = useSelector(state => state.current.current)
+  const [seenSubmitted] = useSeenSubmittedMutation()
 
   return (
     <Grid>
@@ -38,12 +43,17 @@ const Submitted = () => {
               <Row
                 key={submitted.id}
                 active={submitted.id === current?.id}
-                onClick={() => dispatch(setCurrent(submitted))}
+                seen={submitted.seen}
               >
-                <Cell>{submitted.title}</Cell>
+                <Cell onClick={() => dispatch(setCurrent(submitted))}>
+                  {submitted.title}
+                </Cell>
                 <Cell></Cell>
                 <Cell>{formatDate(submitted.created_at)}</Cell>
                 <Cell>
+                  <CircleButton onClick={() => seenSubmitted(submitted.id)}>
+                    <Icon type={IconTypes.eye} />
+                  </CircleButton>
                   <CircleButton>
                     <Icon type={IconTypes.delete} />
                   </CircleButton>

@@ -143,14 +143,29 @@ const pageInfo = path => {
     case '/tv/settings/ads':
       return { title: 'Ads', btnTitle: 'Ad', search: false, home: false }
     case '/design/trash':
+    case '/sports/trash':
+    case '/movies/trash':
+    case '/tv/trash':
       return { title: 'Trash', btnTitle: 'Post', search: true, home: false }
     case '/design/votes':
+    case '/sports/votes':
+    case '/movies/votes':
+    case '/tv/votes':
       return { title: 'Votes', btnTitle: 'Post', search: true, home: false }
     case '/design/submitted':
+    case '/sports/submitted':
+    case '/movies/submitted':
+    case '/tv/submitted':
       return { title: 'Submitted', btnTitle: 'Post', search: true, home: false }
     case '/design/reports':
+    case '/sports/reports':
+    case '/movies/reports':
+    case '/tv/reports':
       return { title: 'Reports', btnTitle: 'Post', search: true, home: false }
     case '/design/searched':
+    case '/sports/searched':
+    case '/movies/searched':
+    case '/tv/searched':
       return { title: 'Searched', btnTitle: 'Post', search: true, home: false }
     default:
       return { title: 'All Posts', search: true, home: true }

@@ -1,4 +1,12 @@
 import { useNavigate } from 'react-router-dom'
+import { useDispatch, useSelector } from 'react-redux'
+
+import {
+  useDeleteTvGenreMutation,
+  useGetTvGenresQuery
+} from 'app/services/tv/genre'
+import { throwToast, removeConfirmation } from 'utils/throwToast'
+import { setCurrent } from 'features/currentSlice'
 
 import Icon, { IconTypes } from 'components/common/Icon'
 import EditDeleteButtons from 'components/common/EditDeleteButtons'
@@ -11,6 +19,15 @@ import { Head, Body, Row, Cell } from 'components/styled/common/Table.styled'
 
 const GenreTable = () => {
   const navigate = useNavigate()
+  const dispatch = useDispatch()
+  const current = useSelector(state => state.current.current)
+  const { data, isLoading } = useGetTvGenresQuery()
+  const [deleteTvGenre] = useDeleteTvGenreMutation()
+
+  const handleDelete = id => {
+    const promise = deleteTvGenre(id).unwrap()
+    throwToast(promise, 'Deleting genre!', 'Genre deleted!')
+  }
 
   return (
     <TableWrapper>
@@ -21,17 +38,30 @@ const GenreTable = () => {
           </Row>
         </Head>
         <Body>
-          <Row>
-            <Cell>
-              <Icon type={IconTypes.loading} />
-            </Cell>
-          </Row>
-          <Row>
-            <Cell>News</Cell>
-            <Cell>
-              <EditDeleteButtons />
-            </Cell>
-          </Row>
+          {isLoading ? (
+            <Row>
+              <Cell>
+                <Icon type={IconTypes.loading} />
+              </Cell>
+            </Row>
+          ) : (
+            data.map(genre => (
+              <Row
+                key={genre.id}
+                active={current?.id + current?.name === genre.id + genre.name}
+              >
+                <Cell>{genre.name}</Cell>
+                <Cell>
+                  <EditDeleteButtons
+                    edit={() => dispatch(setCurrent(genre))}
+                    remove={() =>
+                      removeConfirmation(() => handleDelete(genre.id))
+                    }
+                  />
+                </Cell>
+              </Row>
+            ))
+          )}
         </Body>
       </CategoryTable>
       <div>

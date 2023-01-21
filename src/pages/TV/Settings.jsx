@@ -10,10 +10,19 @@ import CountryForm from 'components/common/settings/CountryForm'
 import LanguageForm from 'components/common/settings/LanguageForm'
 import DomainForm from 'components/common/settings/DomainForm'
 import AdForm from 'components/common/settings/AdForm'
+import GenreForm from 'components/common/settings/GenreForm'
+
+import {
+  useCreateTvGenreMutation,
+  useUpdateTvGenreMutation
+} from 'app/services/tv/genre'
 
 import { Grid } from 'components/styled/common/Grid.styled'
 
 const SettingsPage = () => {
+  const [createTvGenre] = useCreateTvGenreMutation()
+  const [updateTvGenre] = useUpdateTvGenreMutation()
+
   return (
     <Grid columns='1fr auto'>
       <Grid rows='auto 1fr'>
@@ -27,7 +36,11 @@ const SettingsPage = () => {
       <Routes>
         <Route
           path='/categories'
-          element={<Sidebar title='Genre' form='categories-genre'></Sidebar>}
+          element={
+            <Sidebar title='Genre' form='categories-genre'>
+              <GenreForm create={createTvGenre} update={updateTvGenre} />
+            </Sidebar>
+          }
         />
         <Route
           path='/categories/countries'

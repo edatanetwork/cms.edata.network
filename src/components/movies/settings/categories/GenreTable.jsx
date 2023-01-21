@@ -1,4 +1,12 @@
 import { useNavigate } from 'react-router-dom'
+import { useDispatch, useSelector } from 'react-redux'
+
+import {
+  useGetMovieGenresQuery,
+  useDeleteMovieGenreMutation
+} from 'app/services/movie/genre'
+import { setCurrent } from 'features/currentSlice'
+import { throwToast, removeConfirmation } from 'utils/throwToast'
 
 import Icon, { IconTypes } from 'components/common/Icon'
 import EditDeleteButtons from 'components/common/EditDeleteButtons'
@@ -11,6 +19,16 @@ import { Head, Body, Row, Cell } from 'components/styled/common/Table.styled'
 
 const GenreTable = () => {
   const navigate = useNavigate()
+  const dispatch = useDispatch()
+  const current = useSelector(state => state.current.current)
+
+  const { data, isLoading } = useGetMovieGenresQuery()
+  const [deleteGenre] = useDeleteMovieGenreMutation()
+
+  const handleDelete = id => {
+    const promise = deleteGenre(id).unwrap()
+    throwToast(promise, 'Deleting genre!', 'Genre deleted!')
+  }
 
   return (
     <TableWrapper>
@@ -21,17 +39,30 @@ const GenreTable = () => {
           </Row>
         </Head>
         <Body>
-          <Row>
-            <Cell>
-              <Icon type={IconTypes.loading} />
-            </Cell>
-          </Row>
-          <Row>
-            <Cell>Newsaa</Cell>
-            <Cell>
-              <EditDeleteButtons />
-            </Cell>
-          </Row>
+          {isLoading ? (
+            <Row>
+              <Cell>
+                <Icon type={IconTypes.loading} />
+              </Cell>
+            </Row>
+          ) : (
+            data.map(genre => (
+              <Row key={genre.id} active={current?.id === genre.id}>
+                <Cell>{genre.name}</Cell>
+                <Cell>
+                  <EditDeleteButtons
+                    edit={async () => {
+                      await navigate('/movies/settings/categories')
+                      dispatch(setCurrent(genre))
+                    }}
+                    remove={() =>
+                      removeConfirmation(() => handleDelete(genre.id))
+                    }
+                  />
+                </Cell>
+              </Row>
+            ))
+          )}
         </Body>
       </CategoryTable>
       <div>

@@ -1,5 +1,7 @@
 import { useGetSearchedQuery } from 'app/services/searches'
 
+import { formatDate } from 'utils/formatDate'
+
 import Pagination from 'components/common/Pagination'
 import Icon, { IconTypes } from 'components/common/Icon'
 import { SearchedTable } from 'components/styled/pages/common/SearchedTable.styled'
@@ -30,10 +32,10 @@ const Searched = () => {
           ) : (
             data.searched.map(search => (
               <Row key={search.id}>
-                <Cell>Facebook Icon</Cell>
+                <Cell>{search.search}</Cell>
                 <Cell>Not found</Cell>
-                <Cell>domain</Cell>
-                <Cell>date</Cell>
+                <Cell>{search.domain.name}</Cell>
+                <Cell>{formatDate(search.created_at)}</Cell>
                 <Cell>
                   <RoundButton>
                     <Icon type={IconTypes.delete} />

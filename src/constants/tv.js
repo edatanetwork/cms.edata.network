@@ -1,5 +1,5 @@
 export const CHANNEL_NAME = 'name'
 export const CHANNEL_LOGO = 'logo'
-export const CATEGORY_ID = 'category_id'
+export const GENRE_ID = 'genre_id'
 export const COUNTRY_ID = 'country_id'
 export const LANGUAGE_ID = 'language_id'

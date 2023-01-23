@@ -32,7 +32,8 @@ export const api = createApi({
     'Leagues',
     'Teams',
     'Movie-Genre',
-    'Tv-Genre'
+    'Tv-Genre',
+    'Channels'
   ],
   endpoints: () => ({})
 })

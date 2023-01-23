@@ -3,7 +3,6 @@ import styled from 'styled-components'
 import { useCallback } from 'react'
 import { useDropzone } from 'react-dropzone'
 import { useFormContext, Controller } from 'react-hook-form'
-import { generateImageUrl } from 'utils/generateImageUrl'
 
 import Image from 'components/common/Image'
 import Icon, { IconTypes } from 'components/common/Icon'
@@ -66,10 +65,7 @@ const Dropzone = ({ value, onChange }) => {
   return (
     <Zone {...getRootProps()}>
       {value ? (
-        <Image
-          src={value.preview ? value : generateImageUrl({ src: value })}
-          alt=''
-        />
+        <Image src={value} alt='' />
       ) : (
         <>
           <input {...getInputProps()} />

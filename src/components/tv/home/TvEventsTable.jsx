@@ -1,9 +1,12 @@
-import TvEventRow from './TvEventRow'
+import { useGetChannelsQuery } from 'app/services/tv/channels'
 
+import TvEventRow from './TvEventRow'
 import Icon, { IconTypes } from 'components/common/Icon'
 import * as S from 'components/styled/common/AccordionTable.styled'
 
 const TvEventsTable = () => {
+  const { data, isLoading, isFetching } = useGetChannelsQuery()
+
   return (
     <S.TvEventsTable>
       <S.Head>
@@ -31,7 +34,17 @@ const TvEventsTable = () => {
         </S.Row>
       </S.Head>
       <S.Body>
-        <TvEventRow />
+        {isLoading || isFetching ? (
+          <S.Row>
+            <S.Cell>
+              <Icon type={IconTypes.loading} />
+            </S.Cell>
+          </S.Row>
+        ) : (
+          data.channels.map(channel => (
+            <TvEventRow key={channel.id} {...channel} />
+          ))
+        )}
       </S.Body>
     </S.TvEventsTable>
   )

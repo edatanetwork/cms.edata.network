@@ -1,52 +1,111 @@
-import { useState } from 'react'
+import { useState, useEffect } from 'react'
+import { useDispatch, useSelector } from 'react-redux'
 import * as yup from 'yup'
 import * as C from 'constants/tv'
 
 import withFormProvider from 'HOCs/withFormProvider'
+
+import { useGetTvGenresQuery } from 'app/services/tv/genre'
+import { createFormData } from 'utils/createFormData'
+import { throwToast } from 'utils/throwToast'
+import { clearCurrent } from 'features/currentSlice'
+import {
+  useCreateChannelMutation,
+  useUpdateChannelMutation
+} from 'app/services/tv/channels'
 
 import Form from 'components/common/form/Form'
 import Dropdown from 'components/common/form/Dropdown'
 import InputWithImage from 'components/common/form/InputWithImage'
 import Stepper from 'components/common/form/Stepper'
 import AddTvEventLinks from 'components/common/form/AddTvEventLinks'
+import CountrySelect from 'components/common/select/CountrySelect'
+import LanguageSelect from 'components/common/select/LanguageSelect'
 
-const TvEventForm1 = ({ methods }) => {
+const schema = yup.object({
+  [C.CHANNEL_NAME]: yup.string().required('Channel name is required!'),
+  [C.GENRE_ID]: yup.number().required('Genre is required!'),
+  [C.COUNTRY_ID]: yup.number().required('Country is required!'),
+  [C.LANGUAGE_ID]: yup.number().required('Language is required!'),
+  links: yup.array().of(
+    yup.object().shape({
+      url: yup.string().required('Link is required!'),
+      quality: yup.string().required('Quality is required!')
+    })
+  )
+})
+
+const TvEventForm1 = ({ methods: { reset } }) => {
   const [activeStep, setActiveStep] = useState(1)
-  const { reset } = methods
+  const dispatch = useDispatch()
+  const { data, isLoading } = useGetTvGenresQuery()
+  const [createChannel] = useCreateChannelMutation()
+  const [updateChannel] = useUpdateChannelMutation()
+  const current = useSelector(state => state.current.current)
 
-  const onSubmit = data => {
-    // reset()
+  const onSubmit = async data => {
+    const body = createFormData(data)
+
+    if (current) {
+      const promise = updateChannel({ id: current.id, body }).unwrap()
+      throwToast(promise, 'Updating channel!', 'Channel updated!')
+      dispatch(clearCurrent())
+    } else {
+      const promise = createChannel(body).unwrap()
+      throwToast(promise, 'Creating channel!', 'Channel created!')
+      reset()
+    }
   }
+
+  useEffect(() => {
+    if (current) {
+      reset({
+        [C.CHANNEL_NAME]: current.name,
+        [C.CHANNEL_LOGO]: current.logo,
+        [C.GENRE_ID]: current.genre.id,
+        [C.COUNTRY_ID]: current.country.id,
+        [C.LANGUAGE_ID]: current.language.id,
+        links: current.links
+          ? current.links?.map(link => ({
+              ...link,
+              linkId: link.id,
+              existing: true
+            }))
+          : []
+      })
+    } else {
+      reset({
+        [C.CHANNEL_NAME]: '',
+        [C.CHANNEL_LOGO]: null,
+        [C.GENRE_ID]: null,
+        [C.COUNTRY_ID]: null,
+        [C.LANGUAGE_ID]: null,
+        links: []
+      })
+    }
+  }, [current])
 
   return (
     <>
       <Form id='tv-event' onSubmit={onSubmit}>
-        <InputWithImage
-          label='Channel Name'
-          placeholder='Enter channel name'
-          inputName={C.CHANNEL_NAME}
-          dropzoneName={C.CHANNEL_LOGO}
-        />
         {activeStep === 1 && (
           <>
-            <Dropdown
-              label='Category'
-              placeholder='Select category'
-              name={C.CATEGORY_ID}
-              options={sports}
+            <InputWithImage
+              label='Channel Name'
+              placeholder='Enter channel name'
+              inputName={C.CHANNEL_NAME}
+              dropzoneName={C.CHANNEL_LOGO}
             />
             <Dropdown
-              label='Country'
-              placeholder='Select country'
-              name={C.COUNTRY_ID}
-              options={countries}
+              isSearchable
+              label='Genre'
+              placeholder='Select genre'
+              name={C.GENRE_ID}
+              options={data}
+              isLoading={isLoading}
             />
-            <Dropdown
-              label='Language'
-              placeholder='Select language'
-              name={C.LANGUAGE_ID}
-              options={leagues}
-            />
+            <CountrySelect name={C.COUNTRY_ID} />
+            <LanguageSelect name={C.LANGUAGE_ID} />
           </>
         )}
         {activeStep === 2 && <AddTvEventLinks name='links' />}
@@ -56,66 +115,4 @@ const TvEventForm1 = ({ methods }) => {
   )
 }
 
-const schema = yup.object({
-  [C.CHANNEL_NAME]: yup.string().required('Channel name is required!'),
-  [C.CATEGORY_ID]: yup.number().required('Category is required!'),
-  [C.COUNTRY_ID]: yup.number().required('Country is required!'),
-  [C.LANGUAGE_ID]: yup.number().required('Language is required!')
-})
-
 export default withFormProvider(TvEventForm1, schema)
-
-const sports = [
-  {
-    id: 1,
-    name: 'Football'
-  },
-  {
-    id: 2,
-    name: 'Basketball'
-  },
-  {
-    id: 3,
-    name: 'Voleyball'
-  },
-  {
-    id: 4,
-    name: 'Tennis'
-  }
-]
-
-const countries = [
-  {
-    id: 1,
-    name: 'Albania'
-  },
-  {
-    id: 2,
-    name: 'England'
-  },
-  {
-    id: 3,
-    name: 'Germany'
-  }
-]
-
-const leagues = [
-  {
-    id: 1,
-    sport_id: 1,
-    country_id: 1,
-    name: 'Superliga'
-  },
-  {
-    id: 1,
-    sport_id: 1,
-    country_id: 1,
-    name: 'First Division'
-  },
-  {
-    id: 1,
-    sport_id: 2,
-    country_id: 2,
-    name: 'Super Cup'
-  }
-]

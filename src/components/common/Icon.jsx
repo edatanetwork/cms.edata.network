@@ -52,11 +52,13 @@ export const IconTypes = {
   tv: 'tv',
   videoCamera: 'videoCamera',
   layers: 'layers',
-  bigPlus: 'bigPlus'
+  bigPlus: 'bigPlus',
+  newTab: 'newTab',
+  plusV2: 'plusV2'
 }
 
 const icons = {
-  [IconTypes.bigPlus]: (
+  [IconTypes.plusV2]: (
     <svg
       stroke='currentColor'
       fill='currentColor'
@@ -68,6 +70,35 @@ const icons = {
     >
       <path d='M474 152m8 0l60 0q8 0 8 8l0 704q0 8-8 8l-60 0q-8 0-8-8l0-704q0-8 8-8Z'></path>
       <path d='M168 474m8 0l672 0q8 0 8 8l0 60q0 8-8 8l-672 0q-8 0-8-8l0-60q0-8 8-8Z'></path>
+    </svg>
+  ),
+  [IconTypes.newTab]: (
+    <svg
+      xmlns='http://www.w3.org/2000/svg'
+      width='12'
+      height='12'
+      viewBox='0 0 12 12'
+    >
+      <path
+        d='M13.667,13.667H4.333V4.333H9V3H4.333A1.333,1.333,0,0,0,3,4.333v9.333A1.333,1.333,0,0,0,4.333,15h9.333A1.337,1.337,0,0,0,15,13.667V9H13.667ZM10.333,3V4.333h2.393L6.173,10.887l.94.94,6.553-6.553V7.667H15V3Z'
+        transform='translate(-3 -3)'
+      />
+    </svg>
+  ),
+  [IconTypes.bigPlus]: (
+    <svg
+      xmlns='http://www.w3.org/2000/svg'
+      width='48'
+      height='48'
+      viewBox='0 0 48 48'
+    >
+      <rect width='2' height='48' transform='translate(23)' fill='#ebeef1' />
+      <rect
+        width='2'
+        height='48'
+        transform='translate(48 23) rotate(90)'
+        fill='#ebeef1'
+      />
     </svg>
   ),
   [IconTypes.layers]: (

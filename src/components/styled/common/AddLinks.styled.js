@@ -28,7 +28,7 @@ export const Header = styled.div`
   ${props =>
     !props.isOpen &&
     css`
-      svg {
+      div > svg {
         transform: scaleY(-1);
       }
     `}
@@ -39,10 +39,35 @@ export const Header = styled.div`
   }
 `
 
+export const Actions = styled.div`
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+
+  button {
+    border-radius: 20px;
+    padding: 0.5rem;
+    background-color: white;
+
+    svg {
+      height: 15px;
+      width: auto;
+    }
+  }
+`
+
+export const Button = styled.button`
+  margin-right: 0.5rem;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+`
+
 export const Fields = styled.fieldset`
   border: 0;
   display: grid;
   gap: 14px;
+  padding-top: 1rem;
 
   ${props =>
     !props.isOpen &&

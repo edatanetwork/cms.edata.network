@@ -179,12 +179,12 @@ export const SportEventsTable = styled.div`
   }
 `
 
-const tvTableCoulmns = '4fr 2fr 1fr 1fr 1.5fr 1fr'
+const tvEventColumns = '3.5fr 2fr 1fr 1fr 1.5fr 1fr'
 
 export const TvEventsTable = styled.div`
   ${Head} {
     ${Row} {
-      grid-template-columns: ${tvTableCoulmns};
+      grid-template-columns: ${tvEventColumns};
 
       ${Cell} {
         :nth-of-type(3) {
@@ -196,7 +196,7 @@ export const TvEventsTable = styled.div`
 
   ${Body} {
     ${Row} {
-      grid-template-columns: 2rem ${tvTableCoulmns};
+      grid-template-columns: 2rem ${tvEventColumns};
 
       ${Cell} {
         :nth-of-type(4) {
@@ -212,7 +212,7 @@ export const TvEventsTable = styled.div`
     }
 
     ${AccordionRow} {
-      grid-template-columns: 2rem 4fr 3fr 1.5fr 1fr 1.2fr 1fr;
+      grid-template-columns: 2rem ${tvEventColumns};
 
       ${Cell} {
         :nth-of-type(4) {
@@ -221,6 +221,8 @@ export const TvEventsTable = styled.div`
 
         :nth-of-type(3) {
           a {
+            display: flex;
+            gap: 0.5rem;
             margin-right: 4rem;
           }
         }

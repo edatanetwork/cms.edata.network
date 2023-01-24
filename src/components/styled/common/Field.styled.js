@@ -6,11 +6,7 @@ export const Field = styled.div`
       props.error ? props.theme.clrError : 'rgba(0, 0, 0, 0.5)'};
   }
 
-  & > div:last-of-type {
-    :focus-within {
-      border-color: black;
-    }
-
+  > div:last-of-type {
     border-color: ${props => (props.error ? props.theme.clrError : '#ebeef1')};
   }
 `

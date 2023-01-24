@@ -67,6 +67,7 @@ const TvEventRow = props => {
             <S.Cell>{link.quality}</S.Cell>
             <S.Cell>
               <FavEditDel
+                edit={() => dispatch(setCurrent(props))}
                 remove={() =>
                   removeConfirmation(() => handleDeleteLink(link.id))
                 }

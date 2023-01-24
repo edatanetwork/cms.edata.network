@@ -22,19 +22,6 @@ import AddTvEventLinks from 'components/common/form/AddTvEventLinks'
 import CountrySelect from 'components/common/select/CountrySelect'
 import LanguageSelect from 'components/common/select/LanguageSelect'
 
-const schema = yup.object({
-  [C.CHANNEL_NAME]: yup.string().required('Channel name is required!'),
-  [C.GENRE_ID]: yup.number().required('Genre is required!'),
-  [C.COUNTRY_ID]: yup.number().required('Country is required!'),
-  [C.LANGUAGE_ID]: yup.number().required('Language is required!'),
-  links: yup.array().of(
-    yup.object().shape({
-      url: yup.string().required('Link is required!'),
-      quality: yup.string().required('Quality is required!')
-    })
-  )
-})
-
 const TvEventForm1 = ({ methods: { reset } }) => {
   const [activeStep, setActiveStep] = useState(1)
   const dispatch = useDispatch()
@@ -114,5 +101,27 @@ const TvEventForm1 = ({ methods: { reset } }) => {
     </>
   )
 }
+
+const schema = yup.object({
+  [C.CHANNEL_NAME]: yup.string().required('Channel name is required!'),
+  [C.GENRE_ID]: yup
+    .number()
+    .typeError('Genre is required!')
+    .required('Genre is required!'),
+  [C.COUNTRY_ID]: yup
+    .number()
+    .typeError('Country is required!')
+    .required('Country is required!'),
+  [C.LANGUAGE_ID]: yup
+    .number()
+    .typeError('Language is required!')
+    .required('Language is required!'),
+  links: yup.array().of(
+    yup.object().shape({
+      url: yup.string().url().required('Link is required!'),
+      quality: yup.string().required('Quality is required!')
+    })
+  )
+})
 
 export default withFormProvider(TvEventForm1, schema)

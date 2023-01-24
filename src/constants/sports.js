@@ -1,5 +1,5 @@
-export const TEAM_1 = 'team1'
-export const TEAM_2 = 'team2'
+export const TEAM_1 = 'home_team'
+export const TEAM_2 = 'away_team'
 export const SPORT_ID = 'sport_id'
 export const COUNTRY_ID = 'country_id'
 export const LEAGUE_ID = 'league_id'

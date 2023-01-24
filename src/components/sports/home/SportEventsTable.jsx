@@ -1,9 +1,11 @@
-import SportEventRow from './SportEventRow'
+import { useGetMatchesQuery } from 'app/services/sport/matches'
 
-import * as S from 'components/styled/common/AccordionTable.styled'
 import Icon, { IconTypes } from 'components/common/Icon'
+import SportEventRow from 'components/sports/home/SportEventRow'
+import * as S from 'components/styled/common/AccordionTable.styled'
 
 const SportEventsTable = () => {
+  const { data, isLoading, isFetching } = useGetMatchesQuery()
   return (
     <S.SportEventsTable>
       <S.Head>
@@ -40,7 +42,15 @@ const SportEventsTable = () => {
         </S.Row>
       </S.Head>
       <S.Body>
-        <SportEventRow />
+        {isLoading || isFetching ? (
+          <S.Row>
+            <S.Cell>
+              <Icon type={IconTypes.loading} />
+            </S.Cell>
+          </S.Row>
+        ) : (
+          data.matches.map(match => <SportEventRow key={match.id} {...match} />)
+        )}
       </S.Body>
     </S.SportEventsTable>
   )

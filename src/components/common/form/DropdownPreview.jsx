@@ -1,25 +1,29 @@
 import { useFormContext, Controller } from 'react-hook-form'
+import debounce from 'lodash.debounce'
 
-import { LazyLoadImage } from 'react-lazy-load-image-component'
+import Image from '../Image'
+
+import { useLazyGetTeamsQuery } from 'app/services/sport/teams'
 
 import Icon, { IconTypes } from 'components/common/Icon'
 import * as F from 'components/styled/common/Field.styled'
 import * as D from 'components/styled/common/DropdownPreview.styled'
 
-const DropdownPreview = ({ label, name, placeholder, options }) => {
+const DropdownPreview = ({ label, name, placeholder }) => {
   const {
     watch,
     control,
     formState: { errors }
   } = useFormContext()
 
-  const selected = watch(name)
-  const logo = options.find(opt => opt.id === selected)?.logo
+  const [trigger] = useLazyGetTeamsQuery()
 
-  const getValueFromOptions = value =>
-    options?.find(opt => opt.id === value)
-      ? options.find(opt => opt.id === value)
-      : null
+  const handleSearch = async (search, callback) => {
+    if (search !== '') {
+      const res = await trigger({ search }).unwrap()
+      callback(res.teams)
+    }
+  }
 
   return (
     <F.Field error={errors[name]}>
@@ -38,18 +42,14 @@ const DropdownPreview = ({ label, name, placeholder, options }) => {
                 isClearable
                 classNamePrefix='select'
                 placeholder={placeholder}
-                options={options}
+                loadOptions={debounce(handleSearch, 500)}
                 getOptionValue={opt => opt.id}
-                value={getValueFromOptions(value)}
-                onChange={opt => onChange(opt ? opt.id : undefined)}
+                value={value}
+                onChange={opt => onChange(opt ? opt : null)}
                 formatOptionLabel={option => (
                   <>
                     <div>
-                      <LazyLoadImage
-                        effect='opacity'
-                        src={option.logo}
-                        alt=''
-                      />
+                      <Image effect='opacity' src={option.logo} alt='' />
                     </div>
                     {option.name}
                   </>
@@ -58,8 +58,8 @@ const DropdownPreview = ({ label, name, placeholder, options }) => {
             )}
           />
           <D.Preview>
-            {logo ? (
-              <LazyLoadImage effect='opacity' src={logo} alt='team logo' />
+            {watch(name)?.logo ? (
+              <Image effect='opacity' src={watch(name).logo} alt='team logo' />
             ) : (
               <Icon type={IconTypes.bigPlus} />
             )}

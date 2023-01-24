@@ -1,12 +1,27 @@
 import { useState } from 'react'
+import { useDispatch } from 'react-redux'
 
+import { formatDate } from 'utils/formatDate'
+import { setCurrent } from 'features/currentSlice'
+import { throwToast, removeConfirmation } from 'utils/throwToast'
+import { useDeleteMatchMutation } from 'app/services/sport/matches'
+
+import Image from 'components/common/Image'
+import Votes from 'components/common/VoteCount'
+import FavEditDel from 'components/common/FavEditDel'
 import * as S from 'components/styled/common/AccordionTable.styled'
 
-import FavEditDel from 'components/common/FavEditDel'
-import Votes from 'components/common/VoteCount'
-
-const SportEventRow = () => {
+const SportEventRow = props => {
+  const dispatch = useDispatch()
   const [isActive, setIsActive] = useState(false)
+  const [deleteMatch] = useDeleteMatchMutation()
+
+  const start_time = props.start_time.split(' ')[1].slice(0, -3)
+
+  const handleDelete = id => {
+    const promise = deleteMatch(id).unwrap()
+    throwToast(promise, 'Deleting match!', 'Match deleted!')
+  }
 
   return (
     <>
@@ -15,27 +30,24 @@ const SportEventRow = () => {
           <S.Status color='#4db500' />
         </S.Cell>
         <S.Cell onClick={() => setIsActive(!isActive)}>
-          <img
-            src='https://upload.wikimedia.org/wikipedia/en/thumb/a/a7/Paris_Saint-Germain_F.C..svg/1024px-Paris_Saint-Germain_F.C..svg.png'
-            alt='home team'
-          />
-          Paris Saint-Germain F.C. - RB Leipzig
-          <img
-            src='https://upload.wikimedia.org/wikipedia/en/thumb/0/04/RB_Leipzig_2014_logo.svg/1920px-RB_Leipzig_2014_logo.svg.png'
-            alt='away team'
-          />
+          <Image src={props.home_team.logo} />
+          {props.home_team.name} - {props.away_team.name}
+          <Image src={props.away_team.logo} />
         </S.Cell>
-        <S.Cell>20:45</S.Cell>
+        <S.Cell>{start_time}</S.Cell>
         <S.Cell>-14 min</S.Cell>
-        <S.Cell>1392</S.Cell>
+        <S.Cell>0</S.Cell>
         <S.Cell>
-          <img src='https://vectorflags.s3-us-west-2.amazonaws.com/flags/org-eu-circle-01.png' />
-          Champions League
+          <Image src={props.league.logo} />
+          {props.league.name}
         </S.Cell>
-        <S.Cell>Gerinzo</S.Cell>
-        <S.Cell>12.11.2021 20:45</S.Cell>
+        <S.Cell>{props.author}</S.Cell>
+        <S.Cell>{formatDate(props.created_at)}</S.Cell>
         <S.Cell>
-          <FavEditDel />
+          <FavEditDel
+            edit={() => dispatch(setCurrent(props))}
+            remove={() => removeConfirmation(() => handleDelete(props.id))}
+          />
         </S.Cell>
       </S.Row>
       {isActive && (

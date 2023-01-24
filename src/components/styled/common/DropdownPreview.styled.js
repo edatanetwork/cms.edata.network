@@ -1,11 +1,11 @@
 import styled from 'styled-components'
-import Select from 'react-select'
+import AsyncSelect from 'react-select/async'
 
 export const DrodownPreview = styled.div`
   flex-grow: 1;
 `
 
-export const Dropdown = styled(Select)`
+export const Dropdown = styled(AsyncSelect)`
   .select__control {
     height: 44px;
     font-size: 13px;
@@ -105,6 +105,5 @@ export const Preview = styled.div`
   svg {
     width: 50px;
     height: auto;
-    opacity: 0.1;
   }
 `

@@ -58,7 +58,8 @@ const SportEventForm = ({ methods: { reset } }) => {
         [C.COUNTRY_ID]: current.country.id,
         [C.LEAGUE_ID]: current.league.id,
         [C.START_DATE]: current.start_time.split(' ')[0],
-        [C.START_TIME]: current.start_time.split(' ')[1].slice(0, -3)
+        [C.START_TIME]: current.start_time.split(' ')[1].slice(0, -3),
+        [C.END_TIME]: current.end_time
       })
     } else {
       reset({
@@ -68,7 +69,8 @@ const SportEventForm = ({ methods: { reset } }) => {
         [C.COUNTRY_ID]: null,
         [C.LEAGUE_ID]: null,
         [C.START_DATE]: '',
-        [C.START_TIME]: ''
+        [C.START_TIME]: '',
+        [C.END_TIME]: 0
       })
     }
   }, [current])

@@ -90,6 +90,13 @@ const Filterbar = () => {
         isClearable
         classNamePrefix='select'
         placeholder='Status'
+        options={statusOptions}
+        value={statusOptions.find(
+          opt => opt.value === searchParams.get('status')
+        )}
+        onChange={opt =>
+          handleChange({ key: 'status', value: opt ? opt.value : null })
+        }
       />
       <F.Dropdown
         unstyled
@@ -110,3 +117,10 @@ const Filterbar = () => {
 }
 
 export default Filterbar
+
+const statusOptions = [
+  { label: 'Live', value: 'live' },
+  { label: 'Coming soon', value: 'comingSoon' },
+  { label: 'Finished', value: 'finished' },
+  { label: 'No Links', value: 'No Links' }
+]

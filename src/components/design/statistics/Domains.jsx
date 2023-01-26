@@ -1,6 +1,6 @@
 import { useEffect, useState } from 'react'
 
-import { useGetDomainsQuery } from 'app/services/domains'
+import { useGetDomainsQuery } from 'app/services/common/domains'
 
 import { Button } from 'components/styled/common/Button.styled'
 import Icon, { IconTypes } from 'components/common/Icon'

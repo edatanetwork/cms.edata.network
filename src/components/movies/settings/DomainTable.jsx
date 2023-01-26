@@ -17,7 +17,7 @@ import { Head, Body, Row, Cell } from 'components/styled/common/Table.styled'
 const Domains = () => {
   const dispatch = useDispatch()
   const [deleteDomain] = useDeleteDomainMutation()
-  const { data, isLoading } = useGetDomainsQuery({ type: 'sport_events' })
+  const { data, isLoading } = useGetDomainsQuery({ type: 'movies' })
 
   const handleDelete = id => {
     const promise = deleteDomain(id).unwrap()

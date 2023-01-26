@@ -13,6 +13,7 @@ import LeagueForm from 'components/sports/settings/categories/LeagueForm'
 import TeamForm from 'components/sports/settings/categories/TeamForm'
 import DomainForm from 'components/common/settings/DomainForm'
 import AdForm from 'components/common/settings/AdForm'
+import Domains from 'components/sports/settings/DomainTable'
 
 import { Grid } from 'components/styled/common/Grid.styled'
 
@@ -23,7 +24,7 @@ const SettingsPage = () => {
         <Topbar />
         <Settings path='/sports'>
           <Route path='/categories/*' element={<Categories />} />
-          <Route path='/domains' element='[domains]' />
+          <Route path='/domains' element={<Domains />} />
           <Route path='/ads' element={<AdsTable />} />
         </Settings>
       </Grid>
@@ -72,7 +73,7 @@ const SettingsPage = () => {
           path='/domains'
           element={
             <Sidebar title='Domain' form='domain'>
-              <DomainForm />
+              <DomainForm type='sport_events' />
             </Sidebar>
           }
         />

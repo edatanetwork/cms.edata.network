@@ -5,6 +5,7 @@ import Topbar from 'layout/Topbar'
 import Sidebar from 'layout/Sidebar'
 import Categories from 'components/tv/settings/categories'
 import AdsTable from 'components/common/settings/AdsTable'
+import Domains from 'components/tv/settings/DomainTable'
 
 import CountryForm from 'components/common/settings/CountryForm'
 import LanguageForm from 'components/common/settings/LanguageForm'
@@ -29,7 +30,7 @@ const SettingsPage = () => {
         <Topbar />
         <Settings path='/tv'>
           <Route path='/categories/*' element={<Categories />} />
-          <Route path='/domains' element='[domains]' />
+          <Route path='/domains' element={<Domains />} />
           <Route path='/ads' element={<AdsTable />} />
         </Settings>
       </Grid>
@@ -62,7 +63,7 @@ const SettingsPage = () => {
           path='/domains'
           element={
             <Sidebar title='Domain' form='domain'>
-              <DomainForm />
+              <DomainForm type='channels' />
             </Sidebar>
           }
         />

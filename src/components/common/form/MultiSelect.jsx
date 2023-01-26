@@ -17,6 +17,7 @@ export default ({ title, name, options, isLoading, placeholder }) => {
         values.push(options.find(opt => opt.id === el))
       }
     }
+
     return values
   }
 

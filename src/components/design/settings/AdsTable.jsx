@@ -4,7 +4,7 @@ import { useSelector } from 'react-redux'
 
 import { setCurrent } from 'features/currentSlice'
 import { setDomainId } from 'features/domainSlice'
-import { useGetDomainsQuery } from 'app/services/domains'
+import { useGetDomainsQuery } from 'app/services/common/domains'
 import { useGetAdsQuery, useDeleteAdMutation } from 'app/services/ads'
 
 import { throwToast, removeConfirmation } from 'utils/throwToast'

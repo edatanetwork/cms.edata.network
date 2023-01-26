@@ -10,7 +10,7 @@ import * as yup from 'yup'
 import {
   useCreateDomainMutation,
   useUpdateDomainMutation
-} from 'app/services/domains'
+} from 'app/services/common/domains'
 import { useGetCategoriesQuery } from 'app/services/categories'
 import { clearCurrent } from 'features/currentSlice'
 
@@ -59,7 +59,7 @@ const DomainForm = () => {
       throwToast(promise, 'Updating domain!', 'Domain updated!')
       dispatch(clearCurrent())
     } else {
-      const body = createFormData({ data })
+      const body = createFormData({ ...data, type: 'posts' })
       const promise = createDomain(body).unwrap()
       throwToast(promise, 'Creating domain!', 'Domain created!')
       reset()
@@ -139,7 +139,7 @@ const DomainForm = () => {
 
 export default DomainForm
 
-const createFormData = ({ data }) => {
+const createFormData = data => {
   const formData = new FormData()
 
   for (const key in data) {

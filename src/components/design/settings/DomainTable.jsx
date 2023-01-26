@@ -4,7 +4,7 @@ import { useDispatch } from 'react-redux'
 import {
   useGetDomainsQuery,
   useDeleteDomainMutation
-} from 'app/services/domains'
+} from 'app/services/common/domains'
 import { setCurrent } from 'features/currentSlice'
 
 import { throwToast, removeConfirmation } from 'utils/throwToast'
@@ -31,6 +31,7 @@ const Domains = () => {
   ]
 
   const { data, isLoading, isFetching } = useGetDomainsQuery({
+    type: 'posts',
     ...sortByPosts[idxPosts],
     ...sortByDownloads[idxDownloads]
   })

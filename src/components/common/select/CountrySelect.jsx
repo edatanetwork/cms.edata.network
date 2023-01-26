@@ -1,6 +1,6 @@
 import Dropdown from 'components/common/form/Dropdown'
 
-import { useGetCountriesQuery } from 'app/common/countries'
+import { useGetCountriesQuery } from 'app/services/common/countries'
 
 const CountrySelect = ({ name }) => {
   const { data, isLoading } = useGetCountriesQuery()

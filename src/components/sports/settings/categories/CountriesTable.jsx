@@ -5,7 +5,7 @@ import { useDispatch, useSelector } from 'react-redux'
 import {
   useGetCountriesQuery,
   useDeleteCountryMutation
-} from 'app/common/countries'
+} from 'app/services/common/countries'
 import { throwToast, removeConfirmation } from 'utils/throwToast'
 import { setCurrent } from 'features/currentSlice'
 import { setCountryId } from 'features/filterSlice'

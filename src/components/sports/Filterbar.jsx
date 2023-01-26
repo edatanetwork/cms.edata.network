@@ -1,7 +1,7 @@
 import { useSearchParams } from 'react-router-dom'
 
 import { useGetSportsQuery } from 'app/services/sport/sport'
-import { useGetCountriesQuery } from 'app/common/countries'
+import { useGetCountriesQuery } from 'app/services/common/countries'
 import { useGetLeaguesQuery } from 'app/services/sport/leagues'
 import { useGetUsersQuery } from 'app/services/users'
 

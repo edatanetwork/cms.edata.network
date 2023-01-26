@@ -10,7 +10,7 @@ import { clearCurrent } from 'features/currentSlice'
 import {
   useUpdateCountryMutation,
   useCreateCountryMutation
-} from 'app/common/countries'
+} from 'app/services/common/countries'
 
 import Form from 'components/common/form/Form'
 import Input from 'components/common/form/Input'

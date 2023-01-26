@@ -8,7 +8,7 @@ import { createFormData } from 'utils/createFormData'
 import {
   useCreateLanguageMutation,
   useUpdateLanguageMutation
-} from 'app/common/languages'
+} from 'app/services/common/languages'
 import { throwToast } from 'utils/throwToast'
 import { clearCurrent } from 'features/currentSlice'
 

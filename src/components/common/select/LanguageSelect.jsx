@@ -1,6 +1,6 @@
 import Dropdown from 'components/common/form/Dropdown'
 
-import { useGetLanguagesQuery } from 'app/common/languages'
+import { useGetLanguagesQuery } from 'app/services/common/languages'
 
 const LanguageSelect = ({ name }) => {
   const { data, isLoading } = useGetLanguagesQuery()

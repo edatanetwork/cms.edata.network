@@ -2,7 +2,7 @@ import { useState } from 'react'
 import { useDispatch, useSelector } from 'react-redux'
 
 import { useDeleteChannelMutation } from 'app/services/tv/channels'
-import { useDeleteLinkMutation } from 'app/common/links'
+import { useDeleteLinkMutation } from 'app/services/common/links'
 import { formatDate } from 'utils/formatDate'
 import { setCurrent } from 'features/currentSlice'
 import { throwToast, removeConfirmation } from 'utils/throwToast'

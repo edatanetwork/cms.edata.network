@@ -4,7 +4,7 @@ import { useDispatch, useSelector } from 'react-redux'
 import {
   useGetLanguagesQuery,
   useDeleteLanguageMutation
-} from 'app/common/languages'
+} from 'app/services/common/languages'
 import { throwToast, removeConfirmation } from 'utils/throwToast'
 
 import Icon, { IconTypes } from 'components/common/Icon'

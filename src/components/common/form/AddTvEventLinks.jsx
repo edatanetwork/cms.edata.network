@@ -6,7 +6,7 @@ import {
   useUpdateLinkMutation,
   useCreateLinkMutation,
   useDeleteLinkMutation
-} from 'app/common/links'
+} from 'app/services/common/links'
 import { throwToast } from 'utils/throwToast'
 
 import Input from 'components/common/form/Input'

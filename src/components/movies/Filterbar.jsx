@@ -1,6 +1,6 @@
 import { useSearchParams } from 'react-router-dom'
 
-import { useGetCountriesQuery } from 'app/common/countries'
+import { useGetCountriesQuery } from 'app/services/common/countries'
 import { useGetMovieGenresQuery } from 'app/services/movie/genre'
 import { useGetUsersQuery } from 'app/services/users'
 

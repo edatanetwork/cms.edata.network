@@ -5,7 +5,9 @@ import { formatDate } from 'utils/formatDate'
 import { setCurrent } from 'features/currentSlice'
 import { throwToast, removeConfirmation } from 'utils/throwToast'
 import { useDeleteMatchMutation } from 'app/services/sport/matches'
+import { useDeleteLinkMutation } from 'app/services/common/links'
 
+import Icon, { IconTypes } from 'components/common/Icon'
 import Image from 'components/common/Image'
 import Votes from 'components/common/VoteCount'
 import FavEditDel from 'components/common/FavEditDel'
@@ -15,12 +17,18 @@ const SportEventRow = props => {
   const dispatch = useDispatch()
   const [isActive, setIsActive] = useState(false)
   const [deleteMatch] = useDeleteMatchMutation()
+  const [deleteLink] = useDeleteLinkMutation()
 
   const start_time = props.start_time.split(' ')[1].slice(0, -3)
 
   const handleDelete = id => {
     const promise = deleteMatch(id).unwrap()
     throwToast(promise, 'Deleting match!', 'Match deleted!')
+  }
+
+  const handleDeleteLink = id => {
+    const promise = deleteLink(id).unwrap()
+    throwToast(promise, 'Deleting link!', 'Link deleted!')
   }
 
   return (
@@ -50,24 +58,34 @@ const SportEventRow = props => {
           />
         </S.Cell>
       </S.Row>
-      {isActive && (
-        <S.AccordionRow>
-          <S.Cell>1.</S.Cell>
-          <S.Cell>
-            Fox Sport <a>Open</a>
-          </S.Cell>
-          <S.Cell>
-            <Votes upVotes={23} downVotes={4} />
-          </S.Cell>
-          <S.Cell>362</S.Cell>
-          <S.Cell>Alb</S.Cell>
-          <S.Cell>English</S.Cell>
-          <S.Cell>Mobile</S.Cell>
-          <S.Cell>
-            <FavEditDel />
-          </S.Cell>
-        </S.AccordionRow>
-      )}
+      {isActive &&
+        props.links?.map((link, i) => (
+          <S.AccordionRow key={link.id}>
+            <S.Cell>{i + 1}.</S.Cell>
+            <S.Cell>
+              <Image src={link.channel.logo} />
+              {link.channel.name}
+              <a>
+                Open <Icon type={IconTypes.newTab} />
+              </a>
+            </S.Cell>
+            <S.Cell>
+              <Votes upVotes={23} downVotes={4} />
+            </S.Cell>
+            <S.Cell>0</S.Cell>
+            <S.Cell>{props.country.name}</S.Cell>
+            <S.Cell>{link.language.name}</S.Cell>
+            <S.Cell>{link.quality}</S.Cell>
+            <S.Cell>
+              <FavEditDel
+                edit={() => dispatch(setCurrent(props))}
+                remove={() =>
+                  removeConfirmation(() => handleDeleteLink(link.id))
+                }
+              />
+            </S.Cell>
+          </S.AccordionRow>
+        ))}
     </>
   )
 }

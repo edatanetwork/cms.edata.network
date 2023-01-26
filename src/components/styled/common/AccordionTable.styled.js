@@ -74,6 +74,11 @@ export const AccordionRow = styled.div`
     :nth-last-of-type(3) {
       color: ${({ theme }) => theme.clrBlack50};
     }
+
+    img {
+      height: 22px;
+      width: auto;
+    }
   }
 `
 
@@ -163,16 +168,24 @@ export const SportEventsTable = styled.div`
     }
 
     ${AccordionRow} {
-      grid-template-columns: 2rem 4fr 2fr 1fr 1.7fr 1.1fr 1.3fr 1.7fr;
+      grid-template-columns: 2rem 4fr 2fr 1fr 2fr 1.2fr 1.2fr 1.3fr;
 
       ${Cell} {
-        :nth-of-type(2) {
-          justify-content: space-between;
-        }
+        gap: 0.5rem;
 
         :nth-of-type(3),
         :nth-of-type(4) {
           justify-content: center;
+        }
+
+        img {
+          display: flex;
+        }
+
+        a {
+          display: flex;
+          gap: 0.5rem;
+          margin-left: auto;
         }
       }
     }
@@ -219,12 +232,8 @@ export const TvEventsTable = styled.div`
           justify-content: center;
         }
 
-        :nth-of-type(3) {
-          a {
-            display: flex;
-            gap: 0.5rem;
-            margin-right: 4rem;
-          }
+        a {
+          margin-right: 4rem;
         }
       }
     }

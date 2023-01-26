@@ -59,7 +59,16 @@ const SportEventForm = ({ methods: { reset } }) => {
         [C.LEAGUE_ID]: current.league.id,
         [C.START_DATE]: current.start_time.split(' ')[0],
         [C.START_TIME]: current.start_time.split(' ')[1].slice(0, -3),
-        [C.END_TIME]: current.end_time
+        [C.END_TIME]: current.end_time,
+        links: current.links
+          ? current.links?.map(link => ({
+              ...link,
+              linkId: link.id,
+              existing: true,
+              channel_id: link.channel.id,
+              language_id: link.language.id
+            }))
+          : []
       })
     } else {
       reset({
@@ -70,7 +79,8 @@ const SportEventForm = ({ methods: { reset } }) => {
         [C.LEAGUE_ID]: null,
         [C.START_DATE]: '',
         [C.START_TIME]: '',
-        [C.END_TIME]: 0
+        [C.END_TIME]: 0,
+        links: []
       })
     }
   }, [current])
@@ -90,32 +100,24 @@ const SportEventForm = ({ methods: { reset } }) => {
             name={C.TEAM_2}
           />
         </Grid>
-        {activeStep === 1 && <Step1 />}
-        {activeStep === 2 && <Step2 />}
+        {activeStep === 1 && (
+          <>
+            <SportSelect name={C.SPORT_ID} />
+            <CountrySelect name={C.COUNTRY_ID} />
+            <LeagueSelect name={C.LEAGUE_ID} />
+            <Grid columns='1fr 1fr' gap='0.5rem'>
+              <Input type='date' label='Start date' name={C.START_DATE} />
+              <Input type='time' label='Start time' name={C.START_TIME} />
+            </Grid>
+            <EndTimePicker name={C.END_TIME} />
+          </>
+        )}
+        {activeStep === 2 && <AddSportEventLinks name='links' />}
       </Form>
       <Stepper activeStep={activeStep} setActiveStep={setActiveStep} />
     </>
   )
 }
-
-const Step1 = () => (
-  <>
-    <SportSelect name={C.SPORT_ID} />
-    <CountrySelect name={C.COUNTRY_ID} />
-    <LeagueSelect name={C.LEAGUE_ID} />
-    <Grid columns='1fr 1fr' gap='0.5rem'>
-      <Input type='date' label='Start date' name={C.START_DATE} />
-      <Input type='time' label='Start time' name={C.START_TIME} />
-    </Grid>
-    <EndTimePicker name={C.END_TIME} />
-  </>
-)
-
-const Step2 = () => (
-  <>
-    <AddSportEventLinks name='links' />
-  </>
-)
 
 const schema = yup.object({
   [C.TEAM_1]: yup
@@ -135,7 +137,15 @@ const schema = yup.object({
   [C.END_TIME]: yup
     .number()
     .required('Please select extra minutes!')
-    .typeError('Please select extra minutes!')
+    .typeError('Please select extra minutes!'),
+  links: yup.array().of(
+    yup.object().shape({
+      url: yup.string().url().required('Link is required!'),
+      language_id: yup.string().required('Language is required!'),
+      channel_id: yup.string().required('Channel is required!'),
+      quality: yup.string().required('Quality is required!')
+    })
+  )
 })
 
 export default withFormProvider(SportEventForm, schema)

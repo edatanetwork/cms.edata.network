@@ -49,9 +49,9 @@ const TvEventForm1 = ({ methods: { reset } }) => {
       reset({
         [C.CHANNEL_NAME]: current.name,
         [C.CHANNEL_LOGO]: current.logo,
-        [C.GENRE_ID]: current.genre.id,
-        [C.COUNTRY_ID]: current.country.id,
-        [C.LANGUAGE_ID]: current.language.id,
+        [C.GENRE_ID]: current.genre?.id,
+        [C.COUNTRY_ID]: current.country?.id,
+        [C.LANGUAGE_ID]: current.language?.id,
         links: current.links
           ? current.links?.map(link => ({
               ...link,

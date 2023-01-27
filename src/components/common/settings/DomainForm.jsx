@@ -2,8 +2,6 @@ import { useEffect } from 'react'
 import { useDispatch, useSelector } from 'react-redux'
 import * as yup from 'yup'
 
-import toast from 'react-hot-toast'
-
 import withFormProvider from 'HOCs/withFormProvider'
 
 import { useGetSportsQuery } from 'app/services/sport/sport'
@@ -52,14 +50,16 @@ const DomainForm = ({ methods: { reset }, type }) => {
         name: current.name,
         url: current.url,
         sports: current.sports.map(sport => sport.id),
-        tv_genres: current.tv_genres.map(genre => genre.id)
+        tv_genres: current.tv_genres.map(genre => genre.id),
+        movie_genres: current.movie_genres.map(genre => genre.id)
       })
     } else {
       reset({
         name: '',
         url: '',
         sports: null,
-        tv_genres: null
+        tv_genres: null,
+        movie_genres: null
       })
     }
   }, [current])
@@ -82,13 +82,13 @@ const DomainForm = ({ methods: { reset }, type }) => {
         isLoading={isLoadingTvGenres}
         placeholder='Select tv genres'
       />
-      {/* <MultiSelect
+      <MultiSelect
         title='Movie Genres'
-        name='movies)genres'
+        name='movie_genres'
         options={dataMovieGenres}
         isLoading={isLoadingMovieGenres}
         placeholder='Select movie genres'
-      /> */}
+      />
     </Form>
   )
 }

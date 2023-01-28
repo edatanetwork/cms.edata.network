@@ -1,9 +1,13 @@
-import MovieEventRow from './MovieEventRow'
+import { useGetFilmsQuery } from 'app/services/movie/films'
 
+import MovieEventRow from 'components/movies/home/MovieEventRow'
+import Pagination from 'components/common/Pagination'
 import Icon, { IconTypes } from 'components/common/Icon'
 import * as S from 'components/styled/common/AccordionTable.styled'
 
 const MovieEventsTable = () => {
+  const { data, isLoading, isFetching } = useGetFilmsQuery()
+
   return (
     <S.MovieEventsTable>
       <S.Head>
@@ -32,8 +36,17 @@ const MovieEventsTable = () => {
         </S.Row>
       </S.Head>
       <S.Body>
-        <MovieEventRow />
+        {isLoading || isFetching ? (
+          <S.Row>
+            <S.Cell>
+              <Icon type={IconTypes.loading} />
+            </S.Cell>
+          </S.Row>
+        ) : (
+          data.movies.map(movie => <MovieEventRow key={movie.id} {...movie} />)
+        )}
       </S.Body>
+      {!isLoading && <Pagination data={data.pagination} />}
     </S.MovieEventsTable>
   )
 }

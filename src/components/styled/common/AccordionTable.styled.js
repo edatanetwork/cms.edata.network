@@ -83,6 +83,8 @@ export const AccordionRow = styled.div`
 `
 
 export const Body = styled.div`
+  height: ${({ theme }) =>
+    `calc(100vh - ${theme.topbarHeight} - ${theme.filterbarHeight} - ${theme.tableRowHeight} - ${theme.paginationHeight})`};
   font-size: 13px;
 
   ${Row} {

@@ -5,10 +5,12 @@ import { setCurrent } from 'features/currentSlice'
 import { formatDate } from 'utils/formatDate'
 import { throwToast, removeConfirmation } from 'utils/throwToast'
 import { useDeleteFilmMutation } from 'app/services/movie/films'
+import { useDeleteLinkMutation } from 'app/services/common/links'
 
 import Image from 'components/common/Image'
 import FavEditDel from 'components/common/FavEditDel'
 import Votes from 'components/common/VoteCount'
+import Icon, { IconTypes } from 'components/common/Icon'
 import * as S from 'components/styled/common/AccordionTable.styled'
 
 const MovieEventRow = props => {
@@ -16,10 +18,16 @@ const MovieEventRow = props => {
   const [isActive, setIsActive] = useState(false)
 
   const [deleteFilm] = useDeleteFilmMutation()
+  const [deleteLink] = useDeleteLinkMutation()
 
   const handleDelete = id => {
     const promise = deleteFilm(id).unwrap()
     throwToast(promise, 'Deleting movie!', 'Movie deleted!')
+  }
+
+  const handleDeleteLink = id => {
+    const promise = deleteLink(id).unwrap()
+    throwToast(promise, 'Deleting link!', 'Link deleted!')
   }
 
   return (
@@ -50,14 +58,22 @@ const MovieEventRow = props => {
             <S.Cell>{i + 1}.</S.Cell>
             <S.Cell>Link</S.Cell>
             <S.Cell>
-              <a>Open</a> <Votes upVotes={0} downVotes={0} />
+              <a>
+                Open <Icon type={IconTypes.newTab} />
+              </a>
+              <Votes upVotes={0} downVotes={0} />
             </S.Cell>
             <S.Cell>0</S.Cell>
             <S.Cell>Alb</S.Cell>
             <S.Cell>English</S.Cell>
             <S.Cell>Mobile</S.Cell>
             <S.Cell>
-              <FavEditDel />
+              <FavEditDel
+                edit={() => dispatch(setCurrent(props))}
+                remove={() =>
+                  removeConfirmation(() => handleDeleteLink(link.id))
+                }
+              />
             </S.Cell>
           </S.AccordionRow>
         ))}

@@ -8,7 +8,7 @@ const links = api.injectEndpoints({
         method: 'POST',
         body
       }),
-      invalidatesTags: ['Channels', 'Matches']
+      invalidatesTags: ['Channels', 'Matches', 'Films']
     }),
     updateLink: builder.mutation({
       query: ({ id, body }) => ({
@@ -16,14 +16,14 @@ const links = api.injectEndpoints({
         method: 'POST',
         body
       }),
-      invalidatesTags: ['Channels', 'Matches']
+      invalidatesTags: ['Channels', 'Matches', 'Films']
     }),
     deleteLink: builder.mutation({
       query: id => ({
         url: `/links/${id}`,
         method: 'DELETE'
       }),
-      invalidatesTags: ['Channels', 'Matches']
+      invalidatesTags: ['Channels', 'Matches', 'Films']
     })
   })
 })

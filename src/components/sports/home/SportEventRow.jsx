@@ -72,7 +72,7 @@ const SportEventRow = props => {
             <S.Cell>
               <Votes upVotes={23} downVotes={4} />
             </S.Cell>
-            <S.Cell>0</S.Cell>
+            <S.Cell>{props.duration}</S.Cell>
             <S.Cell>{props.country.name}</S.Cell>
             <S.Cell>{link.language.name}</S.Cell>
             <S.Cell>{link.quality}</S.Cell>

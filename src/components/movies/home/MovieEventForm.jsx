@@ -58,19 +58,28 @@ const MovieEventForm = ({ methods: { reset } }) => {
         [C.DURATION]: current.duration,
         [C.RELEASED]: current.released,
         [C.TRAILER]: current.trailer,
-        [C.DESCRIPTION]: current.description
+        [C.DESCRIPTION]: current.description,
+        links: current.links
+          ? current.links?.map(link => ({
+              ...link,
+              linkId: link.id,
+              existing: true,
+              language_id: link.language.id
+            }))
+          : []
       })
     } else {
       reset({
         [C.CHANNEL_NAME]: '',
         [C.CHANNEL_LOGO]: null,
-        [C.GENRE_ID]: [],
+        [C.GENRE_ID]: null,
         [C.COUNTRY_ID]: null,
         [C.RATING]: '',
         [C.DURATION]: '',
         [C.RELEASED]: '',
         [C.TRAILER]: '',
-        [C.DESCRIPTION]: ''
+        [C.DESCRIPTION]: '',
+        links: []
       })
     }
   }, [current])
@@ -112,13 +121,26 @@ const MovieEventForm = ({ methods: { reset } }) => {
 
 const schema = yup.object({
   [C.CHANNEL_NAME]: yup.string().required('Name is required!'),
-  [C.GENRE_ID]: yup.array().required('Genres is required!'),
-  [C.COUNTRY_ID]: yup.number().required('Country is required!'),
+  [C.GENRE_ID]: yup
+    .array()
+    .typeError('Genre is required!')
+    .required('Genres is required!'),
+  [C.COUNTRY_ID]: yup
+    .number()
+    .typeError('Country is required!')
+    .required('Country is required!'),
   [C.RATING]: yup.string().required('Rating is required!'),
   [C.DURATION]: yup.number().typeError('is required!').required('is required!'),
   [C.RELEASED]: yup.string().required('Released is required!'),
   [C.TRAILER]: yup.string().url().required('Trailer is required!'),
-  [C.DESCRIPTION]: yup.string()
+  [C.DESCRIPTION]: yup.string().nullable(),
+  links: yup.array().of(
+    yup.object().shape({
+      url: yup.string().url('Url is not valid').required('Link is required!'),
+      quality: yup.string().required('Quality is required!'),
+      language_id: yup.string().required('Language is required!')
+    })
+  )
 })
 
 export default withFormProvider(MovieEventForm, schema)

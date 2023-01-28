@@ -261,12 +261,14 @@ export const MovieEventsTable = styled.div`
     }
 
     ${AccordionRow} {
-      grid-template-columns: 2rem 3.5fr 2fr 1.5fr 1fr 1fr 1.5fr 1fr;
+      grid-template-columns: 2rem 3.5fr 3.5fr 1.5fr 1fr 1fr 1.2fr 1fr;
 
       ${Cell} {
         :nth-of-type(3) {
           a {
-            margin-right: 4rem;
+            display: flex;
+            gap: 0.5rem;
+            margin-right: 2rem;
           }
         }
       }

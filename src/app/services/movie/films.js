@@ -33,7 +33,7 @@ const films = api.injectEndpoints({
         url: `/movies/${id}`,
         method: 'DELETE'
       }),
-      invalidatesTags: ['Films']
+      invalidatesTags: ['Films', 'Trash']
     })
   })
 })

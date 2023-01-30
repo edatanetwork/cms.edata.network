@@ -3,7 +3,7 @@ import {
   useGetTrashQuery,
   useRestoreMutation,
   useDeletePermanentlyMutation
-} from 'app/services/trash'
+} from 'app/services/common/trash'
 
 import { throwToast } from 'utils/throwToast'
 import { formatDate } from 'utils/formatDate'
@@ -22,19 +22,19 @@ import {
 
 const Trash = () => {
   const dispatch = useDispatch()
-  const { data, isLoading, isFetching } = useGetTrashQuery()
+  const { data, isLoading, isFetching } = useGetTrashQuery({ url: '/trash' })
   const current = useSelector(state => state.current.current)
 
   const [restore] = useRestoreMutation()
   const [deletePermanently] = useDeletePermanentlyMutation()
 
   const handleRestore = id => {
-    const promise = restore(id).unwrap()
+    const promise = restore({ url: '/trash', id }).unwrap()
     throwToast(promise, 'Restoring post!', 'Post restored!')
   }
 
   const handleDeletePermanently = id => {
-    const promise = deletePermanently(id).unwrap()
+    const promise = deletePermanently({ url: '/trash', id }).unwrap()
     throwToast(promise, 'Deleting post!', 'Post deleted!')
   }
 

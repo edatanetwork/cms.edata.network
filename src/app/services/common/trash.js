@@ -3,8 +3,8 @@ import { api } from 'app/api'
 const trash = api.injectEndpoints({
   endpoints: builder => ({
     getTrash: builder.query({
-      query: params => ({
-        url: '/trash',
+      query: ({ url, params }) => ({
+        url,
         params
       }),
       transformResponse: response => ({
@@ -14,15 +14,15 @@ const trash = api.injectEndpoints({
       providesTags: ['Trash']
     }),
     restore: builder.mutation({
-      query: id => ({
-        url: `/trash/restore/${id}`,
+      query: ({ url, id }) => ({
+        url: `${url}/restore/${id}`,
         method: 'POST'
       }),
-      invalidatesTags: ['Trash']
+      invalidatesTags: ['Trash', 'Films']
     }),
     deletePermanently: builder.mutation({
-      query: id => ({
-        url: `/trash/delete-permanently/${id}`,
+      query: ({ url, id }) => ({
+        url: `${url}/delete-permanently/${id}`,
         method: 'DELETE'
       }),
       invalidatesTags: ['Trash']

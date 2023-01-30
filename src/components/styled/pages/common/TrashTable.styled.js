@@ -14,6 +14,10 @@ export const TrashTable = styled(Table)`
       :has(button) {
         justify-content: end;
       }
+
+      img {
+        object-fit: contain;
+      }
     }
   }
 

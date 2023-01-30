@@ -52,8 +52,8 @@ const MovieEventForm = ({ methods: { reset } }) => {
       reset({
         [C.CHANNEL_NAME]: current.name,
         [C.CHANNEL_LOGO]: current.logo,
-        [C.GENRE_ID]: current.genres.map(genre => genre.id),
-        [C.COUNTRY_ID]: current.country.id,
+        [C.GENRE_ID]: current.genres?.map(genre => genre.id),
+        [C.COUNTRY_ID]: current.country?.id,
         [C.RATING]: current.rating,
         [C.DURATION]: current.duration,
         [C.RELEASED]: current.released,

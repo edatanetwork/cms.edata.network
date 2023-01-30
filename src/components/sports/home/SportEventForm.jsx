@@ -24,7 +24,9 @@ import LeagueSelect from 'components/common/select/LeagueSelect'
 
 import Grid from 'components/styled/common/Grid.styled'
 
-const SportEventForm = ({ methods: { reset } }) => {
+import { useRef } from 'react'
+
+const SportEventForm = ({ methods: { reset, formState } }) => {
   const dispatch = useDispatch()
   const [activeStep, setActiveStep] = useState(1)
   const [createMatch] = useCreateMatchMutation()
@@ -54,11 +56,11 @@ const SportEventForm = ({ methods: { reset } }) => {
       reset({
         [C.TEAM_1]: current.home_team,
         [C.TEAM_2]: current.away_team,
-        [C.SPORT_ID]: current.sport.id,
-        [C.COUNTRY_ID]: current.country.id,
-        [C.LEAGUE_ID]: current.league.id,
-        [C.START_DATE]: current.start_time.split(' ')[0],
-        [C.START_TIME]: current.start_time.split(' ')[1].slice(0, -3),
+        [C.SPORT_ID]: current.sport?.id,
+        [C.COUNTRY_ID]: current.country?.id,
+        [C.LEAGUE_ID]: current.league?.id,
+        [C.START_DATE]: current.start_time?.split(' ')[0],
+        [C.START_TIME]: current.start_time?.split(' ')[1].slice(0, -3),
         [C.END_TIME]: current.end_time,
         links: current.links
           ? current.links?.map(link => ({

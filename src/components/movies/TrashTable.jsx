@@ -1,6 +1,7 @@
 import { useDispatch, useSelector } from 'react-redux'
 
 import { setCurrent } from 'features/currentSlice'
+
 import { formatDate } from 'utils/formatDate'
 import {
   useGetTrashQuery,
@@ -18,21 +19,21 @@ import {
 import { TrashTable } from 'components/styled/pages/common/TrashTable.styled'
 import { Head, Row, Body, Cell } from 'components/styled/common/Table.styled'
 
-const Table = () => {
+const Trash = () => {
   const dispatch = useDispatch()
   const current = useSelector(state => state.current.current)
-  const { data, isLoading } = useGetTrashQuery({ url: '/sport-events-trash' })
+  const { data, isLoading } = useGetTrashQuery({ url: '/movies-trash' })
   const [restore] = useRestoreMutation()
   const [deletePermanently] = useDeletePermanentlyMutation()
 
   const handleRestore = id => {
-    const promise = restore({ url: '/sport-events-trash', id }).unwrap()
+    const promise = restore({ url: '/movies-trash', id }).unwrap()
     throwToast(promise, 'Restoring post!', 'Post restored!')
   }
 
   const handleDeletePermanently = id => {
     const promise = deletePermanently({
-      url: '/sport-events-trash',
+      url: '/movies-trash',
       id
     }).unwrap()
     throwToast(promise, 'Deleting post!', 'Post deleted!')
@@ -62,9 +63,8 @@ const Table = () => {
               onClick={() => dispatch(setCurrent(trash))}
             >
               <Cell>
-                <Image src={trash.home_team.logo} />
-                {trash.home_team.name} - {trash.away_team.name}
-                <Image src={trash.away_team.logo} />
+                <Image src={trash.logo} />
+                {trash.name}
               </Cell>
               <Cell>{trash.author}</Cell>
               <Cell>{formatDate(trash.created_at)}</Cell>
@@ -85,4 +85,4 @@ const Table = () => {
   )
 }
 
-export default Table
+export default Trash

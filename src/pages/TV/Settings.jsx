@@ -18,11 +18,15 @@ import {
   useUpdateTvGenreMutation
 } from 'app/services/tv/genre'
 
+import { useGetDomainsQuery } from 'app/services/common/domains'
+
 import { Grid } from 'components/styled/common/Grid.styled'
 
 const SettingsPage = () => {
   const [createTvGenre] = useCreateTvGenreMutation()
   const [updateTvGenre] = useUpdateTvGenreMutation()
+
+  const { data, isLoading } = useGetDomainsQuery({ type: 'channels' })
 
   return (
     <Grid columns='1fr auto'>
@@ -31,7 +35,10 @@ const SettingsPage = () => {
         <Settings path='/tv'>
           <Route path='/categories/*' element={<Categories />} />
           <Route path='/domains' element={<Domains />} />
-          <Route path='/ads' element={<AdsTable />} />
+          <Route
+            path='/ads'
+            element={<AdsTable domains={data} isLoading={isLoading} />}
+          />
         </Settings>
       </Grid>
       <Routes>

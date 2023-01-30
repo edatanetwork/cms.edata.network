@@ -17,12 +17,15 @@ import {
   useCreateMovieGenreMutation,
   useUpdateMovieGenreMutation
 } from 'app/services/movie/genre'
+import { useGetDomainsQuery } from 'app/services/common/domains'
 
 import { Grid } from 'components/styled/common/Grid.styled'
 
 const SettingsPage = () => {
   const [createMovieGenre] = useCreateMovieGenreMutation()
   const [updateMovieGenre] = useUpdateMovieGenreMutation()
+
+  const { data, isLoading } = useGetDomainsQuery({ type: 'movies' })
 
   return (
     <Grid columns='1fr auto'>
@@ -31,7 +34,10 @@ const SettingsPage = () => {
         <Settings path='/movies'>
           <Route path='/categories/*' element={<Categories />} />
           <Route path='/domains' element={<Domains />} />
-          <Route path='/ads' element={<AdsTable />} />
+          <Route
+            path='/ads'
+            element={<AdsTable domains={data} isLoading={isLoading} />}
+          />
         </Settings>
       </Grid>
       <Routes>

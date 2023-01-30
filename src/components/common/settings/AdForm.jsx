@@ -4,47 +4,31 @@ import * as yup from 'yup'
 
 import withFormProvider from 'HOCs/withFormProvider'
 
-// import { throwToast } from 'utils/throwToast'
+import { throwToast } from 'utils/throwToast'
 
 import { clearCurrent } from 'features/currentSlice'
+import { useCreateAdMutation, useUpdateAdMutation } from 'app/services/ads'
 
 import Form from 'components/common/form/Form'
 import Input from 'components/common/form/Input'
 import Dropdown from 'components/common/form/Dropdown'
 import Textarea from 'components/common/form/Textarea'
 
-const schema = yup.object({
-  zone: yup
-    .string()
-    .typeError('Zone is required!')
-    .required('Zone is required!'),
-  browsers: yup
-    .string()
-    .typeError('Type is required!')
-    .required('Type is required!'),
-  type: yup
-    .string()
-    .typeError('Type is required!')
-    .required('Type is required!'),
-  status: yup
-    .boolean()
-    .typeError('Status is required!')
-    .required('Status is required!'),
-  title: yup.string().required('Title is required!'),
-  code: yup.string().required('Code is required!')
-})
-
-export default withFormProvider(({ methods: { reset } }) => {
+const AdForm = ({ methods: { reset } }) => {
   const dispatch = useDispatch()
-  // const domain_id = useSelector(state => state.domain.domain_id)
   const current = useSelector(state => state.current.current)
+  const domainId = useSelector(state => state.filter.domainId)
+  const [createAd] = useCreateAdMutation()
+  const [updateAd] = useUpdateAdMutation()
 
   const onSubmit = data => {
     if (current) {
-      // throwToast(promise, 'Updating Ad!', 'Ad updated!')
+      const promise = updateAd({ id: current.id, body: data }).unwrap()
+      throwToast(promise, 'Updating Ad!', 'Ad updated!')
       dispatch(clearCurrent())
     } else {
-      // throwToast(promise, 'Creating Ad!', 'Ad created!')
+      const promise = createAd({ ...data, domain_id: domainId }).unwrap()
+      throwToast(promise, 'Creating Ad!', 'Ad created!')
       reset()
     }
   }
@@ -111,7 +95,30 @@ export default withFormProvider(({ methods: { reset } }) => {
       />
     </Form>
   )
-}, schema)
+}
+
+const schema = yup.object({
+  zone: yup
+    .string()
+    .typeError('Zone is required!')
+    .required('Zone is required!'),
+  browsers: yup
+    .string()
+    .typeError('Type is required!')
+    .required('Type is required!'),
+  type: yup
+    .string()
+    .typeError('Type is required!')
+    .required('Type is required!'),
+  status: yup
+    .boolean()
+    .typeError('Status is required!')
+    .required('Status is required!'),
+  title: yup.string().required('Title is required!'),
+  code: yup.string().required('Code is required!')
+})
+
+export default withFormProvider(AdForm, schema)
 
 const zones = [
   { name: 'All Pages', id: 'all_pages' },

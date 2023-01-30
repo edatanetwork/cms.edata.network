@@ -17,7 +17,11 @@ import Domains from 'components/sports/settings/DomainTable'
 
 import { Grid } from 'components/styled/common/Grid.styled'
 
+import { useGetDomainsQuery } from 'app/services/common/domains'
+
 const SettingsPage = () => {
+  const { data, isLoading } = useGetDomainsQuery({ type: 'sport_events' })
+
   return (
     <Grid columns='1fr auto'>
       <Grid rows='auto 1fr'>
@@ -25,7 +29,10 @@ const SettingsPage = () => {
         <Settings path='/sports'>
           <Route path='/categories/*' element={<Categories />} />
           <Route path='/domains' element={<Domains />} />
-          <Route path='/ads' element={<AdsTable />} />
+          <Route
+            path='/ads'
+            element={<AdsTable domains={data} isLoading={isLoading} />}
+          />
         </Settings>
       </Grid>
       <Routes>

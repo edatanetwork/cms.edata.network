@@ -26,9 +26,19 @@ const votes = api.injectEndpoints({
         method: 'POST'
       }),
       invalidatesTags: ['Votes']
+    }),
+    designVotesNotification: builder.query({
+      query: () => ({
+        url: '/votes/seen-check'
+      }),
+      transformResponse: response => response.data
     })
   })
 })
 
-export const { useGetVotesQuery, useDeleteVoteMutation, useSeenVoteMutation } =
-  votes
+export const {
+  useGetVotesQuery,
+  useDeleteVoteMutation,
+  useSeenVoteMutation,
+  useLazyDesignVotesNotificationQuery
+} = votes

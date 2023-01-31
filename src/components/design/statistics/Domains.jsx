@@ -1,4 +1,4 @@
-import { useEffect, useState } from 'react'
+import { useSearchParams } from 'react-router-dom'
 
 import { useGetDomainsQuery } from 'app/services/common/domains'
 
@@ -9,23 +9,14 @@ import {
   NavItem
 } from 'components/styled/pages/common/Statistics.styled'
 
-const Domains = ({ setDomainId }) => {
-  const [selectedDomain, setSelectedDomain] = useState(0)
+const Domains = () => {
+  const [searchParams, setSearchParams] = useSearchParams()
 
-  const { data: domains, isLoading } = useGetDomainsQuery()
+  const { data: domains, isLoading } = useGetDomainsQuery({ type: 'posts' })
 
   const handleClick = id => {
-    setDomainId(id)
-    setSelectedDomain(id)
+    setSearchParams({ domain: id })
   }
-
-  useEffect(() => {
-    if (!isLoading) {
-      setDomainId(domains[0].id)
-      setSelectedDomain(domains[0].id)
-    }
-    // eslint-disable-next-line
-  }, [isLoading])
 
   return (
     <StyledNav>
@@ -37,20 +28,26 @@ const Domains = ({ setDomainId }) => {
       </div>
       <nav>
         <ul>
+          <NavItem
+            onClick={() => handleClick('all-domains')}
+            selected={searchParams.get('domain') === 'all-domains'}
+          >
+            All Domains
+          </NavItem>
           {isLoading ? (
-            <li>'Loading!'</li>
+            <li>
+              <Icon type={IconTypes.loading} />
+            </li>
           ) : (
-            <>
-              {domains.map(domain => (
-                <NavItem
-                  selected={selectedDomain === domain.id}
-                  key={domain.id}
-                  onClick={() => handleClick(domain.id)}
-                >
-                  {domain.name}
-                </NavItem>
-              ))}
-            </>
+            domains.map(domain => (
+              <NavItem
+                key={domain.id}
+                onClick={() => handleClick(domain.id)}
+                selected={parseInt(searchParams.get('domain')) === domain.id}
+              >
+                {domain.name}
+              </NavItem>
+            ))
           )}
         </ul>
       </nav>

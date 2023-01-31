@@ -111,6 +111,10 @@ const secondaryNav = [
   { label: 'Votes', path: '/votes', icon: IconTypes.votes },
   { label: 'Submitted', path: '/submitted', icon: IconTypes.folder },
   { label: 'Reports', path: '/reports', icon: IconTypes.attention },
-  { label: 'Statistics', path: '/statistics', icon: IconTypes.stats },
+  {
+    label: 'Statistics',
+    path: '/statistics?domain=all-domains',
+    icon: IconTypes.stats
+  },
   { label: 'Settings', path: `/settings/categories`, icon: IconTypes.settings }
 ]

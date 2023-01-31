@@ -1,33 +1,33 @@
 import styled from 'styled-components'
 
-import { useState, useEffect } from 'react'
+import { useSearchParams } from 'react-router-dom'
 
-import { useGetStatsQuery } from 'app/services/stats'
+import { useState, useEffect } from 'react'
 
 import Icon, { IconTypes } from 'components/common/Icon'
 
-const Reports = ({ domainId }) => {
-  const [filter, setFilter] = useState('')
+const Reports = ({ data }) => {
   const [maxDownloads, setMaxDownloads] = useState(0)
-
-  const [byDay, setByDay] = useState(1)
-
-  const { data, isLoading } = useGetStatsQuery({
-    id: domainId,
-    params: {
-      by_day: byDay,
-      [filter]: true
-    }
-  })
+  const [searchParams, setSearchParams] = useSearchParams()
 
   useEffect(() => {
-    if (!isLoading && data) {
+    if (data) {
       setMaxDownloads(
         Math.max(...data.this_month_downloads.map(day => day.downloads))
       )
     }
     // eslint-disable-next-line
-  }, [isLoading, data])
+  }, [data])
+
+  const handleClick = value => {
+    const prev = Object.fromEntries(searchParams)
+    setSearchParams({ ...prev, filter: value })
+  }
+
+  const handleByDay = day => {
+    const prev = Object.fromEntries(searchParams)
+    setSearchParams({ ...prev, by_day: day })
+  }
 
   return (
     <TopContent>
@@ -38,31 +38,38 @@ const Reports = ({ domainId }) => {
               <Icon type={IconTypes.statistics} />
               Reports
             </h3>
-            <button data-active={filter === ''} onClick={() => setFilter('')}>
+            <button
+              data-active={searchParams.get('filter') === null}
+              onClick={() => {
+                searchParams.delete('filter')
+                const prev = Object.fromEntries(searchParams)
+                setSearchParams({ ...prev })
+              }}
+            >
               All Time
             </button>
             <button>Last</button>
             <button
-              data-active={filter === 'seven_days'}
-              onClick={() => setFilter('seven_days')}
+              data-active={searchParams.get('filter') === 'seven_days'}
+              onClick={() => handleClick('seven_days')}
             >
               7 Days
             </button>
             <button
-              data-active={filter === 'thirty_days'}
-              onClick={() => setFilter('thirty_days')}
+              data-active={searchParams.get('filter') === 'thirty_days'}
+              onClick={() => handleClick('thirty_days')}
             >
               30 Days
             </button>
             <button
-              data-active={filter === 'ninety_days'}
-              onClick={() => setFilter('ninety_days')}
+              data-active={searchParams.get('filter') === 'ninety_days'}
+              onClick={() => handleClick('ninety_days')}
             >
               90 Days
             </button>
             <button
-              data-active={filter === 'twelve_months'}
-              onClick={() => setFilter('twelve_months')}
+              data-active={searchParams.get('filter') === 'twelve_months'}
+              onClick={() => handleClick('twelve_months')}
             >
               12 Months
             </button>
@@ -111,7 +118,7 @@ const Reports = ({ domainId }) => {
             <Data>
               {data?.this_month_downloads.map((item, i) => (
                 <Bar
-                  onClick={() => setByDay(item.day)}
+                  onClick={() => handleByDay(item.day)}
                   key={i}
                   height={
                     (isNaN(item.downloads / maxDownloads)

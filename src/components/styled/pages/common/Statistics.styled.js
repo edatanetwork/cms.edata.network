@@ -20,11 +20,36 @@ export const StyledNav = styled.div`
   }
 
   nav {
+    ::-webkit-scrollbar {
+      width: 7px;
+    }
+
+    ::-webkit-scrollbar-track {
+      background: #ededed;
+    }
+
+    ::-webkit-scrollbar-thumb {
+      background: #ceced8;
+      border-radius: 10px;
+    }
+
+    ::-webkit-scrollbar-thumb:hover {
+      background: #555;
+    }
+
     height: calc(100vh - 4.5rem);
     overflow-y: auto;
+    min-width: 250px;
 
     ul {
       list-style: none;
+
+      li {
+        svg {
+          margin-left: 2rem;
+          margin-block: 1.5rem;
+        }
+      }
     }
   }
 `

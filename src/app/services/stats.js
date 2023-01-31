@@ -3,10 +3,7 @@ import { api } from 'app/api'
 const stats = api.injectEndpoints({
   endpoints: builder => ({
     getStats: builder.query({
-      query: ({ id, params }) => ({
-        url: `/statistics/${id}`,
-        params
-      }),
+      query: ({ id, params }) => ({ url: `/statistics/${id}`, params }),
       transformResponse: response => response.data
     }),
     downloadPdf: builder.mutation({
@@ -19,4 +16,8 @@ const stats = api.injectEndpoints({
   })
 })
 
-export const { useGetStatsQuery, useDownloadPdfMutation } = stats
+export const {
+  useGetStatsQuery,
+  useLazyGetStatsQuery,
+  useDownloadPdfMutation
+} = stats

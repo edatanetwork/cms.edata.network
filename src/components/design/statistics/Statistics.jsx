@@ -1,12 +1,10 @@
 import styled from 'styled-components'
 
-import { useGetStatsQuery, useDownloadPdfMutation } from 'app/services/stats'
+import { useDownloadPdfMutation } from 'app/services/stats'
 
 import Icon, { IconTypes } from 'components/common/Icon'
 
-const Statistics = ({ domainId }) => {
-  const { data } = useGetStatsQuery({ id: domainId })
-
+const Statistics = ({ data }) => {
   const [downloadPdf] = useDownloadPdfMutation()
 
   return (
@@ -45,12 +43,12 @@ const Statistics = ({ domainId }) => {
               <td>{row.reports}</td>
               <td>
                 <button
-                  onClick={async () =>
-                    downloadPdf({
-                      id: domainId,
-                      body: { month: row.month_nr }
-                    })
-                  }
+                // onClick={async () =>
+                //   downloadPdf({
+                //     id: domainId,
+                //     body: { month: row.month_nr }
+                //   })
+                // }
                 >
                   <Icon type={IconTypes.download} /> PDF
                 </button>

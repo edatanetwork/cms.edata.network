@@ -15,7 +15,7 @@ import * as S from 'components/styled/common/AccordionTable.styled'
 
 const MovieEventRow = props => {
   const dispatch = useDispatch()
-  const [isActive, setIsActive] = useState(false)
+  const [isActive, setIsActive] = useState(true)
 
   const [deleteFilm] = useDeleteFilmMutation()
   const [deleteLink] = useDeleteLinkMutation()
@@ -58,15 +58,14 @@ const MovieEventRow = props => {
             <S.Cell>{i + 1}.</S.Cell>
             <S.Cell>Link</S.Cell>
             <S.Cell>
-              <a>
+              <a href={link.url} target='_blank' rel='noopener noreferrer'>
                 Open <Icon type={IconTypes.newTab} />
               </a>
               <Votes upVotes={0} downVotes={0} />
             </S.Cell>
             <S.Cell>0</S.Cell>
-            <S.Cell>Alb</S.Cell>
-            <S.Cell>English</S.Cell>
-            <S.Cell>Mobile</S.Cell>
+            <S.Cell>{link.language.name}</S.Cell>
+            <S.Cell>{link.quality}</S.Cell>
             <S.Cell>
               <FavEditDel
                 edit={() => dispatch(setCurrent(props))}

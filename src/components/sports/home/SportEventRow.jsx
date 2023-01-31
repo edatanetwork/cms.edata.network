@@ -37,7 +37,7 @@ const SportEventRow = props => {
         <S.Cell>
           <S.Status color='#4db500' />
         </S.Cell>
-        <S.Cell onClick={() => setIsActive(!isActive)}>
+        <S.Cell onClick={() => props.links && setIsActive(!isActive)}>
           <Image src={props.home_team.logo} />
           {props.home_team.name} - {props.away_team.name}
           <Image src={props.away_team.logo} />

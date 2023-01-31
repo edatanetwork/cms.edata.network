@@ -44,6 +44,11 @@ export const Row = styled.div`
   display: grid;
   border-bottom: ${({ theme }) => theme.borderGray};
 
+  > svg {
+    align-self: center;
+    margin-left: 2rem;
+  }
+
   ${props =>
     props.isActive &&
     css`
@@ -150,10 +155,12 @@ export const SportEventsTable = styled.div`
         }
 
         :nth-of-type(2) {
-          img {
-            height: 22px;
+          span {
+            img {
+              height: 22px;
+            }
 
-            :last-of-type {
+            :nth-of-type(2) {
               margin-left: auto;
             }
           }

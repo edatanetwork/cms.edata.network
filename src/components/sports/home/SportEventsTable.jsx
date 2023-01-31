@@ -44,9 +44,7 @@ const SportEventsTable = () => {
       <S.Body>
         {isLoading || isFetching ? (
           <S.Row>
-            <S.Cell>
-              <Icon type={IconTypes.loading} />
-            </S.Cell>
+            <Icon type={IconTypes.loading} />
           </S.Row>
         ) : (
           data.matches.map(match => <SportEventRow key={match.id} {...match} />)

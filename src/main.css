@@ -42,3 +42,20 @@ svg {
 .active {
   color: var(--clr-orange);
 }
+
+.custom-scrollbar::-webkit-scrollbar {
+  width: 7px;
+}
+
+.custom-scrollbar::-webkit-scrollbar-track {
+  background: #ededed;
+}
+
+.custom-scrollbar::-webkit-scrollbar-thumb {
+  background: #ceced8;
+  border-radius: 10px;
+}
+
+.custom-scrollbar::-webkit-scrollbar-thumb:hover {
+  background: #555;
+}

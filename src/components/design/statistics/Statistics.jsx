@@ -1,14 +1,36 @@
+import { useSearchParams } from 'react-router-dom'
 import styled from 'styled-components'
 
-import { useDownloadPdfMutation } from 'app/services/stats'
+import {
+  useDownloadPdfMutation,
+  useDownloadPdfTotalMutation
+} from 'app/services/stats'
 
 import Icon, { IconTypes } from 'components/common/Icon'
 
 const Statistics = ({ data }) => {
+  const [searchParams] = useSearchParams()
   const [downloadPdf] = useDownloadPdfMutation()
+  const [downloadPdfTotal] = useDownloadPdfTotalMutation()
+
+  const handleDownload = async month => {
+    const domain = searchParams.get('domain')
+
+    if (domain === 'all-domains') {
+      const promise = await downloadPdfTotal({ month }).unwrap()
+      window.open(promise.data, '_blank')
+    } else {
+      const promise = await downloadPdf({
+        id: domain,
+        body: { month }
+      }).unwrap()
+      window.open(promise.data, '_blank')
+    }
+  }
 
   return (
     <div
+      className='custom-scrollbar'
       style={{
         width: '100%',
         maxWidth: '1000px',
@@ -42,14 +64,7 @@ const Statistics = ({ data }) => {
               <td>{row.submitted}</td>
               <td>{row.reports}</td>
               <td>
-                <button
-                // onClick={async () =>
-                //   downloadPdf({
-                //     id: domainId,
-                //     body: { month: row.month_nr }
-                //   })
-                // }
-                >
+                <button onClick={() => handleDownload(row.month_nr)}>
                   <Icon type={IconTypes.download} /> PDF
                 </button>
               </td>

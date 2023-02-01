@@ -12,6 +12,13 @@ const stats = api.injectEndpoints({
         method: 'POST',
         body
       })
+    }),
+    downloadPdfTotal: builder.mutation({
+      query: body => ({
+        url: `/statistics/download-total`,
+        method: 'POST',
+        body
+      })
     })
   })
 })
@@ -19,5 +26,6 @@ const stats = api.injectEndpoints({
 export const {
   useGetStatsQuery,
   useLazyGetStatsQuery,
-  useDownloadPdfMutation
+  useDownloadPdfMutation,
+  useDownloadPdfTotalMutation
 } = stats

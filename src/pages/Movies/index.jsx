@@ -15,6 +15,7 @@ const TV = () => {
     <Layout path='/movies'>
       <Routes>
         <Route index element={<Home />} />
+        <Route path='/searched' element={<Page />} />
         <Route
           path='/trash'
           element={
@@ -26,6 +27,9 @@ const TV = () => {
             />
           }
         />
+        <Route path='/votes' element={<Page />} />
+        <Route path='/submitted' element={<Page />} />
+        <Route path='/reports' element={<Page />} />
         <Route path='/settings/*' element={<Settings />} />
         <Route path='*' element={<NotFound />} />
       </Routes>

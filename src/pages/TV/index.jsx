@@ -15,7 +15,7 @@ const TV = () => {
     <Layout path='/tv'>
       <Routes>
         <Route path='/' element={<Home />} />
-        <Route path='/submitted' element={<Page />} />
+        <Route path='/searched' element={<Page />} />
         <Route
           path='/trash'
           element={
@@ -27,6 +27,9 @@ const TV = () => {
             />
           }
         />
+        <Route path='/votes' element={<Page />} />
+        <Route path='/submitted' element={<Page />} />
+        <Route path='/reports' element={<Page />} />
         <Route path='/settings/*' element={<Settings />} />
         <Route path='*' element={<NotFound />} />
       </Routes>

@@ -8,7 +8,7 @@ export const AdTable = styled(Table)`
   }
 
   tr {
-    grid-template-columns: 1fr 1fr 1fr 0.6fr 0.5fr;
+    grid-template-columns: 1fr 1fr 1fr 1fr 0.6fr 0.5fr;
   }
 `
 

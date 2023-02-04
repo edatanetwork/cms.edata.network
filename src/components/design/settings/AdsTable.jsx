@@ -25,6 +25,7 @@ const Ad = () => {
   const sortByAds = [{ ads_desc: 0 }, { ads_desc: 1 }, { ads_asc: 1 }]
 
   const { data: domains, isLoading: isLoadingDomains } = useGetDomainsQuery({
+    type: 'posts',
     ...sortByAds[idxAds]
   })
   const { data: ads, isLoading: isLoadingAds } = useGetAdsQuery()
@@ -88,6 +89,7 @@ const Ad = () => {
           <Row>
             <Cell>Zone</Cell>
             <Cell>Type</Cell>
+            <Cell>Browser</Cell>
             <Cell>Title</Cell>
             <Cell>Status</Cell>
           </Row>
@@ -110,6 +112,7 @@ const Ad = () => {
                     ).replace('_', ' ')}
                   </Cell>
                   <Cell>{ad.type}</Cell>
+                  <Cell>{ad.browsers}</Cell>
                   <Cell>{ad.title}</Cell>
                   <Cell>{ad.status === true ? 'Active' : 'Inactive'}</Cell>
                   <Cell>

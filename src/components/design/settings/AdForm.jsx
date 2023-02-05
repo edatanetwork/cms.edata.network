@@ -225,6 +225,9 @@ const browsers = [
 
 const types = [
   { label: 'Banner', value: 'banner' },
+  { label: 'Meta', value: 'meta' },
+  { label: 'Script', value: 'script' },
+  { label: 'Source', value: 'source' },
   { label: 'Invisible', value: 'invisible' },
   { label: 'Other', value: 'other' }
 ]

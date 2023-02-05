@@ -219,7 +219,8 @@ const status = [
 ]
 
 const browsers = [
-  { label: 'Web', value: 'web' },
+  { label: 'All', value: 'All' },
+  { label: 'Desktop', value: 'desktop' },
   { label: 'Mobile', value: 'mobile' }
 ]
 

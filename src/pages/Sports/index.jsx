@@ -7,6 +7,7 @@ import NotFound from 'pages/NotFound'
 
 import Page from 'layout/Page'
 import TrashTable from 'components/sports/TrashTable'
+import VotesTable from 'components/sports/VotesTable'
 import SportEventForm from 'components/sports/home/SportEventForm'
 
 const Sports = () => {
@@ -26,7 +27,7 @@ const Sports = () => {
             />
           }
         />
-        <Route path='/votes' element={<Page />} />
+        <Route path='/votes' element={<Page table={<VotesTable />} />} />
         <Route path='/submitted' element={<Page />} />
         <Route path='/reports' element={<Page />} />
         <Route path='/settings/*' element={<Settings />} />

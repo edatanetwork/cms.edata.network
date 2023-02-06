@@ -14,7 +14,7 @@ import { CircleButton } from 'components/styled/common/Button.styled'
 import * as T from 'components/styled/Table.styled'
 
 const VotesTable = () => {
-  const { data, isLoading } = useGetVotesLinkQuery({ type: 'sport_events' })
+  const { data, isLoading } = useGetVotesLinkQuery({ type: 'channels' })
   const [seenVote] = useSeenVoteLinkMutation()
   const [deleteVote] = useDeleteVoteLinkMutation()
 

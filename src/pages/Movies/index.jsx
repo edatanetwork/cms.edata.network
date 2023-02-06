@@ -8,6 +8,7 @@ import NotFound from 'pages/NotFound'
 import Page from 'layout/Page'
 
 import Trash from 'components/movies/TrashTable'
+import VotesTable from 'components/movies/VotesTable'
 import MovieEventForm from 'components/movies/home/MovieEventForm'
 
 const TV = () => {
@@ -27,7 +28,7 @@ const TV = () => {
             />
           }
         />
-        <Route path='/votes' element={<Page />} />
+        <Route path='/votes' element={<Page table={<VotesTable />} />} />
         <Route path='/submitted' element={<Page />} />
         <Route path='/reports' element={<Page />} />
         <Route path='/settings/*' element={<Settings />} />

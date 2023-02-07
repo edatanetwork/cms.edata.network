@@ -229,6 +229,7 @@ const types = [
   { label: 'Meta', value: 'meta' },
   { label: 'Script', value: 'script' },
   { label: 'Source', value: 'source' },
+  { label: 'Redirect', value: 'redirect' },
   { label: 'Invisible', value: 'invisible' },
   { label: 'Other', value: 'other' }
 ]

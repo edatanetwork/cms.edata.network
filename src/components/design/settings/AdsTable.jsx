@@ -5,7 +5,7 @@ import { useSelector } from 'react-redux'
 import { setCurrent } from 'features/currentSlice'
 import { setDomainId } from 'features/domainSlice'
 import { useGetDomainsQuery } from 'app/services/common/domains'
-import { useGetAdsQuery, useDeleteAdMutation } from 'app/services/ads'
+import { useDeleteAdMutation } from 'app/services/ads'
 
 import { throwToast, removeConfirmation } from 'utils/throwToast'
 
@@ -28,7 +28,6 @@ const Ad = () => {
     type: 'posts',
     ...sortByAds[idxAds]
   })
-  const { data: ads, isLoading: isLoadingAds } = useGetAdsQuery()
 
   const [deleteAd] = useDeleteAdMutation()
 
@@ -95,16 +94,16 @@ const Ad = () => {
           </Row>
         </Head>
         <Body>
-          {isLoadingAds ? (
+          {isLoadingDomains ? (
             <Row>
               <Cell>
                 <Icon type={IconTypes.loading} />
               </Cell>
             </Row>
           ) : (
-            ads
-              .filter(ad => ad.domain_id === domain_id)
-              .map(ad => (
+            domains
+              ?.find(domain => domain.id === domain_id)
+              ?.ads?.map(ad => (
                 <Row key={ad.id}>
                   <Cell>
                     {(

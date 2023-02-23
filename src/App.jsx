@@ -8,16 +8,20 @@ import Sports from 'pages/Sports'
 import TV from 'pages/TV'
 import Movies from 'pages/Movies'
 
+import NavbarLayout from 'layout/NavbarLayout'
+
 const App = () => {
   return (
     <BrowserRouter>
       <Routes>
         <Route path='/' element={<Login />} />
         <Route element={<ProtectedRoute />}>
-          <Route path='/design/*' element={<Design />} />
-          <Route path='/sports/*' element={<Sports />} />
-          <Route path='/tv/*' element={<TV />} />
-          <Route path='/movies/*' element={<Movies />} />
+          <Route element={<NavbarLayout />}>
+            <Route path='/design/*' element={<Design />} />
+            <Route path='/tv/*' element={<TV />} />
+            <Route path='/sports/*' element={<Sports />} />
+            <Route path='/movies/*' element={<Movies />} />
+          </Route>
         </Route>
         <Route path='*' element={<NotFound />} />
       </Routes>

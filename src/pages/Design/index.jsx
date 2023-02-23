@@ -1,6 +1,5 @@
 import { Routes, Route } from 'react-router-dom'
 
-import WithNavbar from 'layout/WithNavbar'
 import Home from 'pages/Design/Home'
 import Settings from 'pages/Design/Settings'
 import TrashPage from 'pages/Design/Trash'
@@ -13,19 +12,17 @@ import NotFound from 'pages/NotFound'
 
 const Design = () => {
   return (
-    <WithNavbar path='/design'>
-      <Routes>
-        <Route index element={<Home />} />
-        <Route path='/settings/*' element={<Settings />} />
-        <Route path='/trash' element={<TrashPage />} />
-        <Route path='/votes' element={<VotesPage />} />
-        <Route path='/submitted' element={<SubmittedPage />} />
-        <Route path='/reports' element={<ReportsPage />} />
-        <Route path='/statistics' element={<StatisticsPage />} />
-        <Route path='/searched' element={<SearchedPage />} />
-        <Route path='*' element={<NotFound />} />
-      </Routes>
-    </WithNavbar>
+    <Routes>
+      <Route index element={<Home />} />
+      <Route path='/settings/*' element={<Settings />} />
+      <Route path='/trash' element={<TrashPage />} />
+      <Route path='/votes' element={<VotesPage />} />
+      <Route path='/submitted' element={<SubmittedPage />} />
+      <Route path='/reports' element={<ReportsPage />} />
+      <Route path='/statistics' element={<StatisticsPage />} />
+      <Route path='/searched' element={<SearchedPage />} />
+      <Route path='*' element={<NotFound />} />
+    </Routes>
   )
 }
 

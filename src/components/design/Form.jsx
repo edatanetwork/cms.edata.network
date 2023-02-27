@@ -390,9 +390,7 @@ const createFormData = ({ data, images, file }) => {
   for (const key in data) {
     if (data[key] !== null) {
       if (data[key] !== undefined) {
-        if (data[key] !== '') {
-          formData.append(key, data[key])
-        }
+        formData.append(key, data[key])
       }
     }
   }

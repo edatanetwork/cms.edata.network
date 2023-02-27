@@ -7,7 +7,13 @@ const redirect = api.injectEndpoints({
         url: '/redirects'
       }),
       providesTags: ['Redirects'],
-      transformResponse: response => response.data
+      transformResponse: response => {
+        const data = response.data.map(item => ({
+          ...item,
+          name: item.website
+        }))
+        return data
+      }
     }),
     deleteRedirect: builder.mutation({
       query: id => ({

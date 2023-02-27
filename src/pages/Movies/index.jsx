@@ -6,9 +6,10 @@ import NotFound from 'pages/NotFound'
 
 import Page from 'layout/Page'
 
-import Trash from 'components/movies/TrashTable'
 import VotesTable from 'components/movies/VotesTable'
 import MovieEventForm from 'components/movies/home/MovieEventForm'
+
+import MoviesTrash from 'features/trash/MoviesTrash'
 
 const TV = () => {
   return (
@@ -19,7 +20,7 @@ const TV = () => {
         path='/trash'
         element={
           <Page
-            table={<Trash />}
+            table={<MoviesTrash />}
             form={<MovieEventForm />}
             sidebarTitle='Movie'
             formId='movie-event'

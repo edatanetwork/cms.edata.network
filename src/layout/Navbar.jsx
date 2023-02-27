@@ -23,13 +23,13 @@ const Navbar = ({ path }) => {
     { data: designSubmittedNotification }
   ] = useLazyDesignSubmittedNotificationQuery()
 
-  useEffect(() => {
-    if (path === '/design') {
-      triggerDesignVotesNotification()
-      triggerDesignReportNotification()
-      triggerDesignSubmittedNotification()
-    }
-  }, [path])
+  // useEffect(() => {
+  //   if (path === '/design') {
+  //     triggerDesignVotesNotification()
+  //     triggerDesignReportNotification()
+  //     triggerDesignSubmittedNotification()
+  //   }
+  // }, [path])
 
   return (
     <Styled.Navbar>

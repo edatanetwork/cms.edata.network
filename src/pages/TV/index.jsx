@@ -6,9 +6,10 @@ import NotFound from 'pages/NotFound'
 
 import Page from 'layout/Page'
 
-import Trash from 'components/tv/TrashTable'
 import Votes from 'components/tv/VotesTable'
 import TvEventForm from 'components/tv/home/TvEventForm'
+
+import ChannelsTrash from 'features/trash/ChannelsTrash'
 
 const TV = () => {
   return (
@@ -19,7 +20,7 @@ const TV = () => {
         path='/trash'
         element={
           <Page
-            table={<Trash />}
+            table={<ChannelsTrash />}
             form={<TvEventForm />}
             sidebarTitle='Channel'
             formId='tv-event'

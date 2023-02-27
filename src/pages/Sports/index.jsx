@@ -5,9 +5,10 @@ import Settings from 'pages/Sports/Settings'
 import NotFound from 'pages/NotFound'
 
 import Page from 'layout/Page'
-import TrashTable from 'components/sports/TrashTable'
 import VotesTable from 'components/sports/VotesTable'
 import SportEventForm from 'components/sports/home/SportEventForm'
+
+import SportsTrash from 'features/trash/SportsTrash'
 
 const Sports = () => {
   return (
@@ -18,7 +19,7 @@ const Sports = () => {
         path='/trash'
         element={
           <Page
-            table={<TrashTable />}
+            table={<SportsTrash />}
             form={<SportEventForm />}
             sidebarTitle='Match'
             formId='sport-event'

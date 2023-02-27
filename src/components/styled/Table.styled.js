@@ -6,6 +6,16 @@ export const Cell = styled.div`
   gap: ${({ gap }) => gap};
   opacity: ${({ opacity }) => opacity};
 
+  :first-of-type {
+    img {
+      display: flex;
+      border-radius: 3px;
+      width: 38px;
+      height: 28px;
+      object-fit: contain;
+    }
+  }
+
   & > svg {
     width: 28px;
     height: auto;

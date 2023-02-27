@@ -1,8 +1,9 @@
 import Grid from 'components/styled/common/Grid.styled'
 import Topbar from 'layout/Topbar'
 import Sidebar from 'layout/Sidebar'
-import TrashTable from 'components/design/TrashTable'
 import Form from 'components/design/Form'
+
+import TrashTable from 'features/trash/PostsTrash'
 
 const TrashPage = () => {
   return (

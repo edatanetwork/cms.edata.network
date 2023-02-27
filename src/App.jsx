@@ -10,6 +10,8 @@ import Movies from 'pages/Movies'
 
 import NavbarLayout from 'layout/NavbarLayout'
 
+import TrashTable from 'features/trash/PostsTrash'
+
 const App = () => {
   return (
     <BrowserRouter>
@@ -21,6 +23,7 @@ const App = () => {
             <Route path='/tv/*' element={<TV />} />
             <Route path='/sports/*' element={<Sports />} />
             <Route path='/movies/*' element={<Movies />} />
+            <Route path='trash' element={<TrashTable />} />
           </Route>
         </Route>
         <Route path='*' element={<NotFound />} />

@@ -1,6 +1,6 @@
 import { useState } from 'react'
 import { useSearchParams } from 'react-router-dom'
-import { useDispatch } from 'react-redux'
+import { useDispatch, useSelector } from 'react-redux'
 
 import { setCurrent } from 'features/currentSlice'
 import { useGetPostsQuery, useDeletePostMutation } from 'app/services/posts'
@@ -20,6 +20,7 @@ const Posts = () => {
   const dispatch = useDispatch()
   const [searchParams] = useSearchParams()
   const [deletePost] = useDeletePostMutation()
+  const current = useSelector(state => state.current.current)
 
   const params = Object.fromEntries(searchParams)
 
@@ -107,7 +108,7 @@ const Posts = () => {
             </Styled.Row>
           ) : (
             data.posts.map(post => (
-              <Styled.Row key={post.id}>
+              <Styled.Row key={post.id} active={post.id === current?.id}>
                 <Styled.Cell>
                   <Image
                     src={post.post_images && post.post_images[0].preview}

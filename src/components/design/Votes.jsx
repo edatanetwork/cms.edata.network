@@ -1,3 +1,4 @@
+import { useSearchParams } from 'react-router-dom'
 import { useDispatch } from 'react-redux'
 
 import {
@@ -20,7 +21,10 @@ import { Head, Body, Row, Cell } from 'components/styled/common/Table.styled'
 
 const Votes = () => {
   const dispatch = useDispatch()
-  const { data, isLoading, isFetching } = useGetVotesQuery()
+  const [searchParams] = useSearchParams()
+  const { data, isLoading, isFetching } = useGetVotesQuery(
+    Object.fromEntries(searchParams)
+  )
 
   const [seenVote] = useSeenVoteMutation()
   const [deleteVote] = useDeleteVoteMutation()

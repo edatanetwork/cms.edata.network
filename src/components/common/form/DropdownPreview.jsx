@@ -4,6 +4,7 @@ import debounce from 'lodash.debounce'
 import Image from '../Image'
 
 import { useLazyGetTeamsQuery } from 'app/services/sport/teams'
+import { useGetCountriesQuery } from 'app/services/common/countries'
 
 import Icon, { IconTypes } from 'components/common/Icon'
 import * as F from 'components/styled/common/Field.styled'
@@ -17,6 +18,7 @@ const DropdownPreview = ({ label, name, placeholder }) => {
   } = useFormContext()
 
   const [trigger] = useLazyGetTeamsQuery()
+  const { data } = useGetCountriesQuery()
 
   const handleSearch = async (search, callback) => {
     if (search !== '') {
@@ -24,6 +26,10 @@ const DropdownPreview = ({ label, name, placeholder }) => {
       callback(res.teams)
     }
   }
+
+  const country = data?.countries?.find(
+    item => item.id === watch(name)?.country.id
+  )
 
   return (
     <F.Field error={errors[name]}>
@@ -59,7 +65,24 @@ const DropdownPreview = ({ label, name, placeholder }) => {
           />
           <D.Preview>
             {watch(name)?.logo ? (
-              <Image effect='opacity' src={watch(name).logo} alt='team logo' />
+              <>
+                {country?.flags?.length && (
+                  <D.Country>
+                    <Image
+                      effect='opacity'
+                      src={country?.flags[0].preview}
+                      alt='country flag'
+                    />
+                  </D.Country>
+                )}
+                <D.Logo>
+                  <Image
+                    effect='opacity'
+                    src={watch(name).logo}
+                    alt='team logo'
+                  />
+                </D.Logo>
+              </>
             ) : (
               <Icon type={IconTypes.bigPlus} />
             )}

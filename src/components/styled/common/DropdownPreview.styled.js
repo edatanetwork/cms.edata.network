@@ -92,18 +92,34 @@ export const Dropdown = styled(AsyncSelect)`
 `
 
 export const Preview = styled.div`
+  position: relative;
   border-top: 1px solid #ebeef1;
   display: grid;
   place-content: center;
   min-height: 135px;
 
+  svg {
+    width: 50px;
+    height: auto;
+  }
+`
+
+export const Logo = styled.div`
   img {
     display: flex;
     height: 75px;
   }
+`
 
-  svg {
-    width: 50px;
-    height: auto;
+export const Country = styled.div`
+  position: absolute;
+  top: 10px;
+  left: 10px;
+
+  img {
+    width: 18px;
+    height: 18px;
+    object-fit: cover;
+    border-radius: 9px;
   }
 `

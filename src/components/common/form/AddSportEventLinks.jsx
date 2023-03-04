@@ -97,22 +97,26 @@ const Link = ({ name, index, id, existing, remove }) => {
       <L.Header isOpen={isOpen} onClick={() => setIsOpen(!isOpen)}>
         Link
         <L.Actions>
-          {current && (
+          {isOpen && (
             <>
-              {existing ? (
-                <L.Button type='button' onClick={handleUpdate}>
-                  <Icon type={IconTypes.edit} />
-                </L.Button>
-              ) : (
-                <L.Button type='button' onClick={handleCreate}>
-                  <Icon type={IconTypes.plusV2} />
-                </L.Button>
+              {current && (
+                <>
+                  {existing ? (
+                    <L.Button type='button' onClick={handleUpdate}>
+                      <Icon type={IconTypes.edit} />
+                    </L.Button>
+                  ) : (
+                    <L.Button type='button' onClick={handleCreate}>
+                      <Icon type={IconTypes.plusV2} />
+                    </L.Button>
+                  )}
+                </>
               )}
+              <L.Button type='button' onClick={handleDelete}>
+                <Icon type={IconTypes.delete} />
+              </L.Button>
             </>
           )}
-          <L.Button type='button' onClick={handleDelete}>
-            <Icon type={IconTypes.delete} />
-          </L.Button>
           <Icon type={IconTypes.chevronUp} />
         </L.Actions>
       </L.Header>

@@ -11,6 +11,10 @@ export const Cell = styled.div`
   display: flex;
   align-items: center;
 
+  img {
+    height: 25px;
+  }
+
   a {
     font-weight: 500;
     color: ${({ theme }) => theme.clrBlack50};

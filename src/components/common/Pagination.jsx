@@ -5,7 +5,7 @@ import debounce from 'lodash.debounce'
 import Icon, { IconTypes } from 'components/common/Icon'
 import * as Styled from 'components/styled/layout/Pagination.styled'
 
-const Pagination = ({ data }) => {
+const Pagination = ({ data, isFetching }) => {
   const [searchParams, setSearchParams] = useSearchParams()
   const prevParams = Object.fromEntries(searchParams)
 
@@ -14,7 +14,12 @@ const Pagination = ({ data }) => {
   }
 
   const prevPage = () => {
-    setSearchParams({ ...prevParams, page: data.current_page - 1 })
+    if (data.current_page - 1 === 1) {
+      delete prevParams.page
+      setSearchParams({ ...prevParams })
+    } else {
+      setSearchParams({ ...prevParams, page: data.current_page - 1 })
+    }
   }
 
   const page = e => {
@@ -44,17 +49,21 @@ const Pagination = ({ data }) => {
         <p>
           Results: {data.current_page * data.count - data.count + 1} -{' '}
           {data.current_page * data.count} of {data.total}
+          {isFetching && <Icon type={IconTypes.loader} />}
         </p>
       </div>
       <div>
-        <button disabled={data.current_page === 1} onClick={prevPage}>
+        <button
+          disabled={data.current_page === 1 || isFetching}
+          onClick={prevPage}
+        >
           <Icon type={IconTypes.chevronUp} />
         </button>
         <p>
           {data.current_page} / {data.total_pages}
         </p>
         <button
-          disabled={data.current_page === data.total_pages}
+          disabled={data.current_page === data.total_pages || isFetching}
           onClick={nextPage}
         >
           <Icon type={IconTypes.chevronUp} />

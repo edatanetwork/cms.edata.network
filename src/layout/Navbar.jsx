@@ -2,7 +2,7 @@ import { NavLink } from 'react-router-dom'
 import { useDispatch } from 'react-redux'
 
 import { signout } from 'features/authSlice'
-import { useLazyDesignVotesNotificationQuery } from 'app/services/votes'
+import { useLazyPostsVotesNotificationQuery } from 'features/votes/postVotesApiSlice'
 import { useLazyDesignReportNotificationQuery } from 'app/services/reports'
 import { useLazyDesignSubmittedNotificationQuery } from 'app/services/submitted'
 
@@ -14,22 +14,24 @@ import { useEffect } from 'react'
 const Navbar = ({ path }) => {
   const dispatch = useDispatch()
 
-  const [triggerDesignVotesNotification, { data: designVotesNotification }] =
-    useLazyDesignVotesNotificationQuery()
+  const [triggerPostsVotesNotification, { data: postsVotesNotification }] =
+    useLazyPostsVotesNotificationQuery()
+
   const [triggerDesignReportNotification, { data: designReportNotification }] =
     useLazyDesignReportNotificationQuery()
+
   const [
     triggerDesignSubmittedNotification,
     { data: designSubmittedNotification }
   ] = useLazyDesignSubmittedNotificationQuery()
 
-  // useEffect(() => {
-  //   if (path === '/design') {
-  //     triggerDesignVotesNotification()
-  //     triggerDesignReportNotification()
-  //     triggerDesignSubmittedNotification()
-  //   }
-  // }, [path])
+  useEffect(() => {
+    if (path === 'design') {
+      triggerPostsVotesNotification()
+      triggerDesignReportNotification()
+      triggerDesignSubmittedNotification()
+    }
+  }, [path])
 
   return (
     <Styled.Navbar>
@@ -56,7 +58,7 @@ const Navbar = ({ path }) => {
             notification={
               (el.path === '/reports' && designReportNotification) ||
               (el.path === '/submitted' && designSubmittedNotification) ||
-              (el.path === '/votes' && designVotesNotification)
+              (el.path === '/votes' && postsVotesNotification)
             }
           >
             <NavLink

@@ -8,7 +8,17 @@ export const Pagination = styled.div`
   padding-inline: 2rem;
   border-top: ${({ theme }) => theme.borderGray};
   font-size: 12px;
+  div:nth-child(1) {
+    p {
+      gap: 1rem;
+      display: flex;
+      align-items: center;
+    }
 
+    svg {
+      width: 20px;
+    }
+  }
   div:nth-child(2) {
     display: flex;
     align-items: center;

@@ -9,10 +9,9 @@ const QueryErrorBoundary = ({
   isLoading,
   isSuccess,
   isError,
-  isFetching,
   loadingColumns = '1fr'
 }) => {
-  if (isLoading || isFetching) {
+  if (isLoading) {
     const ids = loadingColumns.split(' ').map(() => useId())
     return (
       <T.Body>

@@ -1,6 +1,6 @@
 import { api } from 'app/api'
 
-const postVotesApiSlice = api.injectEndpoints({
+export const postVotesApiSlice = api.injectEndpoints({
   endpoints: builder => ({
     getPostsVote: builder.query({
       query: params => ({
@@ -14,7 +14,7 @@ const postVotesApiSlice = api.injectEndpoints({
       }),
       providesTags: res => [
         { type: 'Votes', id: 'Items' },
-        ...res.votes.map(id => ({ type: 'Votes', id }))
+        ...res.votes.map(({ id }) => ({ type: 'Votes', id }))
       ]
     }),
     deletePostVote: builder.mutation({
@@ -22,7 +22,7 @@ const postVotesApiSlice = api.injectEndpoints({
         url: `/votes/delete/${id}`,
         method: 'POST'
       }),
-      invalidatesTags: (_res, _err, arg) => [{ type: 'Votes', id: arg.id }]
+      invalidatesTags: (_res, _err, arg) => [{ type: 'Votes', id: arg }]
     }),
     seePostVote: builder.mutation({
       query: id => ({
@@ -30,7 +30,7 @@ const postVotesApiSlice = api.injectEndpoints({
         method: 'POST'
       }),
       invalidatesTags: (_res, _err, arg) => [
-        { type: 'Votes', id: arg.id },
+        { type: 'Votes', id: arg },
         { type: 'Votes', id: 'Notification' }
       ]
     }),

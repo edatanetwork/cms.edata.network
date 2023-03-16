@@ -54,10 +54,29 @@ export const IconTypes = {
   layers: 'layers',
   bigPlus: 'bigPlus',
   newTab: 'newTab',
-  plusV2: 'plusV2'
+  plusV2: 'plusV2',
+  user: 'user'
 }
 
 const icons = {
+  [IconTypes.user]: (
+    <svg
+      xmlns='http://www.w3.org/2000/svg'
+      width='19.767'
+      height='19.5'
+      viewBox='0 0 19.767 19.5'
+      stroke='currentColor'
+      fill='none'
+    >
+      <path
+        d='M17.982,18.725a7.5,7.5,0,0,0-11.964,0m11.963,0a9,9,0,1,0-11.963,0m11.963,0a9,9,0,0,1-11.963,0M15,9.75a3,3,0,1,1-3-3A3,3,0,0,1,15,9.75Z'
+        transform='translate(-2.116 -2.25)'
+        strokeLinecap='round'
+        strokeLinejoin='round'
+        strokeWidth='1'
+      />
+    </svg>
+  ),
   [IconTypes.plusV2]: (
     <svg
       stroke='currentColor'

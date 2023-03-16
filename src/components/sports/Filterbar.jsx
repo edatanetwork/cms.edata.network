@@ -1,9 +1,10 @@
+import { useSelector } from 'react-redux'
 import { useSearchParams } from 'react-router-dom'
 
 import { useGetSportsQuery } from 'app/services/sport/sport'
 import { useGetCountriesQuery } from 'app/services/common/countries'
 import { useGetLeaguesQuery } from 'app/services/sport/leagues'
-import { useGetUsersQuery } from 'app/services/users'
+import { selectAllUsers } from 'features/users/usersApiSlice'
 
 import * as F from 'components/styled/layout/Filterbar.styled'
 
@@ -14,7 +15,7 @@ const Filterbar = () => {
   const { data: countries, isLoading: loadingCountries } =
     useGetCountriesQuery()
   const { data: leagues, isLoading: loadingLeagues } = useGetLeaguesQuery()
-  const { data: users, isLoading: loadingUsers } = useGetUsersQuery()
+  const users = useSelector(state => selectAllUsers(state))
 
   const handleChange = ({ key, value }) => {
     if (value === null) {
@@ -104,7 +105,6 @@ const Filterbar = () => {
         classNamePrefix='select'
         placeholder='Author'
         options={users}
-        isLoading={loadingUsers}
         getOptionLabel={opt => opt.username}
         getOptionValue={opt => opt.id}
         value={users?.find(opt => opt.name === searchParams.get('author'))}

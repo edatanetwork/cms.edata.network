@@ -1,10 +1,12 @@
+import { useSelector } from 'react-redux'
 import { useSearchParams } from 'react-router-dom'
 
 import {
   useGetCategoriesQuery,
   useGetApplicationsQuery
 } from 'app/services/categories'
-import { useGetUsersQuery } from 'app/services/users'
+
+import { selectAllUsers } from 'features/users/usersApiSlice'
 
 import * as Styled from 'components/styled/layout/Filterbar.styled'
 
@@ -15,7 +17,7 @@ const Filterbar = () => {
     useGetCategoriesQuery()
   const { data: applications, isLoading: isLoadingApplications } =
     useGetApplicationsQuery()
-  const { data: users, isLoading: isLoadingUsers } = useGetUsersQuery()
+  const users = useSelector(selectAllUsers)
 
   const subcategories = categories
     ?.filter(category => category.subcategories)
@@ -107,7 +109,6 @@ const Filterbar = () => {
       <Styled.Dropdown
         unstyled
         options={users}
-        isLoading={isLoadingUsers}
         classNamePrefix='select'
         formatOptionLabel={option => option.username}
         value={users?.find(c => c.id === parseInt(searchParams.get('author')))}

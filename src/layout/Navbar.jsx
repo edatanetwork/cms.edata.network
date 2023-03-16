@@ -70,6 +70,15 @@ const Navbar = ({ path }) => {
             </NavLink>
           </Styled.SecondaryNavItem>
         ))}
+        <Styled.SecondaryNavItem>
+          <NavLink
+            to='/users'
+            className={({ isActive }) => (isActive ? 'active' : undefined)}
+          >
+            <Icon type={IconTypes.user} />
+            Users
+          </NavLink>
+        </Styled.SecondaryNavItem>
         <hr />
         <Styled.SecondaryNavItem onClick={() => dispatch(signout())}>
           <NavLink to='/'>

@@ -5,6 +5,7 @@ export const Cell = styled.div`
   align-items: center;
   gap: ${({ gap }) => gap};
   opacity: ${({ opacity }) => opacity};
+  justify-content: ${({ justify }) => justify};
 
   :first-of-type {
     img {
@@ -33,6 +34,24 @@ export const Row = styled.div`
     props.disabled &&
     css`
       opacity: 0.5;
+    `}
+
+  ${props =>
+    props.active &&
+    css`
+      position: relative;
+      background-color: #f9f9f9;
+
+      &::before {
+        content: '';
+        position: absolute;
+        left: 0;
+        top: 50%;
+        transform: translateY(-50%);
+        height: 60%;
+        width: 3px;
+        background-color: ${({ theme }) => theme.clrOrange};
+      }
     `}
 `
 

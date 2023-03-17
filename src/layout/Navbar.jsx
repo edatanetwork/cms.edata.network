@@ -4,15 +4,22 @@ import { useDispatch } from 'react-redux'
 import { signout } from 'features/authSlice'
 import { useLazyPostsVotesNotificationQuery } from 'features/votes/postVotesApiSlice'
 import { useLazyDesignReportNotificationQuery } from 'app/services/reports'
-import { useLazyDesignSubmittedNotificationQuery } from 'app/services/submitted'
+import { useNewPostSubmittedNotificationQuery } from 'features/submitted/postsSubmittedApiSlice'
 
 import Icon, { IconTypes } from 'components/common/Icon'
 
 import * as Styled from 'components/styled/layout/Navbar.styled'
 import { useEffect } from 'react'
 
-const Navbar = ({ path }) => {
+const Navbar = ({ path: to }) => {
   const dispatch = useDispatch()
+
+  let path
+  if (to === 'users') {
+    path = 'design'
+  } else {
+    path = to
+  }
 
   const [triggerPostsVotesNotification, { data: postsVotesNotification }] =
     useLazyPostsVotesNotificationQuery()
@@ -20,16 +27,18 @@ const Navbar = ({ path }) => {
   const [triggerDesignReportNotification, { data: designReportNotification }] =
     useLazyDesignReportNotificationQuery()
 
-  const [
-    triggerDesignSubmittedNotification,
-    { data: designSubmittedNotification }
-  ] = useLazyDesignSubmittedNotificationQuery()
+  const { submittedPostNotification } = useNewPostSubmittedNotificationQuery(
+    undefined,
+    {
+      pollingInterval: 300000,
+      selectFromResult: data => ({ submittedPostNotification: data.data })
+    }
+  )
 
   useEffect(() => {
     if (path === 'design') {
       triggerPostsVotesNotification()
       triggerDesignReportNotification()
-      triggerDesignSubmittedNotification()
     }
   }, [path])
 
@@ -57,7 +66,7 @@ const Navbar = ({ path }) => {
             key={el.path}
             notification={
               (el.path === '/reports' && designReportNotification) ||
-              (el.path === '/submitted' && designSubmittedNotification) ||
+              (el.path === '/submitted' && submittedPostNotification) ||
               (el.path === '/votes' && postsVotesNotification)
             }
           >

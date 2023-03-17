@@ -24,7 +24,7 @@ export const api = createApi({
     'Trash',
     'Reports',
     'Votes',
-    'Submitted',
+    'Submitted-Posts',
     'Redirects',
     'Sports',
     'Countries',

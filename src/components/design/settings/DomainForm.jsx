@@ -139,7 +139,7 @@ const DomainForm = () => {
 
 export default DomainForm
 
-const createFormData = data => {
+const createFormData = ({ data }) => {
   const formData = new FormData()
 
   for (const key in data) {

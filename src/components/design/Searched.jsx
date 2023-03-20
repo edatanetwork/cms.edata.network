@@ -32,8 +32,10 @@ const Searched = () => {
           ) : (
             data.searched.map(search => (
               <Row key={search.id}>
-                <Cell>{search.search}</Cell>
-                <Cell>Not found</Cell>
+                <Cell>
+                  {search.search} ({search.count})
+                </Cell>
+                <Cell>{search.posts_count}</Cell>
                 <Cell>{search.domain.name}</Cell>
                 <Cell>{formatDate(search.created_at)}</Cell>
                 <Cell>

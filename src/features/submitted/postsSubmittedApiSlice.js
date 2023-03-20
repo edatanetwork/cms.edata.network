@@ -30,6 +30,16 @@ export const submittedPostsApiSlice = api.injectEndpoints({
         ...res.ids.map(id => ({ type: 'Submitted-Posts', id }))
       ]
     }),
+    deleteSubmittedPost: builder.mutation({
+      query: ({ postId }) => ({
+        url: `/posts/${postId}`,
+        method: 'DELETE'
+      }),
+      invalidatesTags: (_res, _err, arg) => [
+        'Posts',
+        { type: 'Submitted-Posts', id: arg.postId }
+      ]
+    }),
     markSeenSubmittedPosts: builder.mutation({
       query: ({ postId }) => ({
         url: `/submitted/seen/${postId}`,
@@ -52,6 +62,7 @@ export const submittedPostsApiSlice = api.injectEndpoints({
 
 export const {
   useGetSubmittedPostsQuery,
+  useDeleteSubmittedPostMutation,
   useMarkSeenSubmittedPostsMutation,
   useNewPostSubmittedNotificationQuery
 } = submittedPostsApiSlice

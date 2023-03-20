@@ -2,9 +2,11 @@ import { useDispatch } from 'react-redux'
 import { useSearchParams } from 'react-router-dom'
 
 import { setCurrent } from 'features/currentSlice'
+import { throwToast } from 'utils/throwToast'
 
 import {
   useGetSubmittedPostsQuery,
+  useDeleteSubmittedPostMutation,
   useMarkSeenSubmittedPostsMutation
 } from 'features/submitted/postsSubmittedApiSlice'
 
@@ -47,11 +49,19 @@ const SubmittedPosts = () => {
 
 const SubmittedPostRow = ({ post }) => {
   const dispatch = useDispatch()
+  const [deleteSubmittedPost] = useDeleteSubmittedPostMutation()
   const [markSeenPost] = useMarkSeenSubmittedPostsMutation()
 
   const handleClick = () => {
     dispatch(setCurrent(post))
   }
+
+  const handleDelete = () =>
+    throwToast(
+      deleteSubmittedPost({ postId: post.id }).unwrap(),
+      'Deleting post!',
+      'Post deleted!'
+    )
 
   return (
     <T.Row disabled={post.seen} columns='3fr 1fr 0.7fr 0.3fr'>
@@ -60,7 +70,7 @@ const SubmittedPostRow = ({ post }) => {
       <T.Cell opacity='0.5'>{formatDate(post.created_at)}</T.Cell>
       <T.Cell gap='0.5rem'>
         <MarkSeenBtn markSeenFn={() => markSeenPost({ postId: post.id })} />
-        <DeleteBtn />
+        <DeleteBtn deleteFn={handleDelete} />
       </T.Cell>
     </T.Row>
   )

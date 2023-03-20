@@ -1,3 +1,4 @@
+import { useSearchParams } from 'react-router-dom'
 import { useGetSearchedQuery } from 'app/services/searches'
 
 import { formatDate } from 'utils/formatDate'
@@ -9,7 +10,9 @@ import { Head, Body, Row, Cell } from 'components/styled/common/Table.styled'
 import { RoundButton } from 'components/styled/common/Button.styled'
 
 const Searched = () => {
-  const { data, isLoading } = useGetSearchedQuery()
+  const [searchParams] = useSearchParams()
+  const params = Object.fromEntries(searchParams)
+  const { data, isLoading } = useGetSearchedQuery(params)
 
   return (
     <>

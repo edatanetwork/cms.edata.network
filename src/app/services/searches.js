@@ -3,8 +3,9 @@ import { api } from 'app/api'
 const searches = api.injectEndpoints({
   endpoints: builder => ({
     getSearched: builder.query({
-      query: () => ({
-        url: '/searches'
+      query: params => ({
+        url: '/searches',
+        params
       }),
       transformResponse: response => ({
         searched: response.data[0],

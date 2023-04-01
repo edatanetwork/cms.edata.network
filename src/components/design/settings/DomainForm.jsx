@@ -54,7 +54,7 @@ const DomainForm = () => {
 
   const onSubmit = data => {
     if (current) {
-      const body = createFormData({ data })
+      const body = createFormData({ ...data })
       const promise = updateDomain({ id: current.id, body }).unwrap()
       throwToast(promise, 'Updating domain!', 'Domain updated!')
       dispatch(clearCurrent())
@@ -139,7 +139,7 @@ const DomainForm = () => {
 
 export default DomainForm
 
-const createFormData = ({ data }) => {
+const createFormData = data => {
   const formData = new FormData()
 
   for (const key in data) {

@@ -36,7 +36,8 @@ export const api = createApi({
     'Channels',
     'Matches',
     'Films',
-    'Link-Votes'
+    'Link-Votes',
+    'Report-Links'
   ],
   endpoints: () => ({})
 })

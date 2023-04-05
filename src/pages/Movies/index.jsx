@@ -10,6 +10,7 @@ import VotesTable from 'components/movies/VotesTable'
 import MovieEventForm from 'components/movies/home/MovieEventForm'
 
 import MoviesTrash from 'features/trash/MoviesTrash'
+import MoviesReport from 'features/reports/Moviesreports'
 
 const TV = () => {
   return (
@@ -29,7 +30,7 @@ const TV = () => {
       />
       <Route path='/votes' element={<Page table={<VotesTable />} />} />
       <Route path='/submitted' element={<Page />} />
-      <Route path='/reports' element={<Page />} />
+      <Route path='/reports' element={<Page table={<MoviesReport />} />} />
       <Route path='/settings/*' element={<Settings />} />
       <Route path='*' element={<NotFound />} />
     </Routes>

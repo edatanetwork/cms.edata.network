@@ -58,7 +58,7 @@ export const Row = styled.div`
 export const Body = styled.div`
   height: ${({ theme }) =>
     `calc(100vh - ${theme.topbarHeight} - ${theme.tableRowHeight} - ${theme.paginationHeight})`};
-  overflow-y: scroll;
+  overflow-y: auto;
   font-size: 13px;
 
   ::-webkit-scrollbar {

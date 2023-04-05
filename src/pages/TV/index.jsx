@@ -10,6 +10,7 @@ import Votes from 'components/tv/VotesTable'
 import TvEventForm from 'components/tv/home/TvEventForm'
 
 import ChannelsTrash from 'features/trash/ChannelsTrash'
+import ChannelsReport from 'features/reports/ChannelsReport'
 
 const TV = () => {
   return (
@@ -29,7 +30,7 @@ const TV = () => {
       />
       <Route path='/votes' element={<Page table={<Votes />} />} />
       <Route path='/submitted' element={<Page />} />
-      <Route path='/reports' element={<Page />} />
+      <Route path='/reports' element={<Page table={<ChannelsReport />} />} />
       <Route path='/settings/*' element={<Settings />} />
       <Route path='*' element={<NotFound />} />
     </Routes>

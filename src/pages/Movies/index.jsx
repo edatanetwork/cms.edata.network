@@ -10,7 +10,7 @@ import VotesTable from 'components/movies/VotesTable'
 import MovieEventForm from 'components/movies/home/MovieEventForm'
 
 import MoviesTrash from 'features/trash/MoviesTrash'
-import MoviesReport from 'features/reports/Moviesreports'
+import MoviesReport from 'features/reports/MoviesReport'
 
 const TV = () => {
   return (

@@ -43,3 +43,5 @@ export const {
   useMarkSeenSubmittedChannelMutation,
   useNewChannelSubmittedNotificationMutation
 } = channelsSubmittedApiSlice
+
+export default channelsSubmittedApiSlice

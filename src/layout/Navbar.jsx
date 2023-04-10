@@ -5,6 +5,7 @@ import { signout } from 'features/authSlice'
 import { useLazyPostsVotesNotificationQuery } from 'features/votes/postVotesApiSlice'
 import { useLazyDesignReportNotificationQuery } from 'app/services/reports'
 import { useNewPostSubmittedNotificationQuery } from 'features/submitted/postsSubmittedApiSlice'
+import { useNewSportSubmittedNotificationQuery } from 'features/submitted/sportsSubmittedApiSlice'
 
 import Icon, { IconTypes } from 'components/common/Icon'
 
@@ -35,12 +36,30 @@ const Navbar = ({ path: to }) => {
     }
   )
 
+  const { newSportSubmittedNotification } =
+    useNewSportSubmittedNotificationQuery(undefined, {
+      pollingInterval: 300000,
+      selectFromResult: data => ({ newSportSubmittedNotification: data.data })
+    })
+
   useEffect(() => {
     if (path === 'design') {
       triggerPostsVotesNotification()
       triggerDesignReportNotification()
     }
   }, [path])
+
+  const notification = (page, path) => {
+    if (path === '/submitted') {
+      if (page === 'design') {
+        return submittedPostNotification
+      }
+
+      if (page === 'sports') {
+        return newSportSubmittedNotification
+      }
+    }
+  }
 
   return (
     <Styled.Navbar>
@@ -64,11 +83,7 @@ const Navbar = ({ path: to }) => {
         {secondaryNav.map(el => (
           <Styled.SecondaryNavItem
             key={el.path}
-            notification={
-              (el.path === '/reports' && designReportNotification) ||
-              (el.path === '/submitted' && submittedPostNotification) ||
-              (el.path === '/votes' && postsVotesNotification)
-            }
+            notification={notification(path, el.path)}
           >
             <NavLink
               to={`${path}${el.path}`}

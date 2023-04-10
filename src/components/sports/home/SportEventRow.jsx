@@ -19,7 +19,7 @@ const SportEventRow = props => {
   const [deleteMatch] = useDeleteMatchMutation()
   const [deleteLink] = useDeleteLinkMutation()
 
-  const start_time = props.start_time.split(' ')[1].slice(0, -3)
+  const start_time = props.start_time?.split(' ')[1].slice(0, -3)
 
   const handleDelete = id => {
     const promise = deleteMatch(id).unwrap()
@@ -38,16 +38,16 @@ const SportEventRow = props => {
           <S.Status color='#4db500' />
         </S.Cell>
         <S.Cell onClick={() => props.links && setIsActive(!isActive)}>
-          <Image src={props.home_team.logo} />
+          <Image src={props.home_team?.logo} />
           {props.home_team.name} - {props.away_team.name}
-          <Image src={props.away_team.logo} />
+          <Image src={props.away_team?.logo} />
         </S.Cell>
         <S.Cell>{start_time}</S.Cell>
         <S.Cell>-14 min</S.Cell>
         <S.Cell>0</S.Cell>
         <S.Cell>
-          <Image src={props.league.logo} />
-          {props.league.name}
+          <Image src={props.league?.logo} />
+          {props.league?.name}
         </S.Cell>
         <S.Cell>{props.author}</S.Cell>
         <S.Cell>{formatDate(props.created_at)}</S.Cell>

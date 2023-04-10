@@ -43,3 +43,5 @@ export const {
   useMarkSeenSubmittedMovieMutation,
   useNewMovieSubmittedNotificationMutation
 } = moviesSubmittedApiSlice
+
+export default moviesSubmittedApiSlice

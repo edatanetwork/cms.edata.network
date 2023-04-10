@@ -29,7 +29,7 @@ const sportsSubmittedApiSlice = api.injectEndpoints({
         { type: 'Submitted-Sports', id: 'NOTIFICATION' }
       ]
     }),
-    newSportSubmittedNotification: builder.mutation({
+    newSportSubmittedNotification: builder.query({
       query: () => ({
         url: '/sport-event-submitted/seen-check'
       }),
@@ -42,5 +42,7 @@ const sportsSubmittedApiSlice = api.injectEndpoints({
 export const {
   useGetSubmittedSportsQuery,
   useMarkSeenSubmittedSportMutation,
-  useNewSportSubmittedNotificationMutation
+  useNewSportSubmittedNotificationQuery
 } = sportsSubmittedApiSlice
+
+export default sportsSubmittedApiSlice

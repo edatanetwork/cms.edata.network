@@ -15,7 +15,7 @@ import * as S from 'components/styled/common/AccordionTable.styled'
 
 const MovieEventRow = props => {
   const dispatch = useDispatch()
-  const [isActive, setIsActive] = useState(true)
+  const [isActive, setIsActive] = useState(false)
 
   const [deleteFilm] = useDeleteFilmMutation()
   const [deleteLink] = useDeleteLinkMutation()
@@ -40,7 +40,7 @@ const MovieEventRow = props => {
           <Image src={props.logo} alt='movie poster' />
           {props.name}
         </S.Cell>
-        <S.Cell>{String(props.genres.map(genre => genre.name))}</S.Cell>
+        <S.Cell>{String(props.genres?.map(genre => genre.name))}</S.Cell>
         <S.Cell>{props.duration} min</S.Cell>
         <S.Cell>0</S.Cell>
         <S.Cell>{props.author}</S.Cell>
@@ -53,7 +53,7 @@ const MovieEventRow = props => {
         </S.Cell>
       </S.Row>
       {isActive &&
-        props.links.map((link, i) => (
+        props?.links?.map((link, i) => (
           <S.AccordionRow key={link.id}>
             <S.Cell>{i + 1}.</S.Cell>
             <S.Cell>Link</S.Cell>
@@ -64,7 +64,7 @@ const MovieEventRow = props => {
               <Votes upVotes={0} downVotes={0} />
             </S.Cell>
             <S.Cell>0</S.Cell>
-            <S.Cell>{link.language.name}</S.Cell>
+            <S.Cell>{link.language?.name}</S.Cell>
             <S.Cell>{link.quality}</S.Cell>
             <S.Cell>
               <FavEditDel

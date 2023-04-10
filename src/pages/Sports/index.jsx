@@ -10,6 +10,7 @@ import SportEventForm from 'components/sports/home/SportEventForm'
 
 import SportsTrash from 'features/trash/SportsTrash'
 import SportsReport from 'features/reports/SportsReport'
+import SportsSubmitted from 'features/submitted/SportsSubmitted'
 
 const Sports = () => {
   return (
@@ -28,7 +29,7 @@ const Sports = () => {
         }
       />
       <Route path='/votes' element={<Page table={<VotesTable />} />} />
-      <Route path='/submitted' element={<Page />} />
+      <Route path='/submitted' element={<Page table={<SportsSubmitted />} />} />
       <Route path='/reports' element={<Page table={<SportsReport />} />} />
       <Route path='/settings/*' element={<Settings />} />
       <Route path='*' element={<NotFound />} />

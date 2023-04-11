@@ -1,6 +1,6 @@
 import { api } from 'app/api'
 
-export const postVotesApiSlice = api.injectEndpoints({
+const postVotesApiSlice = api.injectEndpoints({
   endpoints: builder => ({
     getPostsVote: builder.query({
       query: params => ({
@@ -48,5 +48,7 @@ export const {
   useGetPostsVoteQuery,
   useDeletePostVoteMutation,
   useSeePostVoteMutation,
-  useLazyPostsVotesNotificationQuery
+  usePostsVotesNotificationQuery
 } = postVotesApiSlice
+
+export default postVotesApiSlice

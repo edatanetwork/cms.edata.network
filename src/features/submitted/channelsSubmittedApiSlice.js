@@ -28,7 +28,7 @@ const channelsSubmittedApiSlice = api.injectEndpoints({
         { type: 'Submitted-Channels', id: 'NOTIFICATION' }
       ]
     }),
-    newChannelSubmittedNotification: builder.mutation({
+    newChannelSubmittedNotification: builder.query({
       query: () => ({
         url: '/channel-submitted/seen-check'
       }),
@@ -41,7 +41,7 @@ const channelsSubmittedApiSlice = api.injectEndpoints({
 export const {
   useGetSubmittedChannelsQuery,
   useMarkSeenSubmittedChannelMutation,
-  useNewChannelSubmittedNotificationMutation
+  useNewChannelSubmittedNotificationQuery
 } = channelsSubmittedApiSlice
 
 export default channelsSubmittedApiSlice

@@ -8,11 +8,6 @@ import * as S from 'components/styled/common/AccordionTable.styled'
 const MovieEventsTable = () => {
   const { data, isLoading, isFetching } = useGetFilmsQuery()
 
-  if (!isLoading) {
-    const movieNames = data.movies.map(item => item.name)
-    console.log(movieNames)
-  }
-
   return (
     <S.MovieEventsTable>
       <S.Head>

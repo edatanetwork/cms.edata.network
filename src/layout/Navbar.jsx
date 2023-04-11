@@ -2,63 +2,20 @@ import { NavLink } from 'react-router-dom'
 import { useDispatch } from 'react-redux'
 
 import { signout } from 'features/authSlice'
-import { useLazyPostsVotesNotificationQuery } from 'features/votes/postVotesApiSlice'
-import { useLazyDesignReportNotificationQuery } from 'app/services/reports'
-import { useNewPostSubmittedNotificationQuery } from 'features/submitted/postsSubmittedApiSlice'
-import { useNewSportSubmittedNotificationQuery } from 'features/submitted/sportsSubmittedApiSlice'
+import { useNotifications } from 'hooks/useNotifications'
 
 import Icon, { IconTypes } from 'components/common/Icon'
-
 import * as Styled from 'components/styled/layout/Navbar.styled'
-import { useEffect } from 'react'
 
 const Navbar = ({ path: to }) => {
   const dispatch = useDispatch()
+  const [getNotificationStatus] = useNotifications()
 
   let path
   if (to === 'users') {
     path = 'design'
   } else {
     path = to
-  }
-
-  const [triggerPostsVotesNotification, { data: postsVotesNotification }] =
-    useLazyPostsVotesNotificationQuery()
-
-  const [triggerDesignReportNotification, { data: designReportNotification }] =
-    useLazyDesignReportNotificationQuery()
-
-  const { submittedPostNotification } = useNewPostSubmittedNotificationQuery(
-    undefined,
-    {
-      pollingInterval: 300000,
-      selectFromResult: data => ({ submittedPostNotification: data.data })
-    }
-  )
-
-  const { newSportSubmittedNotification } =
-    useNewSportSubmittedNotificationQuery(undefined, {
-      pollingInterval: 300000,
-      selectFromResult: data => ({ newSportSubmittedNotification: data.data })
-    })
-
-  useEffect(() => {
-    if (path === 'design') {
-      triggerPostsVotesNotification()
-      triggerDesignReportNotification()
-    }
-  }, [path])
-
-  const notification = (page, path) => {
-    if (path === '/submitted') {
-      if (page === 'design') {
-        return submittedPostNotification
-      }
-
-      if (page === 'sports') {
-        return newSportSubmittedNotification
-      }
-    }
   }
 
   return (
@@ -83,7 +40,7 @@ const Navbar = ({ path: to }) => {
         {secondaryNav.map(el => (
           <Styled.SecondaryNavItem
             key={el.path}
-            notification={notification(path, el.path)}
+            notification={getNotificationStatus(path, el.path)}
           >
             <NavLink
               to={`${path}${el.path}`}

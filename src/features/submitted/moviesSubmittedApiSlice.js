@@ -28,7 +28,7 @@ const moviesSubmittedApiSlice = api.injectEndpoints({
         { type: 'Submitted-Movies', id: 'NOTIFICATION' }
       ]
     }),
-    newMovieSubmittedNotification: builder.mutation({
+    newMovieSubmittedNotification: builder.query({
       query: () => ({
         url: '/movie-submitted/seen-check'
       }),
@@ -41,7 +41,7 @@ const moviesSubmittedApiSlice = api.injectEndpoints({
 export const {
   useGetSubmittedMoviesQuery,
   useMarkSeenSubmittedMovieMutation,
-  useNewMovieSubmittedNotificationMutation
+  useNewMovieSubmittedNotificationQuery
 } = moviesSubmittedApiSlice
 
 export default moviesSubmittedApiSlice

@@ -12,6 +12,8 @@ import SportsTrash from 'features/trash/SportsTrash'
 import SportsReport from 'features/reports/SportsReport'
 import SportsSubmitted from 'features/submitted/SportsSubmitted'
 
+import SubmittedSportsFields from 'components/sports/SubmittedSportsFields'
+
 const Sports = () => {
   return (
     <Routes>
@@ -29,7 +31,20 @@ const Sports = () => {
         }
       />
       <Route path='/votes' element={<Page table={<VotesTable />} />} />
-      <Route path='/submitted' element={<Page table={<SportsSubmitted />} />} />
+      <Route
+        path='/submitted/*'
+        element={
+          <Page
+            table={<SportsSubmitted />}
+            form={
+              <Routes>
+                <Route index element={<SubmittedSportsFields />} />
+                <Route path=':id' element={<SubmittedSportsFields />} />
+              </Routes>
+            }
+          />
+        }
+      ></Route>
       <Route path='/reports' element={<Page table={<SportsReport />} />} />
       <Route path='/settings/*' element={<Settings />} />
       <Route path='*' element={<NotFound />} />

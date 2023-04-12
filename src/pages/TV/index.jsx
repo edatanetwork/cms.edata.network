@@ -13,6 +13,8 @@ import ChannelsTrash from 'features/trash/ChannelsTrash'
 import ChannelsReport from 'features/reports/ChannelsReport'
 import ChannelsSubmitted from 'features/submitted/ChannelsSubmitted'
 
+import SubmittedChannelFields from 'components/tv/SubmittedChannelFields'
+
 const TV = () => {
   return (
     <Routes>
@@ -31,8 +33,18 @@ const TV = () => {
       />
       <Route path='/votes' element={<Page table={<Votes />} />} />
       <Route
-        path='/submitted'
-        element={<Page table={<ChannelsSubmitted />} />}
+        path='/submitted/*'
+        element={
+          <Page
+            table={<ChannelsSubmitted />}
+            form={
+              <Routes>
+                <Route index element={<SubmittedChannelFields />} />
+                <Route path=':id' element={<SubmittedChannelFields />} />
+              </Routes>
+            }
+          />
+        }
       />
       <Route path='/reports' element={<Page table={<ChannelsReport />} />} />
       <Route path='/settings/*' element={<Settings />} />

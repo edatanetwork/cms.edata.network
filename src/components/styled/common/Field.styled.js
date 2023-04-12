@@ -94,6 +94,24 @@ export const Input = styled.input`
   }
 `
 
+export const ReadOnlyInput = styled.div`
+  flex-grow: 1;
+  width: 100%;
+  height: 45px;
+  padding-inline: 24px;
+  font-size: 13px;
+  display: grid;
+  align-items: center;
+
+  ::placeholder {
+    color: ${({ theme }) => theme.clrPlaceholder};
+  }
+
+  &:has(input[type='checkbox']) {
+    padding-right: 0;
+  }
+`
+
 export const Textarea = styled.textarea`
   resize: none;
   border: none;

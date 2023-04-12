@@ -1,4 +1,4 @@
-import { useSearchParams } from 'react-router-dom'
+import { useNavigate, useSearchParams } from 'react-router-dom'
 
 import {
   useGetSubmittedSportsQuery,
@@ -16,13 +16,14 @@ import Pagination from 'components/common/Pagination'
 import * as T from 'components/styled/Table.styled'
 
 const SportsSubmitted = () => {
+  const navigate = useNavigate()
   const [searchParams] = useSearchParams()
   const params = Object.fromEntries(searchParams)
 
   const [markSeen] = useMarkSeenSubmittedSportMutation()
   const [deleteSubmittedSport] = useDeleteSportMutation()
 
-  const { data, ...rest } = useGetSubmittedSportsQuery({ ...params })
+  const { data, ...rest } = useGetSubmittedSportsQuery(params)
 
   const handleDelete = id =>
     throwToast(
@@ -53,6 +54,7 @@ const SportsSubmitted = () => {
               key={item.id}
               disabled={item.seen}
               columns='2fr 1fr 1fr 0.5fr 0.7fr 0.3fr'
+              onClick={() => navigate(`/sports/submitted/${item.id}`)}
             >
               <T.Cell>
                 {item.home_team.name} - {item.away_team.name}

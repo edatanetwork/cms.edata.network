@@ -1,4 +1,4 @@
-import { useSearchParams } from 'react-router-dom'
+import { useNavigate, useSearchParams } from 'react-router-dom'
 
 import {
   useGetSubmittedMoviesQuery,
@@ -16,6 +16,7 @@ import Pagination from 'components/common/Pagination'
 import * as T from 'components/styled/Table.styled'
 
 const MoviesSubmitted = () => {
+  const navigate = useNavigate()
   const [searchParams] = useSearchParams()
   const params = Object.fromEntries(searchParams)
 
@@ -48,6 +49,7 @@ const MoviesSubmitted = () => {
               key={item.id}
               disabled={item.seen}
               columns='2fr 1fr  0.5fr 0.7fr 0.3fr'
+              onClick={() => navigate(`/movies/submitted/${item.id}`)}
             >
               <T.Cell>{item.name}</T.Cell>
               <T.Cell>{item.submit_email}</T.Cell>

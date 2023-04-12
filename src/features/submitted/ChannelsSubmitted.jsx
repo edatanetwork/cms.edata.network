@@ -1,4 +1,4 @@
-import { useSearchParams } from 'react-router-dom'
+import { useNavigate, useSearchParams } from 'react-router-dom'
 
 import {
   useGetSubmittedChannelsQuery,
@@ -16,6 +16,7 @@ import Pagination from 'components/common/Pagination'
 import * as T from 'components/styled/Table.styled'
 
 const ChannelsSubmitted = () => {
+  const navigate = useNavigate()
   const [searchParams] = useSearchParams()
   const params = Object.fromEntries(searchParams)
 
@@ -30,8 +31,6 @@ const ChannelsSubmitted = () => {
       'Deleting post!',
       'Post deleted!'
     )
-
-  console.log(data?.channels)
 
   return (
     <T.Table>
@@ -55,6 +54,7 @@ const ChannelsSubmitted = () => {
               key={item.id}
               disabled={item.seen}
               columns='2fr 1fr 1fr 0.5fr 0.7fr 0.3fr'
+              onClick={() => navigate(`/tv/submitted/${item.id}`)}
             >
               <T.Cell>{item.name}</T.Cell>
               <T.Cell>{item.country.name}</T.Cell>

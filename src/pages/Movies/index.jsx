@@ -13,6 +13,8 @@ import MoviesTrash from 'features/trash/MoviesTrash'
 import MoviesReport from 'features/reports/MoviesReport'
 import MoviesSubmitted from 'features/submitted/MoviesSubmitted'
 
+import SubmittedMovieFields from 'components/movies/SubmittedMovieFields'
+
 const TV = () => {
   return (
     <Routes>
@@ -30,7 +32,20 @@ const TV = () => {
         }
       />
       <Route path='/votes' element={<Page table={<VotesTable />} />} />
-      <Route path='/submitted' element={<Page table={<MoviesSubmitted />} />} />
+      <Route
+        path='/submitted/*'
+        element={
+          <Page
+            table={<MoviesSubmitted />}
+            form={
+              <Routes>
+                <Route index element={<SubmittedMovieFields />} />
+                <Route path=':id' element={<SubmittedMovieFields />} />
+              </Routes>
+            }
+          />
+        }
+      />
       <Route path='/reports' element={<Page table={<MoviesReport />} />} />
       <Route path='/settings/*' element={<Settings />} />
       <Route path='*' element={<NotFound />} />

@@ -102,6 +102,13 @@ const Topbar = () => {
 export default Topbar
 
 const pageInfo = path => {
+  if (
+    path.includes('submitted') ||
+    (path.includes('submitted') && /\/\w+\/\w+\/\d+/.test(path))
+  ) {
+    return { title: 'Submitted', btnTitle: 'Post', search: true, home: false }
+  }
+
   switch (path) {
     case '/design/settings/categories':
     case '/design/settings/categories/subcategory':
@@ -152,11 +159,6 @@ const pageInfo = path => {
     case '/movies/votes':
     case '/tv/votes':
       return { title: 'Votes', btnTitle: 'Post', search: true, home: false }
-    case '/design/submitted':
-    case '/sports/submitted':
-    case '/movies/submitted':
-    case '/tv/submitted':
-      return { title: 'Submitted', btnTitle: 'Post', search: true, home: false }
     case '/design/reports':
     case '/sports/reports':
     case '/movies/reports':

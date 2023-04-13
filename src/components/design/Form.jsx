@@ -59,8 +59,8 @@ const PostForm = () => {
       .required('Select an application'),
     post_download_link: yup
       .string()
-      .required('Download url is required')
-      .url('Please enter a valid URL!'),
+      .url('Please enter a valid URL!')
+      .nullable(),
     iframe_valid: yup.boolean(),
     redirect_id: yup.mixed().when('iframe_valid', {
       is: true,
@@ -269,6 +269,11 @@ const PostForm = () => {
         </div>
       )}
       <FileUpload maxFiles={1} files={file} setFiles={setFile} />
+      {current?.filepath && (
+        <a href={`${import.meta.env.VITE_IMG_URL}/${current.filepath}`}>
+          View File
+        </a>
+      )}
 
       {watch('iframe_valid') && (
         <Field label='Redirect*' htmlFor='redirect' error={errors.redirect_id}>

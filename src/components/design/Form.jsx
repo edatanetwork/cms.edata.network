@@ -142,6 +142,7 @@ const PostForm = () => {
         redirect_id: null
       })
       setImages([])
+      setFile([])
     }
     // eslint-disable-next-line
   }, [current])

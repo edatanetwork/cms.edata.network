@@ -271,7 +271,11 @@ const PostForm = () => {
       )}
       <FileUpload maxFiles={1} files={file} setFiles={setFile} />
       {current?.filepath && (
-        <a href={`${import.meta.env.VITE_IMG_URL}/${current.filepath}`}>
+        <a
+          target='_blank'
+          rel='noopener noreferrer'
+          href={`https://portfolio-bucket-001.s3.us-east-2.amazonaws.com/${current.filepath}`}
+        >
           View File
         </a>
       )}

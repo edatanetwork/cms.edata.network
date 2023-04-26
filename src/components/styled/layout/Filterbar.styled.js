@@ -11,6 +11,7 @@ export const Filterbar = styled.div`
 
   & > div:has(input[type='date']) {
     display: flex;
+    align-items: center;
     padding: 0 1rem;
 
     input {

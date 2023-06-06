@@ -49,9 +49,9 @@ const DomainForm = ({ methods: { reset }, type }) => {
       reset({
         name: current.name,
         url: current.url,
-        sports: current.sports.map(sport => sport.id),
-        tv_genres: current.tv_genres.map(genre => genre.id),
-        movie_genres: current.movie_genres.map(genre => genre.id)
+        sports: current.sports?.map(sport => sport.id),
+        tv_genres: current.tv_genres?.map(genre => genre.id),
+        movie_genres: current.movie_genres?.map(genre => genre.id)
       })
     } else {
       reset({

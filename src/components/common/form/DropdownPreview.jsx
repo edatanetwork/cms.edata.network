@@ -27,9 +27,11 @@ const DropdownPreview = ({ label, name, placeholder }) => {
     }
   }
 
-  const country = data?.countries?.find(
-    item => item.id === watch(name)?.country.id
-  )
+  // const country = data?.countries?.find(
+  //   item => item.id === watch(name)?.country.id
+  // )
+
+  console.log(watch(name))
 
   return (
     <F.Field error={errors[name]}>
@@ -66,7 +68,7 @@ const DropdownPreview = ({ label, name, placeholder }) => {
           <D.Preview>
             {watch(name)?.logo ? (
               <>
-                {country?.flags?.length && (
+                {/* {country?.flags?.length && (
                   <D.Country>
                     <Image
                       effect='opacity'
@@ -74,7 +76,7 @@ const DropdownPreview = ({ label, name, placeholder }) => {
                       alt='country flag'
                     />
                   </D.Country>
-                )}
+                )} */}
                 <D.Logo>
                   <Image
                     effect='opacity'

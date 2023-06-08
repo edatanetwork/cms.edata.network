@@ -3,7 +3,7 @@ import styled, { css } from 'styled-components'
 export const Status = styled.span`
   width: 10px;
   height: 10px;
-  background-color: #4db500;
+  background-color: ${props => props.color};
   border-radius: 50%;
 `
 

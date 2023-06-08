@@ -31,8 +31,6 @@ const DropdownPreview = ({ label, name, placeholder }) => {
   //   item => item.id === watch(name)?.country.id
   // )
 
-  console.log(watch(name))
-
   return (
     <F.Field error={errors[name]}>
       <F.Header>

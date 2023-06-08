@@ -13,6 +13,24 @@ import Votes from 'components/common/VoteCount'
 import FavEditDel from 'components/common/FavEditDel'
 import * as S from 'components/styled/common/AccordionTable.styled'
 
+const getStatus = (startTime, endTime) => {
+  const now = new Date()
+  const start = new Date(startTime)
+  const end = new Date(endTime)
+
+  if (now < start) {
+    return '#0066FF'
+  }
+
+  if (start < now && now < end) {
+    return '#4DB500'
+  }
+
+  if (now > end) {
+    return '#939393'
+  }
+}
+
 const SportEventRow = props => {
   const dispatch = useDispatch()
   const [isActive, setIsActive] = useState(false)
@@ -20,6 +38,7 @@ const SportEventRow = props => {
   const [deleteLink] = useDeleteLinkMutation()
 
   const start_time = props.start_time?.split(' ')[1].slice(0, -3)
+  const end_time = props.end_time_calculated?.split(' ')[1].slice(0, -3)
 
   const handleDelete = id => {
     const promise = deleteMatch(id).unwrap()
@@ -35,7 +54,9 @@ const SportEventRow = props => {
     <>
       <S.Row isActive={isActive}>
         <S.Cell>
-          <S.Status color='#4db500' />
+          <S.Status
+            color={getStatus(props.start_time, props.end_time_calculated)}
+          />
         </S.Cell>
         <S.Cell onClick={() => props.links && setIsActive(!isActive)}>
           <Image src={props.home_team?.logo} />
@@ -43,7 +64,7 @@ const SportEventRow = props => {
           <Image src={props.away_team?.logo} />
         </S.Cell>
         <S.Cell>{start_time}</S.Cell>
-        <S.Cell>-14 min</S.Cell>
+        <S.Cell>{end_time}</S.Cell>
         <S.Cell>0</S.Cell>
         <S.Cell>
           <Image src={props.league?.logo} />

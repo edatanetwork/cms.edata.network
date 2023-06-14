@@ -4,7 +4,10 @@ import { useDispatch } from 'react-redux'
 import { formatDate } from 'utils/formatDate'
 import { setCurrent } from 'features/currentSlice'
 import { throwToast, removeConfirmation } from 'utils/throwToast'
-import { useDeleteMatchMutation } from 'app/services/sport/matches'
+import {
+  useDeleteMatchMutation,
+  useFavoriteMatchMutation
+} from 'app/services/sport/matches'
 import { useDeleteLinkMutation } from 'app/services/common/links'
 
 import Icon, { IconTypes } from 'components/common/Icon'
@@ -35,10 +38,23 @@ const SportEventRow = props => {
   const dispatch = useDispatch()
   const [isActive, setIsActive] = useState(false)
   const [deleteMatch] = useDeleteMatchMutation()
+  const [favoriteMatch] = useFavoriteMatchMutation()
   const [deleteLink] = useDeleteLinkMutation()
 
   const start_time = props.start_time?.split(' ')[1].slice(0, -3)
   const end_time = props.end_time_calculated?.split(' ')[1].slice(0, -3)
+
+  const handleFavorite = () => {
+    const favourite =
+      props.favourite === null || props.favourite === false ? true : false
+
+    const promise = favoriteMatch({ id: props.id, favourite }).unwrap()
+    throwToast(
+      promise,
+      'Marking match as favourite!',
+      'Match marked as favourite!'
+    )
+  }
 
   const handleDelete = id => {
     const promise = deleteMatch(id).unwrap()
@@ -65,7 +81,7 @@ const SportEventRow = props => {
         </S.Cell>
         <S.Cell>{start_time}</S.Cell>
         <S.Cell>{end_time}</S.Cell>
-        <S.Cell>0</S.Cell>
+        <S.Cell>{props.views}</S.Cell>
         <S.Cell>
           <Image src={props.league?.logo} />
           {props.league?.name}
@@ -74,6 +90,8 @@ const SportEventRow = props => {
         <S.Cell>{formatDate(props.created_at)}</S.Cell>
         <S.Cell>
           <FavEditDel
+            isFavourite={props.favourite}
+            favourite={handleFavorite}
             edit={() => dispatch(setCurrent(props))}
             remove={() => removeConfirmation(() => handleDelete(props.id))}
           />

@@ -1,4 +1,4 @@
-import styled from 'styled-components'
+import styled, { css } from 'styled-components'
 
 const Default = styled.button`
   display: flex;
@@ -37,6 +37,14 @@ export const CircleButton = styled(Default)`
 
   svg {
     width: 13px;
+
+    ${props =>
+      props.isFavourite &&
+      css`
+        path {
+          fill: ${({ theme }) => theme.clrError};
+        }
+      `}
   }
 `
 

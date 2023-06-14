@@ -34,6 +34,14 @@ const matches = api.injectEndpoints({
         method: 'DELETE'
       }),
       invalidatesTags: ['Matches']
+    }),
+    favoriteMatch: builder.mutation({
+      query: ({ id, favourite }) => ({
+        url: `/sport-events/make-favourite/${id}`,
+        method: 'POST',
+        body: { favourite }
+      }),
+      invalidatesTags: ['Matches']
     })
   })
 })
@@ -42,5 +50,6 @@ export const {
   useGetMatchesQuery,
   useCreateMatchMutation,
   useUpdateMatchMutation,
-  useDeleteMatchMutation
+  useDeleteMatchMutation,
+  useFavoriteMatchMutation
 } = matches

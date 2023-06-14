@@ -1,10 +1,10 @@
 import Icon, { IconTypes } from 'components/common/Icon'
 import { CircleButton } from 'components/styled/common/Button.styled'
 
-const FavEditDel = ({ favourite, edit, remove }) => {
+const FavEditDel = ({ favourite, edit, remove, isFavourite }) => {
   return (
     <div style={{ display: 'flex', gap: '0.5rem', marginLeft: 'auto' }}>
-      <CircleButton onClick={favourite}>
+      <CircleButton onClick={favourite} isFavourite={isFavourite}>
         <Icon type={IconTypes.heart} />
       </CircleButton>
       <CircleButton onClick={edit}>

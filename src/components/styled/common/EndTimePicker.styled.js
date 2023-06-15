@@ -2,10 +2,10 @@ import styled from 'styled-components'
 
 export const EndTimePicker = styled.div`
   display: grid;
-  grid-template-columns: repeat(8, auto);
-  gap: 1px;
+  grid-template-columns: repeat(8, 1fr);
+  border: 1px solid #ebeef1;
 
-  input {
+  input[type='radio'] {
     appearance: none;
     margin: 0;
     height: 45px;
@@ -22,6 +22,30 @@ export const EndTimePicker = styled.div`
       }
     }
 
+    :nth-of-type(9) {
+      ::after {
+        border-bottom-left-radius: 4px;
+      }
+    }
+
+    :nth-of-type(-n + 7) {
+      ::after {
+        border-right: 1px solid #ebeef1;
+      }
+    }
+
+    :nth-of-type(-n + 8) {
+      ::after {
+        border-bottom: 1px solid #ebeef1;
+      }
+    }
+
+    :nth-last-of-type(-n + 7) {
+      ::after {
+        border-right: 1px solid #ebeef1;
+      }
+    }
+
     &::after {
       content: attr(data-text);
       display: grid;
@@ -31,7 +55,6 @@ export const EndTimePicker = styled.div`
       font-size: 13px;
       color: rgba(0, 0, 0, 0.5);
       transition: all 150ms ease-in-out;
-      border: 1px solid #ebeef1;
     }
 
     &:checked {
@@ -41,5 +64,13 @@ export const EndTimePicker = styled.div`
         color: #00a066;
       }
     }
+  }
+
+  input[type='number'] {
+    grid-column: 7 / 9;
+    height: 47px;
+    font-size: 13px;
+    text-align: center;
+    border-bottom-right-radius: 4px;
   }
 `

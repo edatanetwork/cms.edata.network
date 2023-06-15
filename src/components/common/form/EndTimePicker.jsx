@@ -7,10 +7,11 @@ import * as E from 'components/styled/common/EndTimePicker.styled'
 const EndTimePicker = ({ name }) => {
   const {
     control,
+    register,
     formState: { errors }
   } = useFormContext()
 
-  const minutes = [...Array.from({ length: 16 }, (_, i) => i * 10)]
+  const minutes = [...Array.from({ length: 14 }, (_, i) => i * 10 + 10)]
 
   return (
     <F.Field error={errors[name]}>
@@ -36,6 +37,7 @@ const EndTimePicker = ({ name }) => {
             ))
           }
         />
+        <input type='number' placeholder='Other' {...register(name)} />
       </E.EndTimePicker>
     </F.Field>
   )

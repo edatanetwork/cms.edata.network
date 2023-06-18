@@ -3,8 +3,9 @@ import { api } from 'app/api'
 const matches = api.injectEndpoints({
   endpoints: builder => ({
     getMatches: builder.query({
-      query: () => ({
-        url: '/sport-events'
+      query: params => ({
+        url: '/sport-events',
+        params
       }),
       transformResponse: response => ({
         matches: response.data[0],

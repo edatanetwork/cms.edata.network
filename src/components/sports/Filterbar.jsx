@@ -40,10 +40,10 @@ const Filterbar = () => {
         getOptionLabel={opt => opt.name}
         getOptionValue={opt => opt.id}
         value={sports?.sports.find(
-          opt => opt.name === searchParams.get('sport')
+          opt => opt.name === searchParams.get('sport_id')
         )}
         onChange={opt =>
-          handleChange({ key: 'sport', value: opt ? opt.name : null })
+          handleChange({ key: 'sport_id', value: opt ? opt.id : null })
         }
       />
       <F.Dropdown
@@ -59,7 +59,7 @@ const Filterbar = () => {
           opt => opt.name === searchParams.get('country')
         )}
         onChange={opt =>
-          handleChange({ key: 'country', value: opt ? opt.name : null })
+          handleChange({ key: 'country_id', value: opt ? opt.id : null })
         }
       />
       <F.Dropdown
@@ -83,7 +83,7 @@ const Filterbar = () => {
         getOptionLabel={opt => opt.name}
         getOptionValue={opt => opt.id}
         onChange={opt =>
-          handleChange({ key: 'league', value: opt ? opt.name : null })
+          handleChange({ key: 'league_id', value: opt ? opt.id : null })
         }
       />
       <F.Dropdown
@@ -109,7 +109,7 @@ const Filterbar = () => {
         getOptionValue={opt => opt.id}
         value={users?.find(opt => opt.name === searchParams.get('author'))}
         onChange={opt =>
-          handleChange({ key: 'author', value: opt ? opt.username : null })
+          handleChange({ key: 'author_id', value: opt ? opt.id : null })
         }
       />
     </F.Filterbar>

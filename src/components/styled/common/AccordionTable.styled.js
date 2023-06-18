@@ -95,6 +95,7 @@ export const Body = styled.div`
   height: ${({ theme }) =>
     `calc(100vh - ${theme.topbarHeight} - ${theme.filterbarHeight} - ${theme.tableRowHeight} - ${theme.paginationHeight})`};
   font-size: 13px;
+  overflow-y: auto;
 
   ${Row} {
     padding-right: 2rem;

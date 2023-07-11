@@ -77,7 +77,9 @@ const SportEventRow = props => {
         <S.Cell onClick={() => props.links && setIsActive(!isActive)}>
           <Image src={props.home_team?.logo} />
           {props.home_team.name} - {props.away_team.name}
-          <Image src={props.away_team?.logo} />
+          <div style={{ marginLeft: 'auto' }}>
+            <Image src={props.away_team?.logo} />
+          </div>
         </S.Cell>
         <S.Cell>{start_time}</S.Cell>
         <S.Cell>{end_time}</S.Cell>

@@ -1,8 +1,11 @@
+import { useDispatch } from 'react-redux'
+
 import {
   useGetVotesLinkQuery,
   useSeenVoteLinkMutation,
   useDeleteVoteLinkMutation
 } from 'app/services/common/linkVotes'
+import { setCurrent } from 'features/currentSlice'
 
 import { throwToast, removeConfirmation } from 'utils/throwToast'
 import { formatDate } from 'utils/formatDate'
@@ -14,6 +17,7 @@ import { CircleButton } from 'components/styled/common/Button.styled'
 import * as T from 'components/styled/Table.styled'
 
 const VotesTable = () => {
+  const dispatch = useDispatch()
   const { data, isLoading } = useGetVotesLinkQuery({ type: 'sport_events' })
   const [seenVote] = useSeenVoteLinkMutation()
   const [deleteVote] = useDeleteVoteLinkMutation()
@@ -21,6 +25,10 @@ const VotesTable = () => {
   const handleDelete = id => {
     const promise = deleteVote(id).unwrap()
     throwToast(promise, 'Deleting vote!', 'Vote deleted!')
+  }
+
+  const handleEdit = event => {
+    dispatch(setCurrent(event))
   }
 
   return (
@@ -60,6 +68,9 @@ const VotesTable = () => {
                   />
                   <CircleButton onClick={() => seenVote(vote.id)}>
                     <Icon type={IconTypes.eye} />
+                  </CircleButton>
+                  <CircleButton onClick={() => handleEdit(vote)}>
+                    <Icon type={IconTypes.edit} />
                   </CircleButton>
                   <CircleButton
                     onClick={() =>

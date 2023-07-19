@@ -30,7 +30,10 @@ const Sports = () => {
           />
         }
       />
-      <Route path='/votes' element={<Page table={<VotesTable />} />} />
+      <Route
+        path='/votes'
+        element={<Page table={<VotesTable />} form={<SportEventForm />} />}
+      />
       <Route
         path='/submitted/*'
         element={

@@ -60,6 +60,11 @@ const PostForm = () => {
     post_download_link: yup
       .string()
       .url('Please enter a valid URL!')
+      .when('$file', (condition, schema) =>
+        condition.length <= 0
+          ? schema.required('Download link is required!')
+          : schema
+      )
       .nullable(),
     iframe_valid: yup.boolean(),
     redirect_id: yup.mixed().when('iframe_valid', {
@@ -81,7 +86,8 @@ const PostForm = () => {
     handleSubmit,
     formState: { errors }
   } = useForm({
-    resolver: yupResolver(schema)
+    resolver: yupResolver(schema),
+    context: { file }
   })
 
   const onSubmit = data => {

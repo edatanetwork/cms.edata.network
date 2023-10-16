@@ -34,30 +34,63 @@ const SportEventsTable = () => {
           <S.Cell>Title</S.Cell>
           <S.Cell>
             <S.Sort onClick={() => handleChange('start_time')}>
-              Start <Icon type={IconTypes.arrows} />
+              Start
+              {sortParams['start_time_desc'] ? (
+                <Icon type={IconTypes.arrowDown} />
+              ) : sortParams['start_time_asc'] ? (
+                <Icon type={IconTypes.arrowUp} />
+              ) : (
+                <Icon type={IconTypes.arrows} />
+              )}
             </S.Sort>
           </S.Cell>
           <S.Cell>
             <S.Sort onClick={() => handleChange('end_time')}>
-              End <Icon type={IconTypes.arrows} />
+              End{' '}
+              {sortParams['end_time_desc'] ? (
+                <Icon type={IconTypes.arrowDown} />
+              ) : sortParams['end_time_asc'] ? (
+                <Icon type={IconTypes.arrowUp} />
+              ) : (
+                <Icon type={IconTypes.arrows} />
+              )}
             </S.Sort>
           </S.Cell>
           <S.Cell>
-            <S.Sort>
-              Views <Icon type={IconTypes.arrows} />
+            <S.Sort onClick={() => handleChange('views')}>
+              Views
+              {sortParams['views_desc'] ? (
+                <Icon type={IconTypes.arrowDown} />
+              ) : sortParams['views_asc'] ? (
+                <Icon type={IconTypes.arrowUp} />
+              ) : (
+                <Icon type={IconTypes.arrows} />
+              )}
             </S.Sort>
           </S.Cell>
           <S.Cell>League</S.Cell>
           <S.Cell>
-            <S.Sort>
+            <S.Sort onClick={() => handleChange('author')}>
               Author
-              <Icon type={IconTypes.arrows} />
+              {sortParams['author_desc'] ? (
+                <Icon type={IconTypes.arrowDown} />
+              ) : sortParams['author_asc'] ? (
+                <Icon type={IconTypes.arrowUp} />
+              ) : (
+                <Icon type={IconTypes.arrows} />
+              )}
             </S.Sort>
           </S.Cell>
           <S.Cell>
-            <S.Sort>
+            <S.Sort onClick={() => handleChange('created_at')}>
               Date
-              <Icon type={IconTypes.arrows} />
+              {sortParams['created_at_desc'] ? (
+                <Icon type={IconTypes.arrowDown} />
+              ) : sortParams['created_at_asc'] ? (
+                <Icon type={IconTypes.arrowUp} />
+              ) : (
+                <Icon type={IconTypes.arrows} />
+              )}
             </S.Sort>
           </S.Cell>
         </S.Row>

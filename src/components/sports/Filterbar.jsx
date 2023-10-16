@@ -1,5 +1,6 @@
 import { useSelector } from 'react-redux'
 import { useSearchParams } from 'react-router-dom'
+import styled from 'styled-components'
 
 import { useGetSportsQuery } from 'app/services/sport/sport'
 import { useGetCountriesQuery } from 'app/services/common/countries'
@@ -28,6 +29,24 @@ const Filterbar = () => {
     }
   }
 
+  const sportId = Number(searchParams.get('sport_id'))
+  const countryId = Number(searchParams.get('country_id'))
+  const leagueId = Number(searchParams.get('league_id'))
+  const authorId = Number(searchParams.get('author_id'))
+
+  const sportDropdownValue = sports?.sports.find(opt => opt.id === sportId)
+  const countryDropdownValue = countries?.countries.find(
+    opt => opt.id === countryId
+  )
+  const leagueOptions = leagues?.leagues.filter(
+    league => league.sport.id === sportId && league.country.id === countryId
+  )
+  const leagueValue = leagues?.leagues
+    .filter(
+      league => league.sport.id === sportId && league.country.id === countryId
+    )
+    .find(opt => opt.id === leagueId)
+
   return (
     <F.Filterbar columns='repeat(5, 1fr)'>
       <F.Dropdown
@@ -39,12 +58,13 @@ const Filterbar = () => {
         isLoading={loadingSports}
         getOptionLabel={opt => opt.name}
         getOptionValue={opt => opt.id}
-        value={sports?.sports.find(
-          opt => opt.name === searchParams.get('sport_id')
-        )}
-        onChange={opt =>
+        value={sportDropdownValue}
+        onChange={opt => {
           handleChange({ key: 'sport_id', value: opt ? opt.id : null })
-        }
+          if (!opt) {
+            handleChange({ key: 'league_id', value: null })
+          }
+        }}
       />
       <F.Dropdown
         unstyled
@@ -55,12 +75,14 @@ const Filterbar = () => {
         isLoading={loadingCountries}
         getOptionLabel={opt => opt.name}
         getOptionValue={opt => opt.id}
-        value={countries?.countries.find(
-          opt => opt.name === searchParams.get('country')
-        )}
-        onChange={opt =>
+        value={countryDropdownValue}
+        onChange={opt => {
           handleChange({ key: 'country_id', value: opt ? opt.id : null })
-        }
+
+          if (!opt) {
+            handleChange({ key: 'league_id', value: null })
+          }
+        }}
       />
       <F.Dropdown
         unstyled
@@ -68,18 +90,8 @@ const Filterbar = () => {
         classNamePrefix='select'
         placeholder='League'
         isLoading={loadingLeagues}
-        value={leagues?.leagues
-          .filter(
-            league =>
-              league.country.name === searchParams.get('country') &&
-              league.sport.name === searchParams.get('sport')
-          )
-          .find(opt => opt.name === searchParams.get('league'))}
-        options={leagues?.leagues.filter(
-          league =>
-            league.country.name === searchParams.get('country') &&
-            league.sport.name === searchParams.get('sport')
-        )}
+        value={leagueValue}
+        options={leagueOptions}
         getOptionLabel={opt => opt.name}
         getOptionValue={opt => opt.id}
         onChange={opt =>
@@ -91,6 +103,12 @@ const Filterbar = () => {
         isClearable
         classNamePrefix='select'
         placeholder='Status'
+        getOptionLabel={opt => (
+          <>
+            <Status aria-hidden='true' color={opt.color} />
+            {opt.label}
+          </>
+        )}
         options={statusOptions}
         value={statusOptions.find(
           opt => opt.value === searchParams.get('status')
@@ -107,7 +125,7 @@ const Filterbar = () => {
         options={users}
         getOptionLabel={opt => opt.username}
         getOptionValue={opt => opt.id}
-        value={users?.find(opt => opt.name === searchParams.get('author'))}
+        value={users?.find(opt => opt.id === authorId)}
         onChange={opt =>
           handleChange({ key: 'author_id', value: opt ? opt.id : null })
         }
@@ -119,8 +137,16 @@ const Filterbar = () => {
 export default Filterbar
 
 const statusOptions = [
-  { label: 'Live', value: 'live' },
-  { label: 'Coming soon', value: 'comingSoon' },
-  { label: 'Finished', value: 'finished' },
-  { label: 'No Links', value: 'No Links' }
+  { label: 'Live', value: 'live', color: '#4DB500' },
+  { label: 'Coming soon', value: 'comingSoon', color: '#0066FF' },
+  { label: 'Finished', value: 'finished', color: '#939393' },
+  { label: 'No Links', value: 'No Links', color: '#FF6200' }
 ]
+
+export const Status = styled.span`
+  width: 8px;
+  height: 8px;
+  background-color: ${props => props.color};
+  border-radius: 50%;
+  margin-right: 0.5rem;
+`

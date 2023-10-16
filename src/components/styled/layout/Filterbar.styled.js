@@ -40,7 +40,12 @@ export const Dropdown = styled(Select)`
 
   .select__single-value {
     display: flex;
+    align-items: center;
     gap: 4px;
+
+    span {
+      display: none;
+    }
 
     div {
       width: 20px;

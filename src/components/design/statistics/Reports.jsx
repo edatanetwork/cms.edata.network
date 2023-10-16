@@ -1,4 +1,4 @@
-import styled from 'styled-components'
+import styled, { css } from 'styled-components'
 
 import { useSearchParams } from 'react-router-dom'
 
@@ -120,6 +120,7 @@ const Reports = ({ data }) => {
                 <Bar
                   onClick={() => handleByDay(item.day)}
                   key={i}
+                  selected={Number(searchParams.get('by_day')) === item.day}
                   height={
                     (isNaN(item.downloads / maxDownloads)
                       ? 0
@@ -264,6 +265,12 @@ export const Bar = styled.div`
   height: ${props => props.height}%;
   background-color: #3d474d;
   cursor: pointer;
+
+  ${props =>
+    props.selected &&
+    css`
+      background-color: #ff7f00;
+    `}
 
   &:hover {
     background-color: #ff7f00;

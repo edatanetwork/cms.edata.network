@@ -66,6 +66,8 @@ const SportEventRow = props => {
     throwToast(promise, 'Deleting link!', 'Link deleted!')
   }
 
+  console.log(props)
+
   return (
     <>
       <S.Row isActive={isActive}>
@@ -111,7 +113,7 @@ const SportEventRow = props => {
               </a>
             </S.Cell>
             <S.Cell>
-              <Votes upVotes={23} downVotes={4} />
+              <Votes upVotes={link.votes_yes} downVotes={link.votes_no} />
             </S.Cell>
             <S.Cell>{props.duration}</S.Cell>
             <S.Cell>{props.country.name}</S.Cell>

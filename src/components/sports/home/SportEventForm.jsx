@@ -24,9 +24,7 @@ import LeagueSelect from 'components/common/select/LeagueSelect'
 
 import Grid from 'components/styled/common/Grid.styled'
 
-import { useRef } from 'react'
-
-const SportEventForm = ({ methods: { reset, formState } }) => {
+const SportEventForm = ({ methods: { reset } }) => {
   const dispatch = useDispatch()
   const [activeStep, setActiveStep] = useState(1)
   const [createMatch] = useCreateMatchMutation()

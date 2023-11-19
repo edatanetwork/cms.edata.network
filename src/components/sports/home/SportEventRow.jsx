@@ -66,8 +66,6 @@ const SportEventRow = props => {
     throwToast(promise, 'Deleting link!', 'Link deleted!')
   }
 
-  console.log(props)
-
   return (
     <>
       <S.Row isActive={isActive}>

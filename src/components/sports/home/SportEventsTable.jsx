@@ -1,3 +1,4 @@
+import { useSearchParams } from 'react-router-dom'
 import { useGetMatchesQuery } from 'app/services/sport/matches'
 
 import useSortParams from 'utils/useSortParams'
@@ -8,6 +9,9 @@ import SportEventRow from 'components/sports/home/SportEventRow'
 import * as S from 'components/styled/common/AccordionTable.styled'
 
 const SportEventsTable = () => {
+  const [searchParams] = useSearchParams()
+  const search = searchParams.get('search') || undefined
+
   const [handleChange, sortParams] = useSortParams([
     'start_time',
     'end_time',
@@ -23,6 +27,7 @@ const SportEventsTable = () => {
   ])
 
   const { data, isLoading, isFetching } = useGetMatchesQuery({
+    search,
     ...sortParams,
     ...filterParams
   })

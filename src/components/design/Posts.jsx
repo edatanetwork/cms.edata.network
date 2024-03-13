@@ -112,10 +112,6 @@ const Posts = () => {
                 <Styled.Cell>
                   <Image
                     src={post.post_images && post.post_images[0].preview}
-                    width={64}
-                    height={50}
-                    quality={90}
-                    format='webp'
                   />
                   {post.title}
                 </Styled.Cell>

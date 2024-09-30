@@ -4,8 +4,6 @@ import Sidebar from 'layout/Sidebar'
 import Posts from 'components/design/Posts'
 import Form from 'components/design/Form'
 
-import AddPostForm from 'components/design/AddPostForm'
-
 import Grid from 'components/styled/common/Grid.styled'
 
 const Home = () => {

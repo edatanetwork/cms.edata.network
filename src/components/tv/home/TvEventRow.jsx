@@ -1,5 +1,5 @@
 import { useState } from 'react'
-import { useDispatch, useSelector } from 'react-redux'
+import { useDispatch } from 'react-redux'
 
 import { useDeleteChannelMutation } from 'app/services/tv/channels'
 import { useDeleteLinkMutation } from 'app/services/common/links'
@@ -16,7 +16,6 @@ import Icon, { IconTypes } from 'components/common/Icon'
 const TvEventRow = props => {
   const [isActive, setIsActive] = useState(false)
   const dispatch = useDispatch()
-  const current = useSelector(state => state.current.current)
   const [deleteChannel] = useDeleteChannelMutation()
   const [deleteLink] = useDeleteLinkMutation()
 

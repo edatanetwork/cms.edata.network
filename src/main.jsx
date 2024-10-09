@@ -15,6 +15,7 @@ const theme = {
   clrPlaceholder: '#717285',
   clrOrange: '#FF7F00',
   clrGray: '#EBEEF1',
+  clrGray30: 'rgba(235, 238, 241, 0.4)',
   clrBlack50: 'rgba(0,0,0,0.5)',
   clrBlack30: 'rgba(0,0,0,0.3)',
   borderGray: '1px solid #EBEEF1',

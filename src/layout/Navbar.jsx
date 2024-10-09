@@ -1,4 +1,4 @@
-import { NavLink } from 'react-router-dom'
+import { NavLink, useNavigate } from 'react-router-dom'
 import { useDispatch } from 'react-redux'
 
 import { signout } from 'features/authSlice'
@@ -7,8 +7,11 @@ import { useNotifications } from 'hooks/useNotifications'
 import Icon, { IconTypes } from 'components/common/Icon'
 import * as Styled from 'components/styled/layout/Navbar.styled'
 
+import SectionDropdown from 'components/common/SectionDropdown'
+
 const Navbar = ({ path: to }) => {
   const dispatch = useDispatch()
+  const navigate = useNavigate()
   const [getNotificationStatus] = useNotifications()
 
   let path
@@ -18,27 +21,20 @@ const Navbar = ({ path: to }) => {
     path = to
   }
 
+  const handleLogout = () => {
+    dispatch(signout())
+    navigate('/')
+  }
+
   return (
     <Styled.Navbar>
       <Styled.Logo>
         <Icon type={IconTypes.logoText} />
       </Styled.Logo>
-      <Styled.PrimaryNav>
-        {primaryNav.map(el => (
-          <Styled.PrimaryNavItem key={el.path}>
-            <NavLink
-              className={({ isActive }) => (isActive ? 'active' : undefined)}
-              to={el.path}
-            >
-              <Icon type={el.icon} />
-              {el.label}
-            </NavLink>
-          </Styled.PrimaryNavItem>
-        ))}
-      </Styled.PrimaryNav>
-      <Styled.SecondaryNav>
+      <SectionDropdown />
+      <Styled.NavList>
         {secondaryNav.map(el => (
-          <Styled.SecondaryNavItem
+          <Styled.NavItem
             key={el.path}
             notification={getNotificationStatus(path, el.path)}
           >
@@ -49,64 +45,37 @@ const Navbar = ({ path: to }) => {
               <Icon type={el.icon} />
               {el.label}
             </NavLink>
-          </Styled.SecondaryNavItem>
+          </Styled.NavItem>
         ))}
-        <Styled.SecondaryNavItem>
-          <NavLink
-            to='/users'
-            className={({ isActive }) => (isActive ? 'active' : undefined)}
-          >
-            <Icon type={IconTypes.user} />
-            Users
-          </NavLink>
-        </Styled.SecondaryNavItem>
-        <hr />
-        <Styled.SecondaryNavItem onClick={() => dispatch(signout())}>
-          <NavLink to='/'>
-            <Icon type={IconTypes.off} />
-            Sign Out
-          </NavLink>
-        </Styled.SecondaryNavItem>
-      </Styled.SecondaryNav>
+      </Styled.NavList>
+      <Styled.LogoutBtn onClick={handleLogout}>
+        Sign Out
+        <Icon type={IconTypes.off} />
+      </Styled.LogoutBtn>
     </Styled.Navbar>
   )
 }
 
 export default Navbar
 
-const primaryNav = [
-  {
-    label: 'Sports',
-    path: '/sports',
-    icon: IconTypes.ball
-  },
-  {
-    label: 'TV',
-    path: '/tv',
-    icon: IconTypes.tv
-  },
-  {
-    label: 'Movies',
-    path: '/movies',
-    icon: IconTypes.videoCamera
-  },
-  {
-    label: 'Design',
-    path: '/design',
-    icon: IconTypes.layers
-  }
-]
-
 const secondaryNav = [
+  { label: 'Posts', path: '/', icon: IconTypes.add },
+  { label: 'Users', path: '/users', icon: IconTypes.accountCircle },
+  { label: 'Authors', path: '/authors', icon: IconTypes.lock },
+  { label: 'Subscribers', path: '/subscribers', icon: IconTypes.at },
   { label: 'Searched', path: '/searched', icon: IconTypes.search },
-  { label: 'Trash', path: '/trash', icon: IconTypes.delete },
+  { label: 'Trash', path: '/trash', icon: IconTypes.trash },
   { label: 'Votes', path: '/votes', icon: IconTypes.votes },
   { label: 'Submitted', path: '/submitted', icon: IconTypes.folder },
-  { label: 'Reports', path: '/reports', icon: IconTypes.attention },
+  { label: 'Reports', path: '/reports', icon: IconTypes.warning },
+  { label: 'Domains', path: '/domains', icon: IconTypes.globe },
+  { label: 'Categories', path: '/categories', icon: IconTypes.columns },
+  { label: 'Tags', path: '/tags', icon: IconTypes.label },
+  { label: 'Resources', path: '/resources', icon: IconTypes.arrowCircle },
+  { label: 'Ads', path: '/ads', icon: IconTypes.refresh },
   {
     label: 'Statistics',
     path: '/statistics?domain=all-domains',
     icon: IconTypes.stats
-  },
-  { label: 'Settings', path: `/settings/categories`, icon: IconTypes.settings }
+  }
 ]

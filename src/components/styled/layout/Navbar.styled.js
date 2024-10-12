@@ -28,12 +28,15 @@ export const NavList = styled.ul`
   flex-direction: column;
   gap: 1rem;
   padding: 1.5rem;
-  margin-bottom: auto;
 
   hr {
     background-color: ${({ theme }) => theme.clrGray};
     border: 0;
     height: 1px;
+  }
+
+  &:last-of-type {
+    margin-top: auto;
   }
 `
 
@@ -91,8 +94,9 @@ export const LogoutBtn = styled.button`
   font-size: 12px;
   border: ${({ theme }) => theme.borderGray};
   background-color: transparent;
-  border-radius: 22px;
-  margin: 1.5rem;
+  border-radius: 6px;
+  margin-bottom: 1.5rem;
+  margin-inline: 1.5rem;
 
   &:hover {
     background-color: ${({ theme }) => theme.clrGray30};

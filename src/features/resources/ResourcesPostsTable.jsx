@@ -16,7 +16,7 @@ import Grid from 'components/styled/common/Grid.styled'
 import { Button, CircleButton } from 'components/styled/common/Button.styled'
 import * as Styled from 'components/styled/common/Table.styled'
 
-const Posts = () => {
+const ResourcesPostsTable = () => {
   const dispatch = useDispatch()
   const [searchParams] = useSearchParams()
   const [deletePost] = useDeletePostMutation()
@@ -151,4 +151,4 @@ const Posts = () => {
   )
 }
 
-export default Posts
+export default ResourcesPostsTable

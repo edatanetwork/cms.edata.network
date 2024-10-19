@@ -14,6 +14,7 @@ import {
 import { clearCurrent } from 'features/currentSlice'
 import { throwToast } from 'utils/throwToast'
 
+import Sidebar from 'layout/Sidebar'
 import Field from 'components/common/Field'
 import IconField from 'components/common/IconField'
 import { Form } from 'components/styled/common/Form.styled'
@@ -30,7 +31,7 @@ const applicationSchema = yup.object({
     )
 })
 
-const ApplicationForm = () => {
+const ResourcesApplicationsForm = () => {
   const dispatch = useDispatch()
   const current = useSelector(state => state.current.current)
   const [createApplication] = useCreateApplicationMutation()
@@ -79,25 +80,36 @@ const ApplicationForm = () => {
   }, [current])
 
   return (
-    <Form id='application' onSubmit={handleSubmit(onSubmit)}>
-      <Field label='Name' htmlFor='name' error={errors.name}>
-        <Input id='name' placeholder='Enter app title' {...register('name')} />
-      </Field>
-      <Field label='Color (Hex)*' htmlFor='color' error={errors.color}>
-        <Input id='color' type='text' placeholder='#' {...register('color')} />
-      </Field>
-      <Controller
-        name='icons'
-        control={control}
-        render={({ field: { value, onChange } }) => (
-          <IconField value={value} onChange={onChange} watch={watch} />
-        )}
-      />
-    </Form>
+    <Sidebar title='Application' form='application'>
+      <Form id='application' onSubmit={handleSubmit(onSubmit)}>
+        <Field label='Name' htmlFor='name' error={errors.name}>
+          <Input
+            id='name'
+            placeholder='Enter app title'
+            {...register('name')}
+          />
+        </Field>
+        <Field label='Color (Hex)*' htmlFor='color' error={errors.color}>
+          <Input
+            id='color'
+            type='text'
+            placeholder='#'
+            {...register('color')}
+          />
+        </Field>
+        <Controller
+          name='icons'
+          control={control}
+          render={({ field: { value, onChange } }) => (
+            <IconField value={value} onChange={onChange} watch={watch} />
+          )}
+        />
+      </Form>
+    </Sidebar>
   )
 }
 
-export default ApplicationForm
+export default ResourcesApplicationsForm
 
 const createFormData = data => {
   const formData = new FormData()

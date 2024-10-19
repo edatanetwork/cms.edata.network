@@ -27,7 +27,7 @@ import { Form } from 'components/styled/common/Form.styled'
 import { Input, Textarea } from 'components/styled/common/Field.styled'
 import { Dropdown } from 'components/styled/common/Dropdown.styled'
 
-const PostForm = () => {
+const ResourcesPostForm = () => {
   const [imageError, setImageError] = useState(false)
   const [categoryId, setCategoryId] = useState(null)
   const [images, setImages] = useState([])
@@ -398,7 +398,7 @@ const PostForm = () => {
   )
 }
 
-export default PostForm
+export default ResourcesPostForm
 
 const createFormData = ({ data, images, file }) => {
   const formData = new FormData()

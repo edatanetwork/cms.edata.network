@@ -6,7 +6,7 @@ const ProtectedRoute = () => {
   const { user } = useAuth()
   const location = useLocation()
 
-  return user ? <Outlet /> : <Navigate to='/' state={{ from: location }} />
+  return user ? <Outlet /> : <Navigate to='/login' state={{ from: location }} />
 }
 
 export default ProtectedRoute

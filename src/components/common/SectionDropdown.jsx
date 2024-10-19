@@ -1,5 +1,9 @@
-import { Link } from 'react-router-dom'
+import { useNavigate } from 'react-router-dom'
+import { useDispatch, useSelector } from 'react-redux'
+import capitalize from 'lodash.capitalize'
 import styled from 'styled-components'
+
+import { setSection } from 'features/sectionSlice'
 
 import Icon, { IconTypes } from 'components/common/Icon'
 import { Menu, MenuButton, MenuItem, MenuItems } from '@headlessui/react'
@@ -45,29 +49,38 @@ const StyledMenuItem = styled(MenuItem)`
 `
 
 const SectionDropdown = () => {
+  const navigate = useNavigate()
+  const dispatch = useDispatch()
+  const { section } = useSelector(state => state.section)
+
+  const handleClick = value => {
+    dispatch(setSection(value))
+    navigate(`/${value}/posts`)
+  }
+
   return (
     <Menu>
       <StyledMenuButton>
-        <Icon type={IconTypes.layers} /> Resources
+        <Icon type={IconTypes.layers} /> {capitalize(section)}
         <Icon type={IconTypes.chevronDown} />
       </StyledMenuButton>
       <StyledMenuItems anchor='bottom'>
         <StyledMenuItem>
-          <Link href='/resources'>
+          <button onClick={() => handleClick('resources')}>
             <Icon type={IconTypes.layers} /> Resources
-          </Link>
+          </button>
         </StyledMenuItem>
         <StyledMenuItem>
-          <Link href='/inspire'>
+          <button onClick={() => handleClick('inspire')}>
             <Icon type={IconTypes.image} />
             Inspire
-          </Link>
+          </button>
         </StyledMenuItem>
         <StyledMenuItem>
-          <Link href='/jobs'>
+          <button onClick={() => handleClick('jobs')}>
             <Icon type={IconTypes.briefcase} />
             Jobs
-          </Link>
+          </button>
         </StyledMenuItem>
       </StyledMenuItems>
     </Menu>

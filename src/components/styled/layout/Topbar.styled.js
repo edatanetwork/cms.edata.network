@@ -7,6 +7,7 @@ export const Topbar = styled.div`
   justify-content: space-between;
   border-bottom: ${({ theme }) => theme.borderGray};
   padding-inline: 2rem;
+  flex-shrink: 0;
 `
 
 export const Search = styled.div`

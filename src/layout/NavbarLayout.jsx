@@ -1,16 +1,16 @@
 import { Outlet, useLocation } from 'react-router-dom'
 
 import Navbar from 'layout/Navbar'
-import { Grid } from 'components/styled/common/Grid.styled'
+import { Flex } from 'components/styled/common/Flex.styled'
 
 const NavbarLayout = () => {
   const { pathname } = useLocation()
 
   return (
-    <Grid columns='auto 1fr'>
+    <Flex style={{ height: '100vh' }}>
       <Navbar path={pathname.split('/')[1]} />
       <Outlet />
-    </Grid>
+    </Flex>
   )
 }
 

@@ -1,4 +1,3 @@
-import { useEffect } from 'react'
 import { useNavigate } from 'react-router-dom'
 import { useDispatch, useSelector } from 'react-redux'
 
@@ -9,7 +8,6 @@ import {
   useDeleteCategoryMutation
 } from 'app/services/categories'
 import { setCurrent } from 'features/currentSlice'
-import { setParentId } from 'features/categorySlice'
 
 import EditDeleteButtons from 'components/common/EditDeleteButtons'
 import Icon, { IconTypes } from 'components/common/Icon'
@@ -21,32 +19,26 @@ import {
 } from 'components/styled/pages/design/CategoryTable.styled'
 import { Head, Body, Row, Cell } from 'components/styled/common/Table.styled'
 
-const CategoriesTable = () => {
+const ResourcesSubcategoriesTable = () => {
   const navigate = useNavigate()
   const dispatch = useDispatch()
   const { data, isLoading, isFetching } = useGetCategoriesQuery()
   const parent_id = useSelector(state => state.category.parent_id)
+  const current = useSelector(state => state.current.current)
 
   const [deleteCategory] = useDeleteCategoryMutation()
 
-  const handleDeleteCategory = id => {
+  const handleDeleteSubCategory = id => {
     const promise = deleteCategory(id).unwrap()
-    throwToast(promise, 'Deleting category!', 'Category deleted!')
+    throwToast(promise, 'Deleting subcategory!', 'Subategory deleted!')
   }
-
-  useEffect(() => {
-    if (!isLoading) {
-      dispatch(setParentId(data[0].id))
-    }
-    // eslint-disable-next-line
-  }, [isLoading])
 
   return (
     <TableWrapper>
       <CategoryTable>
         <Head>
           <Row>
-            <Cell>Categories</Cell>
+            <Cell>Subcategories</Cell>
             <Cell>Posts</Cell>
           </Row>
         </Head>
@@ -58,28 +50,33 @@ const CategoriesTable = () => {
               </Cell>
             </Row>
           ) : (
-            data.map(el => (
-              <Row
-                key={el.id}
-                active={parent_id === el.id}
-                onClick={() => dispatch(setParentId(el.id))}
-              >
-                <Cell>{el.title}</Cell>
-                <Cell>{el.posts_number}</Cell>
-                <Cell>
-                  <EditDeleteButtons
-                    edit={() => dispatch(setCurrent(el))}
-                    remove={() =>
-                      removeConfirmation(() => handleDeleteCategory(el.id))
-                    }
-                  />
-                </Cell>
-              </Row>
-            ))
+            data
+              .find(el => el.id === parent_id)
+              ?.subcategories?.map(el => (
+                <Row key={el.id} active={current && current.id === el.id}>
+                  <Cell>{el.title}</Cell>
+                  <Cell>{el.posts_number}</Cell>
+                  <Cell>
+                    <EditDeleteButtons
+                      edit={async () => {
+                        await navigate(
+                          '/design/settings/categories/subcategory'
+                        )
+                        dispatch(setCurrent(el))
+                      }}
+                      remove={() =>
+                        removeConfirmation(() => handleDeleteSubCategory(el.id))
+                      }
+                    />
+                  </Cell>
+                </Row>
+              ))
           )}
         </Body>
       </CategoryTable>
-      <RoundButton onClick={() => navigate('/design/settings/categories')}>
+      <RoundButton
+        onClick={() => navigate('/resources/categories/subcategories')}
+      >
         <Icon type={IconTypes.plusCircle} />
         Add new
       </RoundButton>
@@ -87,4 +84,4 @@ const CategoriesTable = () => {
   )
 }
 
-export default CategoriesTable
+export default ResourcesSubcategoriesTable

@@ -1,7 +1,7 @@
 import { Form } from 'components/styled/common/Form.styled'
 import * as F from 'components/styled/common/Field.styled'
 
-const SearchedForm = () => {
+const ResourcesSearchedForm = () => {
   return (
     <Form>
       <F.Field>
@@ -24,4 +24,4 @@ const SearchedForm = () => {
   )
 }
 
-export default SearchedForm
+export default ResourcesSearchedForm

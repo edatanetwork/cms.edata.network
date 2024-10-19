@@ -1,5 +1,5 @@
 import { NavLink, useNavigate } from 'react-router-dom'
-import { useDispatch } from 'react-redux'
+import { useDispatch, useSelector } from 'react-redux'
 
 import { signout } from 'features/authSlice'
 
@@ -11,6 +11,7 @@ import SectionDropdown from 'components/common/SectionDropdown'
 const Navbar = () => {
   const dispatch = useDispatch()
   const navigate = useNavigate()
+  const { section } = useSelector(state => state.section)
 
   const handleLogout = () => {
     dispatch(signout())
@@ -27,7 +28,7 @@ const Navbar = () => {
         {topLinks.map(link => (
           <Styled.NavItem key={link.path}>
             <NavLink
-              to={link.path}
+              to={`${section}${link.path}`}
               className={({ isActive }) => (isActive ? 'active' : undefined)}
             >
               <Icon type={link.icon} />
@@ -40,6 +41,7 @@ const Navbar = () => {
         {bottomLinks.map(link => (
           <Styled.NavItem key={link.path}>
             <NavLink
+              end
               to={link.path}
               className={({ isActive }) => (isActive ? 'active' : undefined)}
             >

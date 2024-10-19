@@ -55,18 +55,15 @@ const LoginPage = () => {
         token: res.data.token
       }
       dispatch(setCredentials(authData))
-      navigate('/design')
+      navigate('/resources/posts')
     } catch (error) {
       toast.error('Email or password is incorrect!')
     }
   }
 
   useEffect(() => {
-    if (user) {
-      navigate('/design')
-    }
-    // eslint-disable-next-line
-  }, [])
+    if (user) navigate('/resources/posts')
+  }, [user])
 
   return (
     <Login>

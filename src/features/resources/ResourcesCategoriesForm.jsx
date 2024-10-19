@@ -14,6 +14,7 @@ import {
 } from 'app/services/categories'
 import { clearCurrent } from 'features/currentSlice'
 
+import Sidebar from 'layout/Sidebar'
 import { Form } from 'components/styled/common/Form.styled'
 import Field from 'components/common/Field'
 import { Input } from 'components/styled/common/Field.styled'
@@ -29,7 +30,7 @@ const categorySchema = yup.object({
     )
 })
 
-const CategoryForm = () => {
+const ResourcesCategoriesForm = () => {
   const dispatch = useDispatch()
   const [createCategory] = useCreateCategoryMutation()
   const [updateCategory] = useUpdateCategoryMutation()
@@ -72,20 +73,27 @@ const CategoryForm = () => {
   }, [current])
 
   return (
-    <Form id='category' onSubmit={handleSubmit(onSubmit)}>
-      <Field label='Title*' htmlFor='title' error={errors.title}>
-        <Input
-          id='title'
-          type='text'
-          placeholder='Enter category title'
-          {...register('title')}
-        />
-      </Field>
-      <Field label='Color (Hex)*' htmlFor='color' error={errors.color}>
-        <Input id='color' type='text' placeholder='#' {...register('color')} />
-      </Field>
-    </Form>
+    <Sidebar title='Category' form='category'>
+      <Form id='category' onSubmit={handleSubmit(onSubmit)}>
+        <Field label='Title*' htmlFor='title' error={errors.title}>
+          <Input
+            id='title'
+            type='text'
+            placeholder='Enter category title'
+            {...register('title')}
+          />
+        </Field>
+        <Field label='Color (Hex)*' htmlFor='color' error={errors.color}>
+          <Input
+            id='color'
+            type='text'
+            placeholder='#'
+            {...register('color')}
+          />
+        </Field>
+      </Form>
+    </Sidebar>
   )
 }
 
-export default CategoryForm
+export default ResourcesCategoriesForm

@@ -14,6 +14,7 @@ import {
 } from 'app/services/categories'
 import { clearCurrent } from 'features/currentSlice'
 
+import Sidebar from 'layout/Sidebar'
 import Field from 'components/common/Field'
 import SingleIconField from 'components/common/SingleIconField'
 import { Form } from 'components/styled/common/Form.styled'
@@ -30,7 +31,7 @@ const subCategorySchema = yup.object({
     )
 })
 
-const SubcategoryForm = () => {
+const ResourcesSubcategoriesForm = () => {
   const dispatch = useDispatch()
   const current = useSelector(state => state.current.current)
   const parent_id = useSelector(state => state.category.parent_id)
@@ -73,30 +74,37 @@ const SubcategoryForm = () => {
   }, [current])
 
   return (
-    <Form id='subcategory' onSubmit={handleSubmit(onSubmit)}>
-      <Field label='Title*' htmlFor='title' error={errors.title}>
-        <Input
-          id='title'
-          type='text'
-          placeholder='Enter subcategory title'
-          {...register('title')}
+    <Sidebar title='Subcategory' form='subcategory'>
+      <Form id='subcategory' onSubmit={handleSubmit(onSubmit)}>
+        <Field label='Title*' htmlFor='title' error={errors.title}>
+          <Input
+            id='title'
+            type='text'
+            placeholder='Enter subcategory title'
+            {...register('title')}
+          />
+        </Field>
+        <Field label='Color (Hex)*' htmlFor='color' error={errors.color}>
+          <Input
+            id='color'
+            type='text'
+            placeholder='#'
+            {...register('color')}
+          />
+        </Field>
+        <Controller
+          name='icon'
+          control={control}
+          render={({ field: { value, onChange } }) => (
+            <SingleIconField value={value} onChange={onChange} />
+          )}
         />
-      </Field>
-      <Field label='Color (Hex)*' htmlFor='color' error={errors.color}>
-        <Input id='color' type='text' placeholder='#' {...register('color')} />
-      </Field>
-      <Controller
-        name='icon'
-        control={control}
-        render={({ field: { value, onChange } }) => (
-          <SingleIconField value={value} onChange={onChange} />
-        )}
-      />
-    </Form>
+      </Form>
+    </Sidebar>
   )
 }
 
-export default SubcategoryForm
+export default ResourcesSubcategoriesForm
 
 const createFormData = (data, parent_id) => {
   const formData = new FormData()

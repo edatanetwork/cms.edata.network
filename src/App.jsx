@@ -4,6 +4,7 @@ import Prefetch from 'features/Prefetch'
 import NavbarLayout from 'layout/NavbarLayout'
 import ProtectedRoute from 'utils/ProtectedRoute'
 
+import HomePage from 'routes/home'
 import TagsPage from 'routes/tags'
 import ResourcesPage from 'routes/resources'
 import DomainsPage from 'routes/domains'
@@ -33,6 +34,7 @@ const App = () => {
         <Route element={<ProtectedRoute />}>
           <Route element={<Prefetch />}>
             <Route element={<NavbarLayout />}>
+              <Route path='/' element={<HomePage />} />
               <Route path='tags' element={<TagsPage />} />
               <Route path='resources' element={<ResourcesPage />} />
               <Route path='domains' element={<DomainsPage />} />
